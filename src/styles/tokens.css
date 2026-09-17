@@ -1,0 +1,142 @@
+/* LawAfrica tokens — ground + ink, brand palette, and the audited 10-step
+   type scale. Mirrors the :root block from the design prototype exactly.
+   --font-heading, --font-heading-weight, --ls-heading, --fw-heading, --tf
+   and every --t-* step are re-set on <html> at runtime by TypeContext
+   (one set per font pairing) — the values below are just the initial paint.
+
+   --t-base is the floor the whole scale pivots on: every size in the app is
+   authored as calc(var(--t-base) + Npx*var(--tf,1)), so raising this one
+   number lifts all ten steps together. It is set here and here only —
+   TypeContext never writes it, so the floor survives a pairing change.
+   Held at 13px rather than the prototype's 11px: the readership skews
+   older and 11px micro copy was the weakest point in the design. */
+
+:root {
+  /* ground + ink */
+  --color-bg: #f6f5f4;
+  --color-surface: #f1efec;
+  --color-panel: #eceae7;
+  --color-text: #2d292a;
+  --color-divider: color-mix(in srgb, #2d292a 15%, transparent);
+
+  /* primary 1 — LawAfrica burgundy #820024 */
+  --color-accent: #820024;
+  --color-accent-100: #f9f2f4;
+  --color-accent-200: #ecd9de;
+  --color-accent-300: #d3a6b2;
+  --color-accent-400: #ba7387;
+  --color-accent-500: #a1405b;
+  --color-accent-600: #8f1a3a;
+  --color-accent-700: #820024;
+  --color-accent-800: #62001b;
+  --color-accent-900: #410012;
+
+  /* primary 2 — LawAfrica charcoal grey #717073. It is the --color-neutral-*
+     ramp below (mixed to white for the tints, to black for the shades) and the
+     --ground-grey band; there is no separate charcoal scale to keep in step.
+
+     complement — LawAfrica blue #0081C3: links, digital / online products.
+     #0081C3 itself is only 3.9:1 on the page ground, so it is the UI/large
+     step (700) and body links take --azure-800 (6.2:1). */
+  --azure-100: #f2f9fc;
+  --azure-200: #d9ecf6;
+  --azure-300: #a6d3ea;
+  --azure-400: #73bade;
+  --azure-500: #40a1d2;
+  --azure-600: #1a8ec9;
+  --azure-700: #0081c3;
+  --azure-800: #006192;
+  --azure-900: #004162;
+
+  /* complement 2 — gold: eyebrows + rules on dark grounds. -400 is the band
+     gold; -300 is the lighter step an eyebrow needs to clear AA on burgundy. */
+  --gold-300: #e6c39c;
+  --gold-400: #d49e66;
+
+  /* neutrals — the charcoal ramp, for ink rather than ground. -600 is the
+     muted body step and is the lightest grey that still clears 4.5:1 on every
+     surface in the app, including the --color-panel and accent-100 tints;
+     the brand grey #717073 itself only makes 4.1:1 there, so it lives on as
+     --ground-grey and is not used for small text.
+     -500 and lighter are rules, borders and disabled states only. */
+  --color-neutral-100: #f8f8f8;
+  --color-neutral-200: #eaeaea;
+  --color-neutral-300: #cdcdce;
+  --color-neutral-400: #b1b0b2;
+  --color-neutral-500: #959496;
+  --color-neutral-600: #646366;
+  --color-neutral-700: #555456;
+  --color-neutral-800: #474648;
+  --color-neutral-900: #39383a;
+  --color-success: #1c6b3a;
+
+  /* — dark grounds —
+     Two section grounds. Burgundy is forgiving: white, the -200/-300 tints and
+     gold all clear AA on it. Brand grey is not — at #717073 only near-white
+     text passes, so a band on --ground-grey gets --on-grey-* and nothing
+     dimmer. --ground-slate is the grey darkened for bands that still need a
+     gold eyebrow or a muted tier. */
+  --ground-brand: #820024;
+  --ground-grey: #717073;
+  --ground-slate: #39383a;
+
+  /* The burgundy darkened, for grounds that should read as brand rather than
+     as neutral chrome, and for stacking two burgundy planes against each other
+     (the footer's legal strip under its body). Both are more forgiving than
+     --ground-brand itself, not less: white is 13.7:1 on -deep and 17.0:1 on
+     -deepest, and gold-400 clears AA on both, so anything that works on the
+     mid burgundy works here. */
+  --ground-brand-deep: #62001b;      /* accent-800 */
+  --ground-brand-deepest: #410012;   /* accent-900 */
+
+  /* text on the burgundy ground */
+  --on-brand: #ffffff;          /* 10.6:1 */
+  --on-brand-body: #ecd9de;     /*  7.9:1 */
+  --on-brand-muted: #d3a6b2;    /*  5.0:1 */
+  --on-brand-eyebrow: var(--gold-300); /* 6.4:1 — gold-300, not gold-400 */
+
+  /* text on the brand-grey ground — no dimmer tier is legible here */
+  --on-grey: #ffffff;           /*  4.9:1 */
+  --on-grey-body: #f8f8f8;      /*  4.6:1 */
+
+  /* the floor every step is measured from */
+  --t-base: 13px;
+
+  /* type scale — 62 46 36 29 23 19 17 15 14 13 (re-tuned per pairing at runtime) */
+  --t-display: 62px;
+  --t-h1: 46px;
+  --t-h2: 36px;
+  --t-h3: 29px;
+  --t-h4: 23px;
+  --t-h5: 19px;
+  --t-body: 17px;
+  --t-sm: 15px;
+  --t-xs: 14px;
+  --t-micro: 13px;
+  --tf: 1;
+
+  /* Feature face. The heading font follows whatever pairing TypeContext is on;
+     this one deliberately does not — it is a fixed second voice for feature
+     headlines (the publishing carousel), so those sections read differently
+     from the ordinary h2s around them. DM Serif Display is the heading face of
+     the "Advocate" pairing, already in the font link, so it costs nothing. */
+  --font-display: 'DM Serif Display', 'Cormorant Garamond', Georgia, serif;
+
+  /* viewport type-zoom: 1 on desktop, stepped down by the responsive layer
+     in components.css. Applied to the h4-and-up steps only. */
+  --tz: 1;
+}
+
+body { margin: 0; background: var(--color-bg); color: var(--color-text); }
+/* Body links take the darker blue: brand #0081C3 is only 3.9:1 on the ground,
+   which fails AA for text at this size and would be the first thing to go for
+   a reader with reduced contrast sensitivity. */
+a { color: var(--azure-800); text-underline-offset: 3px; }
+a:hover { color: var(--azure-900); }
+h1, h2, h3, h4, h5, h6, .card-title, .nav-brand { letter-spacing: var(--ls-heading, -0.015em); }
+
+@keyframes la-fade {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: none; }
+}
+.page { animation: la-fade 0.3s ease both; }

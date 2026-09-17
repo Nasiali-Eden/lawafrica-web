@@ -1,0 +1,618 @@
+/* Component classes carried over from the Classical design system the
+   prototype rethemed. Uses --color-*, --font-heading(-weight), --font-body
+   from tokens.css, plus its own spacing/radius/shadow scale below. */
+
+:root {
+  --font-heading: 'Cormorant Garamond', Georgia, serif;
+  --font-heading-weight: 600;
+  --font-body: 'Lora', Georgia, serif;
+
+  --space-1: 4.6px;
+  --space-2: 9.2px;
+  --space-3: 13.8px;
+  --space-4: 18.4px;
+  --space-6: 27.6px;
+  --space-8: 36.8px;
+
+  --radius-sm: 2px;
+  --radius-md: 4px;
+  --radius-lg: 7px;
+
+  --shadow-sm: 0 1px 2px color-mix(in srgb, #2d2b2b 14%, transparent);
+  --shadow-md: 0 3px 10px color-mix(in srgb, #2d2b2b 16%, transparent);
+  --shadow-lg: 0 12px 32px color-mix(in srgb, #2d2b2b 22%, transparent);
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+body { margin: 0; font-family: var(--font-body); font-size: var(--t-body); line-height: 1.6; font-weight: 400; }
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading); font-weight: var(--font-heading-weight);
+  line-height: 1.12; letter-spacing: -0.015em; margin: 0;
+}
+p { margin: 0; }
+img { display: block; max-width: 100%; }
+button { font-family: inherit; }
+:focus { outline: none; }
+:focus-visible { outline: 2px solid var(--color-accent); outline-offset: 2px; }
+::selection { background: color-mix(in srgb, var(--color-accent) 30%, transparent); }
+
+/* — rules — */
+.hr { height: 1px; border: 0; margin: var(--space-4) 0; background: var(--color-divider); }
+
+/* — buttons — */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 6px;
+  cursor: pointer; text-decoration: none;
+  font-family: var(--font-heading); font-weight: var(--font-heading-weight);
+  font-size: calc(var(--t-base) + 3px); line-height: 1.2; color: var(--color-text);
+  background: transparent; border: 1px solid transparent;
+  padding: var(--space-2) calc(var(--space-3) * 1.2);
+  border-radius: var(--radius-md); min-height: 44px;
+}
+.btn:disabled { opacity: 0.45; cursor: not-allowed; }
+.btn-primary { color: var(--color-accent-700); border-color: var(--color-accent); }
+.btn-primary:hover { background: color-mix(in srgb, var(--color-accent) 12%, transparent); }
+.btn-primary:active { background: color-mix(in srgb, var(--color-accent) 22%, transparent); }
+.btn-secondary { border-color: var(--color-neutral-400); }
+.btn-secondary:hover { background: color-mix(in srgb, var(--color-text) 7%, transparent); }
+.btn-secondary:active { background: color-mix(in srgb, var(--color-text) 14%, transparent); }
+.btn-ghost { color: var(--color-accent-700); padding-inline: var(--space-1); border-color: transparent; }
+.btn-ghost:hover { background: color-mix(in srgb, var(--color-accent) 10%, transparent); }
+.btn-ghost:active { background: color-mix(in srgb, var(--color-accent) 18%, transparent); }
+.btn-outline { border: 1px solid var(--color-neutral-400); }
+.btn-block { width: 100%; margin-top: var(--space-2); }
+
+/* — forms — */
+.field > label { display: block; font-size: var(--t-xs); margin-bottom: 5px; color: color-mix(in srgb, var(--color-text) 70%, transparent); }
+.input {
+  width: 100%; min-height: 44px; padding: 8px 11px; font: inherit;
+  font-size: calc(var(--t-base) + 3px); color: var(--color-text); caret-color: var(--color-accent);
+  background: #fff;
+  border: 1px solid var(--color-neutral-300); border-radius: var(--radius-md);
+}
+.input:hover { border-color: color-mix(in srgb, var(--color-text) 45%, transparent); }
+.input:focus-visible, .input:focus { border-color: var(--color-accent); outline-offset: 0; outline: none; }
+textarea.input { min-height: 90px; resize: vertical; }
+.radio { display: inline-flex; align-items: center; gap: 8px; cursor: pointer; font-size: calc(var(--t-base) + 3px); }
+
+/* — cards — */
+.card {
+  display: flex; flex-direction: column; gap: var(--space-2);
+  padding: var(--space-3); border-radius: var(--radius-md); background: transparent; border: 1px solid var(--color-divider);
+}
+.card-kicker { font-size: var(--t-micro); letter-spacing: 0.1em; text-transform: uppercase; color: var(--color-accent-700); }
+.card-title { font-family: var(--font-heading); font-weight: var(--font-heading-weight); font-size: var(--t-h5); line-height: 1.25; }
+.card-body { margin: 0; font-size: var(--t-sm); opacity: 0.9; flex: 1; }
+
+/* — tags — */
+.tag { display: inline-flex; align-items: center; font-size: var(--t-micro); letter-spacing: 0.02em; padding: 3px 10px; border-radius: 3px; }
+.tag-accent { background: var(--color-accent-100); color: var(--color-accent-800); }
+.tag-neutral { background: var(--color-neutral-100); color: var(--color-neutral-800); }
+.tag-outline { border: 1px solid var(--color-accent); color: var(--color-accent-700); }
+
+/* — tables — */
+.table { width: 100%; border-collapse: collapse; font-size: var(--t-sm); }
+.table th { text-align: left; font-size: var(--t-micro); letter-spacing: 0.08em; text-transform: uppercase; color: color-mix(in srgb, var(--color-text) 60%, transparent); padding: var(--space-2); border-bottom: 1px solid var(--color-divider); }
+.table td { padding: var(--space-2); border-bottom: 1px solid var(--color-divider); }
+
+/* — plate: the matted-photograph treatment shared by covers, article & event images — */
+.plate {
+  filter: sepia(0.22) saturate(0.82) contrast(1.05);
+  box-sizing: border-box; border: 6px solid var(--color-surface); outline: 1px solid var(--color-divider);
+  overflow: hidden; position: relative;
+}
+.plate img { display: block; width: 100%; height: 100%; object-fit: cover; }
+
+/* ─────────────────────────────────────────────────────────────────────
+   RESPONSIVE LAYER
+
+   Layout in this app is authored as React inline styles, which a media
+   query cannot reach — an inline `grid-template-columns` outranks any
+   normal rule. So the breakpoints work through two levers instead:
+
+   1. --tz, a viewport type-zoom. Every size from --t-h4 upward is
+      authored as calc(var(--t-base) + Npx*var(--tf,1)*var(--tz,1)), so
+      setting --tz here shrinks headings on small screens while body and
+      caption sizes stay where the accessibility pass put them. Nothing
+      writes --tz at runtime, so a plain :root rule wins.
+
+   2. .stack / .stack-sm / .stack-cols, put on the grid container itself.
+      Their rules use !important, which is what beats the inline style.
+      Symmetric grids do not need a class — those are authored as
+      repeat(auto-fit, minmax(min(100%, Npx), 1fr)), where the min(100%,…)
+      lets a track collapse below its ideal width and reflow on its own.
+
+   Breakpoints: 1000px (tablet), 700px (small tablet), 560px (phone).
+   ───────────────────────────────────────────────────────────────────── */
+
+.wrap { max-width: 1180px; margin-inline: auto; padding-inline: 24px; }
+
+@media (max-width: 1000px) { :root { --tz: 0.86; } }
+@media (max-width: 560px)  { :root { --tz: 0.66; } }
+
+/* Sidebar and asymmetric layouts collapse to a single column. Any sticky
+   aside inside one has to stop sticking, or it pins to a scrolled page. */
+@media (max-width: 1000px) {
+  /* minmax(0,1fr), not 1fr: a bare 1fr track keeps an `auto` minimum, so a
+     wide child (a buy-box, a long citation) stretches the track past the
+     viewport instead of shrinking to it. */
+  .stack { grid-template-columns: minmax(0,1fr) !important; }
+  .stack > aside, .stack > .sticky { position: static !important; top: auto !important; }
+}
+
+/* Rows that survive tablet but not a phone: basket lines, table-ish rows. */
+@media (max-width: 700px) {
+  .stack-sm { grid-template-columns: minmax(0,1fr) !important; gap: 10px !important; }
+  .stack-sm > * { min-width: 0; }
+}
+
+/* The footer steps 4 → 2 → 1 rather than collapsing straight to a list. */
+@media (max-width: 1000px) { .stack-cols { grid-template-columns: repeat(2,minmax(0,1fr)) !important; gap: 28px !important; } }
+@media (max-width: 560px)  { .stack-cols { grid-template-columns: minmax(0,1fr) !important; } }
+
+/* Tighter gutters and vertical rhythm once there is no room to spare. */
+@media (max-width: 560px) {
+  /* pages carry a 24px gutter inline, so the chrome keeps the same one */
+  .card { padding: var(--space-4); }
+}
+
+/* A wide table cannot reflow, so it scrolls inside its own box instead of
+   pushing the page sideways. */
+.table-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+.table-scroll > .table { min-width: 460px; }
+
+/* Never let a long citation, URL or case name force a sideways scroll. */
+@media (max-width: 700px) {
+  body { overflow-x: hidden; }
+  h1, h2, h3, h4, h5, h6, p, li, td, th, a { overflow-wrap: anywhere; }
+}
+
+/* — chrome: which nav the viewport gets —
+   Both navs are always rendered; CSS picks one. That keeps the choice out of
+   JS, so there is no resize listener and no flash of the wrong nav on load. */
+.at-wide { display: flex; }
+.at-narrow { display: none; }
+@media (max-width: 1000px) {
+  .at-wide { display: none !important; }
+  .at-narrow { display: flex !important; }
+}
+
+/* the drawer — above the preview harness (z-index 90), which is the highest
+   thing on the page; a modal that something floats over is not a modal */
+.drawer-scrim {
+  position: fixed; inset: 0; z-index: 100;
+  background: color-mix(in srgb, var(--ground-brand-deepest) 62%, transparent);
+  animation: la-fade 0.18s ease both;
+}
+.drawer {
+  position: fixed; top: 0; right: 0; bottom: 0; z-index: 101;
+  width: min(86vw, 360px);
+  background: var(--color-bg); color: var(--color-text);
+  border-left: 1px solid var(--color-divider);
+  box-shadow: var(--shadow-lg);
+  display: flex; flex-direction: column;
+  overflow-y: auto; -webkit-overflow-scrolling: touch;
+  animation: drawer-in 0.22s ease both;
+}
+@keyframes drawer-in { from { transform: translateX(100%); } to { transform: none; } }
+.drawer a, .drawer button {
+  font-family: var(--font-heading);
+  font-size: calc(var(--t-base) + 6px*var(--tf,1));
+  text-align: left; text-decoration: none; color: var(--color-text);
+  background: none; border: 0; cursor: pointer;
+  padding: 14px 22px; min-height: 48px;
+  border-bottom: 1px solid var(--color-divider);
+  display: flex; align-items: center; gap: 10px;
+}
+.drawer a:hover, .drawer button:hover { background: var(--color-surface); }
+.drawer .drawer-sub { padding-left: 40px; font-size: calc(var(--t-base) + 4px*var(--tf,1)); }
+.drawer .drawer-head {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 14px 16px 14px 22px; border-bottom: 1px solid var(--color-divider);
+  font-family: var(--font-heading); letter-spacing: var(--ls-caps, 0.16em);
+  text-transform: uppercase; font-size: var(--t-micro);
+  color: var(--color-neutral-600);
+}
+
+/* the hamburger / close control — 44px, same as every other tap target */
+.icon-btn {
+  width: 44px; height: 44px; flex: none;
+  display: grid; place-items: center; cursor: pointer;
+  background: none; border: 1px solid currentColor; border-radius: var(--radius-md);
+  color: inherit; padding: 0;
+}
+.icon-btn > span { display: block; width: 17px; height: 1.5px; background: currentColor; position: relative; }
+.icon-btn > span::before, .icon-btn > span::after {
+  content: ''; position: absolute; left: 0; width: 17px; height: 1.5px; background: currentColor;
+}
+.icon-btn > span::before { top: -5.5px; }
+.icon-btn > span::after { top: 5.5px; }
+
+/* the preview harness must not sit on top of the content on a phone */
+@media (max-width: 700px) {
+  .floating-controls { right: 8px !important; bottom: 8px !important; gap: 5px !important; }
+  .floating-controls > button { padding: 6px 9px !important; font-size: var(--t-micro) !important; }
+  .floating-controls > div { width: min(78vw, 290px) !important; }
+}
+
+/* — page headlines on a phone —
+   The display step is 62px, which is a whole screen width at 390px. --tz alone
+   cannot fix it: one factor serves every heading step, and what h4 needs is not
+   what a display headline needs. So the top step gets sized against the
+   viewport directly, and its inline `max-width: 16ch` measure — right for a
+   wide column — is released so the words use the full width they now have. */
+@media (max-width: 700px) {
+  h1 {
+    font-size: clamp(28px, 8.2vw, 46px) !important;
+    max-width: none !important;
+  }
+}
+
+/* — filters after results —
+   The catalogue and judgment search put their filter rail in the first grid
+   column. Collapsed, that buries the results under a screenful of checkboxes,
+   so on a phone the results column is pulled above the rail. */
+@media (max-width: 1000px) {
+  .filters-last > :first-child { order: 2; }
+  .filters-last > :nth-child(2) { order: 1; }
+}
+
+/* — product page on a phone —
+   Collapsed, the three columns arrive as cover, then title, then buy box: a
+   full-width 3:4 jacket pushes the title of the book a screen and a half down.
+   The title column comes first instead, and the jacket is held to a thumbnail
+   — it is the same placeholder photograph on every title, so it is identity,
+   not information. */
+@media (max-width: 1000px) {
+  .product-stack > :nth-child(1) { order: 2; max-width: 240px; }
+  .product-stack > :nth-child(2) { order: 1; }
+  .product-stack > :nth-child(3) { order: 3; }
+}
+
+/* — tap targets on touch screens —
+   Standalone links set as their own row — footer columns, the contact strip,
+   a "Read more" under a story — render about 22px tall, which is a small
+   thing to hit accurately on a phone, and smaller still for the older hands
+   this site is built for. They are given a 44px row on narrow viewports.
+
+   Scoped deliberately: this must not reach links inside running prose, where
+   a 44px min-height would blow the line spacing apart. */
+@media (max-width: 1000px) {
+  footer a,
+  .tap-row { min-height: 44px; display: inline-flex; align-items: center; }
+  footer nav a { width: 100%; }
+}
+
+/* Chips and address links are tappable controls too: a filter chip is 22px of
+   padding-box and an email link is a line of text, both well under a fingertip.
+   Anchors only — the same .tag on a non-interactive label stays as drawn. */
+@media (max-width: 1000px) {
+  a.tag { min-height: 44px; padding-inline: 14px; }
+  a[href^="mailto:"], a[href^="tel:"] { min-height: 44px; display: inline-flex; align-items: center; }
+}
+
+/* Breadcrumb crumbs and the small auth links ("Sign in", "Forgotten
+   password?") are standalone controls sitting on their own line, so they take
+   the touch row as well. */
+@media (max-width: 1000px) {
+  .crumbs a, .tap-inline { min-height: 44px; display: inline-flex; align-items: center; }
+}
+
+/* Justified setting needs enough words per line to absorb the extra space.
+   In a ~340px column it produces rivers of white between three or four words
+   a line, which is exactly the wrong thing to hand a reader with tired eyes.
+   Ragged right below the tablet breakpoint. */
+@media (max-width: 1000px) {
+  /* matched on the rendered declaration, not the bare word: [style*="justify"]
+     would also catch every justify-content flex row on the page. */
+  [style*="text-align: justify"] { text-align: left !important; }
+}
+
+/* ─────────────────────────────────────────────────────────────────────
+   FEATURE BAND + CARD CAROUSEL
+
+   A deliberate break in the page's rhythm: the rest of Home is grids and
+   two-column blocks on the light ground, so this one runs on the deepest
+   burgundy, sets its headline in the feature face rather than the pairing
+   heading face, and puts its content in a track that bleeds off the right
+   edge instead of a grid that closes neatly at the margin.
+   ───────────────────────────────────────────────────────────────────── */
+
+.feature-band {
+  background: var(--ground-brand-deepest);
+  color: var(--color-neutral-200);
+  padding-block: 72px 56px;
+  overflow: hidden;                 /* the track bleeds; the page must not */
+}
+
+.feature-head {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 0.9fr);
+  gap: 40px;
+  align-items: end;
+  margin-bottom: 34px;
+}
+@media (max-width: 860px) {
+  .feature-head { grid-template-columns: minmax(0, 1fr); gap: 20px; align-items: start; }
+}
+
+.feature-chip {
+  display: inline-flex; align-items: center;
+  border: 1px solid var(--color-neutral-500);
+  border-radius: 999px;
+  padding: 5px 14px;
+  font-size: var(--t-micro);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--color-neutral-200);
+  margin-bottom: 16px;
+}
+
+/* Two-tone headline: white over grey. The band's whole palette is white,
+   grey and maroon — no gold — so the second line drops to the neutral ramp
+   rather than picking up an accent the rest of the section does not use.
+   Set in --font-display, not --font-heading. */
+.feature-title {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: calc(var(--t-base) + 33px*var(--tf,1)*var(--tz,1));
+  line-height: 1.04;
+  letter-spacing: -0.02em;
+  color: var(--on-brand);
+  margin: 0;
+}
+.feature-title > span { display: block; color: var(--color-neutral-300); }
+
+.feature-aside { display: flex; flex-direction: column; gap: 18px; align-items: flex-start; }
+.feature-aside p {
+  font-size: calc(var(--t-base) + 2px*var(--tf,1));
+  line-height: 1.65;
+  color: var(--color-neutral-300);
+  max-width: 46ch;
+}
+
+.carousel-nav { display: flex; gap: 10px; }
+.carousel-nav button {
+  width: 46px; height: 46px; border-radius: 50%;
+  display: grid; place-items: center;
+  cursor: pointer; font: inherit;
+  font-size: calc(var(--t-base) + 8px);
+  line-height: 1;
+  background: transparent;
+  border: 1px solid var(--color-neutral-500);
+  color: var(--color-neutral-200);
+  transition: background .2s ease, color .2s ease, border-color .2s ease;
+}
+.carousel-nav button:hover { background: var(--ground-brand); color: #ffffff; border-color: var(--ground-brand); }
+.carousel-nav button.is-active { border-color: #ffffff; color: #ffffff; }
+.carousel-nav button.is-active:hover { background: #ffffff; color: var(--ground-brand); border-color: #ffffff; }
+
+/* The track. Scroll-snap does the positioning, so how many cards are visible
+   is a CSS decision at each width and never a measurement in JS. */
+.carousel-track {
+  /* --cols is how many cards the row shows at this width; the cards divide the
+     visible track between them, so the row always ends on a whole card at the
+     content margin instead of a part-card at the viewport edge. */
+  --cols: 4;
+  --card-gap: 22px;
+  display: flex;
+  gap: var(--card-gap);
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  padding-block: 4px 8px;
+}
+@media (max-width: 1040px) { .carousel-track { --cols: 3; } }
+@media (max-width: 780px)  { .carousel-track { --cols: 2; } }
+/* a fraction on the smallest screens, so the next card peeks and the row
+   reads as scrollable rather than as a single static card */
+@media (max-width: 560px)  { .carousel-track { --cols: 1.15; } }
+.carousel-track::-webkit-scrollbar { display: none; }
+
+.carousel-card {
+  scroll-snap-align: start;
+  /* one --cols-th of the visible track, gaps taken out */
+  flex: 0 0 calc((100% - (var(--cols) - 1) * var(--card-gap)) / var(--cols));
+  min-height: 560px;
+  display: flex; flex-direction: column; gap: 12px;
+  background: var(--color-bg);
+  color: var(--color-text);
+  border-radius: var(--radius-lg);
+  padding: 20px;
+  transition: background .3s ease, color .3s ease;
+}
+
+/* The current card takes the mid burgundy — the same alternation the page
+   uses elsewhere, so a highlighted card still reads as this site. */
+.carousel-card.is-current { background: var(--ground-brand); color: var(--on-brand-body); }
+
+.carousel-chip {
+  align-self: flex-start;
+  border: 1px solid var(--color-divider);
+  border-radius: var(--radius-sm);
+  padding: 4px 11px;
+  font-size: var(--t-micro);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--color-neutral-700);
+}
+.carousel-card.is-current .carousel-chip {
+  border-color: var(--color-neutral-400);
+  color: var(--color-neutral-200);
+}
+
+.carousel-card h3 {
+  font-family: var(--font-heading);
+  font-weight: var(--font-heading-weight);
+  font-size: calc(var(--t-base) + 10px*var(--tf,1)*var(--tz,1));
+  line-height: 1.15;
+  margin: 0;
+}
+.carousel-card.is-current h3 { color: #ffffff; }
+
+.carousel-plate { aspect-ratio: 1 / 1; }
+.carousel-card.is-current .carousel-plate { border-color: var(--ground-brand-deep); }
+
+.carousel-card p {
+  font-size: calc(var(--t-base) + 1px*var(--tf,1));
+  line-height: 1.6;
+  color: var(--color-neutral-700);
+  flex: 1;
+  margin: 0;
+}
+.carousel-card.is-current p { color: var(--color-neutral-200); }
+
+.carousel-card a {
+  display: flex; align-items: center; justify-content: space-between; gap: 12px;
+  min-height: 44px;
+  text-decoration: none;
+  font-family: var(--font-heading);
+  font-size: calc(var(--t-base) + 2px*var(--tf,1));
+  color: var(--color-accent-700);
+}
+.carousel-card.is-current a { color: #ffffff; }
+.carousel-card a .carousel-arrow {
+  width: 38px; height: 38px; flex: none;
+  display: grid; place-items: center;
+  border-radius: 50%;
+  border: 1px solid currentColor;
+  transition: background .2s ease, color .2s ease;
+}
+.carousel-card a:hover .carousel-arrow { background: var(--color-accent); color: var(--color-bg); border-color: var(--color-accent); }
+.carousel-card.is-current a:hover .carousel-arrow { background: #ffffff; color: var(--ground-brand); border-color: #ffffff; }
+
+.carousel-dots { display: flex; gap: 8px; margin-top: 22px; }
+.carousel-dots button {
+  width: 34px; height: 24px; padding: 0;
+  background: none; border: 0; cursor: pointer;
+  display: grid; align-items: center;
+}
+.carousel-dots button::before {
+  content: ''; display: block; height: 2px; width: 100%;
+  background: var(--color-neutral-600);
+  transition: background .3s ease;
+}
+.carousel-dots button.is-current::before { background: #ffffff; }
+
+/* ─────────────────────────────────────────────────────────────────────
+   CONTACT BAND
+
+   Elongated on purpose. Three equal cards in a row made the page stop
+   rather than close; this runs as a tall block — an intro rail on the
+   left against four contact routes stacked down the right, each given
+   enough room to carry a description and both ways of reaching it.
+   ───────────────────────────────────────────────────────────────────── */
+
+.contact-band {
+  border-top: 1px solid var(--color-divider);
+  background: var(--color-surface);
+  padding-block: 76px 84px;
+}
+
+.contact-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
+  gap: 64px;
+  align-items: start;
+}
+@media (max-width: 1000px) { .contact-grid { grid-template-columns: minmax(0, 1fr); gap: 40px; } }
+
+.contact-intro { display: flex; flex-direction: column; align-items: flex-start; gap: 20px; }
+
+/* the light-ground twin of .feature-chip */
+.chip-light {
+  display: inline-flex; align-items: center;
+  border: 1px solid var(--color-accent-300);
+  border-radius: 999px;
+  padding: 5px 14px;
+  font-size: var(--t-micro);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--color-accent-700);
+}
+
+/* Second outing for the feature face, so the page opens and closes in the
+   same voice rather than reverting to the ordinary h2 at the end. */
+.contact-title {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: calc(var(--t-base) + 33px*var(--tf,1)*var(--tz,1));
+  line-height: 1.04;
+  letter-spacing: -0.02em;
+  margin: 0;
+}
+.contact-title > span { display: block; color: var(--color-accent-700); }
+
+.contact-intro > p {
+  font-size: calc(var(--t-base) + 3px*var(--tf,1));
+  line-height: 1.7;
+  color: var(--color-neutral-700);
+  max-width: 44ch;
+  margin: 0;
+}
+
+.contact-office {
+  margin: 4px 0 0;
+  display: flex; flex-direction: column; gap: 16px;
+  width: 100%;
+  border-top: 1px solid var(--color-divider);
+  padding-top: 22px;
+}
+.contact-office > div { display: grid; grid-template-columns: 120px minmax(0, 1fr); gap: 14px; }
+@media (max-width: 520px) { .contact-office > div { grid-template-columns: minmax(0, 1fr); gap: 3px; } }
+.contact-office dt {
+  font-size: var(--t-micro);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--color-neutral-600);
+}
+.contact-office dd {
+  margin: 0;
+  font-size: calc(var(--t-base) + 2px*var(--tf,1));
+  line-height: 1.6;
+}
+
+/* Each route gets a full row, a rule above it and room to breathe — the
+   thing that actually makes this section tall. */
+.contact-routes { display: flex; flex-direction: column; }
+.contact-route {
+  display: grid;
+  grid-template-columns: 132px minmax(0, 1fr);
+  gap: 24px;
+  padding-block: 28px;
+  border-top: 1px solid var(--color-divider);
+}
+.contact-route:first-child { border-top: 0; padding-top: 4px; }
+@media (max-width: 620px) {
+  .contact-route { grid-template-columns: minmax(0, 1fr); gap: 10px; }
+}
+
+.route-kicker {
+  font-size: var(--t-micro);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--color-accent-700);
+  padding-top: 5px;
+}
+.contact-route h3 {
+  font-family: var(--font-heading);
+  font-weight: var(--font-heading-weight);
+  font-size: calc(var(--t-base) + 10px*var(--tf,1)*var(--tz,1));
+  line-height: 1.2;
+  margin: 0 0 8px;
+}
+.contact-route p {
+  font-size: calc(var(--t-base) + 2px*var(--tf,1));
+  line-height: 1.65;
+  color: var(--color-neutral-700);
+  margin: 0 0 14px;
+  max-width: 52ch;
+}
+.route-links { display: flex; flex-wrap: wrap; gap: 10px 28px; }
+.route-links a {
+  font-size: calc(var(--t-base) + 2px*var(--tf,1));
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+}
