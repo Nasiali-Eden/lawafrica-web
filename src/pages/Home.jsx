@@ -1,6 +1,6 @@
 import { Link, useNavigate } from 'react-router-dom';
+import { LLR_URL } from './LLR.jsx';
 import { useHero } from '../state/HeroContext.jsx';
-import { useAuth } from '../state/AuthContext.jsx';
 import BookTile from '../components/BookTile.jsx';
 import CardCarousel from '../components/CardCarousel.jsx';
 import Plate from '../components/Plate.jsx';
@@ -20,10 +20,11 @@ function SectionNum({ n }) {
 
 export default function Home() {
   const { current, dots, listLayout } = useHero();
-  const { openCase } = useAuth();
   const navigate = useNavigate();
 
-  const heroAct = () => (current.caseId ? openCase(current.caseId) : navigate(current.to));
+  // Judgments live on the LLR platform now, so a slide about a case hands off
+  // there instead of opening an in-site reader.
+  const heroAct = () => (current.caseId ? window.open(LLR_URL, '_blank', 'noopener') : navigate(current.to));
 
   return (
     <div className="page">
@@ -43,7 +44,7 @@ export default function Home() {
               <div style={{ fontFamily: 'ui-monospace,Menlo,monospace', fontSize: 'calc(var(--t-base) + 2px*var(--tf,1))', letterSpacing: 0, color: 'rgba(246,245,244,.78)', marginBottom: 26 }}>{current.meta}</div>
               <div style={{ display: 'flex', alignItems: 'center', gap: 16, flexWrap: 'wrap' }}>
                 <button className="btn" onClick={heroAct} style={{ background: 'var(--color-bg)', color: 'var(--ground-brand)', padding: '13px 26px', fontSize: 'calc(var(--t-base) + 4px*var(--tf,1))' }}>{current.cta}</button>
-                <button className="btn" onClick={() => navigate('/reports')} style={{ border: '1px solid rgba(255,255,255,.5)', color: 'var(--color-bg)', background: 'transparent', padding: '13px 24px', fontSize: 'calc(var(--t-base) + 4px*var(--tf,1))' }}>Search the Law Reports</button>
+                <button className="btn" onClick={() => window.open(LLR_URL, '_blank', 'noopener')} style={{ border: '1px solid rgba(255,255,255,.5)', color: 'var(--color-bg)', background: 'transparent', padding: '13px 24px', fontSize: 'calc(var(--t-base) + 4px*var(--tf,1))' }}>Search the Law Reports</button>
               </div>
             </div>
             {listLayout === 'vertical' && (
@@ -99,12 +100,12 @@ export default function Home() {
                 <div className="field"><label>Citation</label><input className="input" placeholder="[2021] KESC 34" /></div>
                 <div className="field"><label>Court</label><select className="input"><option>All courts</option><option>Supreme Court</option><option>Court of Appeal</option><option>High Court</option></select></div>
               </div>
-              <button className="btn btn-primary" onClick={() => navigate('/reports')} style={{ alignSelf: 'flex-start', paddingInline: 26, marginTop: 2 }}>Search judgments</button>
+              <button className="btn btn-primary" onClick={() => window.open(LLR_URL, '_blank', 'noopener')} style={{ alignSelf: 'flex-start', paddingInline: 26, marginTop: 2 }}>Search judgments</button>
             </div>
             <div style={{ padding: '22px 26px 26px', background: 'var(--color-surface)', borderRadius: '0 0 4px 0' }}>
               <div style={{ fontSize: 'var(--t-base)', letterSpacing: '.16em', textTransform: 'uppercase', color: 'var(--color-neutral-600)', marginBottom: 12 }}>On the desk this week</div>
               {deskCases.map(c => (
-                <button key={c.id} onClick={() => openCase(c.id)} style={{ width: '100%', textAlign: 'left', background: 'none', border: 0, borderTop: '1px solid var(--color-divider)', padding: '11px 0', cursor: 'pointer', font: 'inherit', display: 'block' }}>
+                <button key={c.id} onClick={() => window.open(LLR_URL, '_blank', 'noopener')} style={{ width: '100%', textAlign: 'left', background: 'none', border: 0, borderTop: '1px solid var(--color-divider)', padding: '11px 0', cursor: 'pointer', font: 'inherit', display: 'block' }}>
                   <span style={{ fontFamily: 'var(--font-heading)', fontSize: 'calc(var(--t-base) + 4px*var(--tf,1))', lineHeight: 1.25, display: 'block', marginBottom: 3 }}>{c.name}</span>
                   <span style={{ fontFamily: 'ui-monospace,Menlo,monospace', fontSize: 'var(--t-base)', color: 'var(--color-neutral-600)' }}>{c.cite} · {c.shortCourt}</span>
                 </button>
@@ -156,14 +157,14 @@ export default function Home() {
             <h2 style={{ fontSize: 'calc(var(--t-base) + 23px*var(--tf,1)*var(--tz,1))', fontWeight: 400, margin: '0 0 16px', color: 'var(--on-brand)', lineHeight: 1.15 }}>Twenty-five years of reported judgments, searchable in one place.</h2>
             <p style={{ color: 'var(--on-brand-body)', fontSize: 'calc(var(--t-base) + 4px*var(--tf,1))', lineHeight: 1.65, maxWidth: 480, marginBottom: 24 }}>Court of Appeal, High Court and specialised tribunal decisions from Kenya, Tanzania and Uganda — headnoted, catchworded and cross-cited by our editorial team.</p>
             <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap' }}>
-              <Link className="btn" to="/reports" style={{ background: 'var(--on-brand)', color: 'var(--ground-brand)', padding: '12px 22px', textDecoration: 'none' }}>Search case law</Link>
-              <Link className="btn btn-primary" to="/reports#plans" style={{ color: 'var(--on-brand)', borderColor: 'rgba(255,255,255,.4)', padding: '12px 22px', textDecoration: 'none' }}>Subscription options</Link>
+              <a className="btn" href={LLR_URL} target="_blank" rel="noopener noreferrer" style={{ background: 'var(--on-brand)', color: 'var(--ground-brand)', padding: '12px 22px', textDecoration: 'none' }}>Search case law</a>
+              <Link className="btn btn-primary" to="/llr" style={{ color: 'var(--on-brand)', borderColor: 'rgba(255,255,255,.4)', padding: '12px 22px', textDecoration: 'none' }}>About LLR</Link>
             </div>
           </div>
           <div style={{ border: '1px solid rgba(255,255,255,.18)', borderRadius: 4, padding: 24, background: 'rgba(255,255,255,.03)' }}>
             <div style={{ fontSize: 'var(--t-base)', letterSpacing: '.1em', textTransform: 'uppercase', color: 'var(--on-brand-muted)', marginBottom: 14 }}>Recently reported</div>
             {deskCases.map(c => (
-              <button key={c.id} onClick={() => openCase(c.id)} style={{ width: '100%', textAlign: 'left', display: 'block', background: 'none', border: 0, borderBottom: '1px solid rgba(255,255,255,.12)', padding: '12px 0', cursor: 'pointer', font: 'inherit' }}>
+              <button key={c.id} onClick={() => window.open(LLR_URL, '_blank', 'noopener')} style={{ width: '100%', textAlign: 'left', display: 'block', background: 'none', border: 0, borderBottom: '1px solid rgba(255,255,255,.12)', padding: '12px 0', cursor: 'pointer', font: 'inherit' }}>
                 <span style={{ fontFamily: 'var(--font-heading)', fontSize: 'calc(var(--t-base) + 6px*var(--tf,1))', color: 'var(--on-brand)', marginBottom: 3, display: 'block', lineHeight: 1.25 }}>{c.name}</span>
                 <span style={{ fontSize: 'calc(var(--t-base) + 1px*var(--tf,1))', color: 'var(--on-brand-muted)', fontFamily: 'ui-monospace,Menlo,monospace' }}>{c.cite} · {c.shortCourt}</span>
               </button>

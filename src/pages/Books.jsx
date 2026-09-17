@@ -8,7 +8,8 @@ import BookCard from '../components/BookCard.jsx';
 export default function Books({ digital = false }) {
   const [params] = useSearchParams();
   const ebooksOnly = digital || params.get('format') === 'ebook';
-  const list = ebooksOnly ? books.filter(b => b.format.indexOf('eBook') > -1) : books;
+  // one mark per title, so the two sections are a clean partition of the list
+  const list = books.filter(b => (ebooksOnly ? b.format === 'Digital' : b.format === 'Print'));
 
   return (
     <div className="page" style={{ maxWidth: 1180, margin: '0 auto', padding: '28px 24px 64px' }}>

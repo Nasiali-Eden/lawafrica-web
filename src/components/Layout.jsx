@@ -11,7 +11,6 @@ import FloatingControls from './FloatingControls.jsx';
 // same mechanism as Home: a static band for these, a rotating one for Home.
 const STATIC_HERO_ROUTES = {
   '/about': { image: '/assets/plate-wide.jpg', height: 660 },
-  '/reports': { image: '/assets/plate-library.jpg', height: 400 },
   '/practice': { image: '/assets/plate-land.jpg', height: 480 }
 };
 

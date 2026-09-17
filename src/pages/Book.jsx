@@ -11,7 +11,7 @@ export default function Book() {
   const { addItem, added } = useBasket();
   const isPrint = fmt === 'print';
   const unit = isPrint ? 6500 : 4800;
-  const key = 'CON-25|' + (isPrint ? 'Print' : 'eBook');
+  const key = 'CON-25|' + (isPrint ? 'Print' : 'Digital');
   const addLabel = added === key ? 'Added to basket ✓' : 'Add to basket · ' + money(unit);
 
   const optStyle = active => ({
@@ -73,11 +73,11 @@ export default function Book() {
             </button>
             <button onClick={() => setFmt('ebook')} style={optStyle(!isPrint)}>
               <span style={dotStyle(!isPrint)} />
-              <span style={{ flex: 1, fontSize: 'calc(var(--t-base) + 4px*var(--tf,1))' }}>eBook · instant access</span><span style={{ fontFamily: 'var(--font-heading)', fontSize: 'calc(var(--t-base) + 6px*var(--tf,1))' }}>KES 4,800</span>
+              <span style={{ flex: 1, fontSize: 'calc(var(--t-base) + 4px*var(--tf,1))' }}>Digital · instant access</span><span style={{ fontFamily: 'var(--font-heading)', fontSize: 'calc(var(--t-base) + 6px*var(--tf,1))' }}>KES 4,800</span>
             </button>
           </div>
           <div style={{ fontSize: 'calc(var(--t-base) + 2px*var(--tf,1))', color: 'var(--color-success)', marginBottom: 14 }}>● In stock — dispatched within 2 working days</div>
-          <button className="btn btn-block" onClick={() => addItem({ code: 'CON-25', title: book.title, author: 'Prof. A. Mwangi · 4th edition 2025', fmt: isPrint ? 'Print' : 'eBook', unit })} style={{ background: 'var(--color-accent)', color: '#fff', minHeight: 44, fontSize: 'calc(var(--t-base) + 4px*var(--tf,1))', marginTop: 0 }}>{addLabel}</button>
+          <button className="btn btn-block" onClick={() => addItem({ code: 'CON-25', title: book.title, author: 'Prof. A. Mwangi · 4th edition 2025', fmt: isPrint ? 'Print' : 'Digital', unit })} style={{ background: 'var(--color-accent)', color: '#fff', minHeight: 44, fontSize: 'calc(var(--t-base) + 4px*var(--tf,1))', marginTop: 0 }}>{addLabel}</button>
           <Link className="btn btn-secondary btn-block" to="/basket" style={{ minHeight: 40, fontSize: 'calc(var(--t-base) + 4px*var(--tf,1))', textDecoration: 'none' }}>View basket</Link>
           <button className="btn btn-primary btn-block" style={{ minHeight: 44, fontSize: 'calc(var(--t-base) + 4px*var(--tf,1))' }}>Request an institutional quote</button>
           <hr className="hr" />

@@ -74,7 +74,7 @@ export default function About() {
             <div style={{ width: 64, height: 3, background: 'var(--color-accent)', marginBottom: 18 }} />
             <h2 style={{ fontSize: 'calc(var(--t-base) + 23px*var(--tf,1)*var(--tz,1))', fontWeight: 400, lineHeight: 1.15, margin: '0 0 16px' }}>What we do</h2>
             <p style={{ fontSize: 'calc(var(--t-base) + 4px*var(--tf,1))', lineHeight: 1.65, color: 'var(--color-neutral-700)', margin: '0 0 18px' }}>Legal publishing, law reporting, statute consolidation, journals, commentaries, legal databases, eBooks, research tools and customised publishing for institutions.</p>
-            <Link className="btn btn-primary" to="/reports" style={{ minHeight: 42, textDecoration: 'none' }}>Search the Law Reports</Link>
+            <Link className="btn btn-primary" to="/llr" style={{ minHeight: 42, textDecoration: 'none' }}>Search the Law Reports</Link>
           </div>
           <div style={{ display: 'flex', flexDirection: 'column' }}>
             {catalogueParts.map(p => (

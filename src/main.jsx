@@ -4,7 +4,6 @@ import { BrowserRouter } from 'react-router-dom';
 import App from './App.jsx';
 import './styles/components.css';
 import './styles/tokens.css';
-import { AuthProvider } from './state/AuthContext.jsx';
 import { BasketProvider } from './state/BasketContext.jsx';
 import { TypeProvider } from './state/TypeContext.jsx';
 import { OverlayProvider } from './state/OverlayContext.jsx';
@@ -16,11 +15,9 @@ createRoot(document.getElementById('root')).render(
       <TypeProvider>
         <BackgroundProvider>
           <OverlayProvider>
-            <AuthProvider>
-              <BasketProvider>
+            <BasketProvider>
                 <App />
-              </BasketProvider>
-            </AuthProvider>
+            </BasketProvider>
           </OverlayProvider>
         </BackgroundProvider>
       </TypeProvider>

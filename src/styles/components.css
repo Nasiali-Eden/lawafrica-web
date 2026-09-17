@@ -279,6 +279,8 @@ textarea.input { min-height: 90px; resize: vertical; }
    a 44px min-height would blow the line spacing apart. */
 @media (max-width: 1000px) {
   footer a,
+  .catalogue-facts dd a,
+  .contact-office dd a,
   .tap-row { min-height: 44px; display: inline-flex; align-items: center; }
   footer nav a { width: 100%; }
 }
@@ -616,3 +618,57 @@ textarea.input { min-height: 90px; resize: vertical; }
   display: inline-flex;
   align-items: center;
 }
+
+/* ─────────────────────────────────────────────────────────────────────
+   CATALOGUE / LLR page furniture
+   ───────────────────────────────────────────────────────────────────── */
+
+.catalogue-head {
+  display: grid;
+  grid-template-columns: minmax(0, 1.25fr) minmax(0, 0.75fr);
+  gap: 56px;
+  align-items: start;
+  padding-block: 8px 0;
+}
+@media (max-width: 1000px) { .catalogue-head { grid-template-columns: minmax(0, 1fr); gap: 32px; } }
+
+.catalogue-facts {
+  margin: 0;
+  display: flex; flex-direction: column; gap: 14px;
+  border-top: 1px solid var(--color-divider);
+  padding-top: 20px;
+}
+.catalogue-facts > div { display: grid; grid-template-columns: 116px minmax(0, 1fr); gap: 14px; }
+@media (max-width: 520px) { .catalogue-facts > div { grid-template-columns: minmax(0, 1fr); gap: 3px; } }
+.catalogue-facts dt {
+  font-size: var(--t-micro);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--color-neutral-600);
+}
+.catalogue-facts dd { margin: 0; font-size: calc(var(--t-base) + 2px*var(--tf,1)); line-height: 1.6; }
+
+/* An honest placeholder: it says what it is rather than pretending to be a
+   photograph, so nobody ships it by accident thinking the art has landed. */
+.plate-placeholder {
+  aspect-ratio: 4 / 3;
+  display: grid;
+  place-items: center;
+  border: 1px dashed var(--color-neutral-400);
+  border-radius: var(--radius-md);
+  background:
+    repeating-linear-gradient(
+      -45deg,
+      var(--color-surface) 0 10px,
+      var(--color-panel) 10px 20px
+    );
+  color: var(--color-neutral-700);
+  font-size: var(--t-micro);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.catalogue-table th { white-space: nowrap; }
+.catalogue-table td { vertical-align: top; }
+.catalogue-table tbody tr:hover { background: var(--color-surface); }
+.table-scroll > .catalogue-table { min-width: 760px; }

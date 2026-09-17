@@ -1,48 +1,54 @@
 import { useEffect, useRef, useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { useAuth } from '../state/AuthContext.jsx';
 import { useBasket } from '../state/BasketContext.jsx';
+import { LLR_URL } from '../pages/LLR.jsx';
 
 const navLinkStyle = { background: 'none', border: 0, padding: '4px 0', cursor: 'pointer', font: 'inherit', color: 'inherit', borderBottom: '2px solid transparent', whiteSpace: 'nowrap', textDecoration: 'none' };
 
+// Law Reports keeps its place in the top nav but no longer resolves to a page
+// here — it leaves for the LLR platform. The Products menu carries the LLR
+// description page instead, after Books and eBooks.
 const NAV = [
-  { to: '/reports', label: 'Law Reports' },
-  { to: '/books', label: 'Catalogue' },
+  { href: LLR_URL, label: 'Law Reports', external: true },
+  { to: '/catalogue', label: 'Catalogue' },
   { to: '/insights', label: 'Insights' },
   { to: '/about', label: 'About' },
   { to: '/contact', label: 'Contact' }
 ];
 
+const PRODUCTS = [
+  { to: '/books', label: 'Books' },
+  { to: '/ebooks', label: 'eBooks' },
+  { to: '/llr', label: 'LLR' }
+];
+
+function NavItem({ item, style, onClick }) {
+  if (item.external) {
+    return (
+      <a href={item.href} target="_blank" rel="noopener noreferrer" style={style} onClick={onClick}>
+        {item.label}
+        <span aria-hidden="true" style={{ marginInlineStart: 5, fontSize: '0.8em' }}>&#8599;</span>
+      </a>
+    );
+  }
+  return <Link to={item.to} style={style} onClick={onClick}>{item.label}</Link>;
+}
+
 export function TopBar({ chromeTop }) {
-  const { user, signedIn, signedOut, signOut } = useAuth();
   return (
     <div style={{ position: 'relative', zIndex: 20, color: 'var(--color-neutral-200)', fontSize: 'calc(var(--t-base) + 1px*var(--tf,1))', letterSpacing: 0, background: chromeTop }}>
       <div className="wrap" style={{ paddingBlock: 7, display: 'flex', alignItems: 'center', gap: 22, flexWrap: 'wrap', rowGap: 4 }}>
         <a href="tel:+254202495067" className="tap-row" style={{ display: 'flex', alignItems: 'center', gap: 7, color: 'inherit', textDecoration: 'none' }}><span style={{ color: 'var(--gold-400)' }}>✆</span>+254 20 249 5067</a>
         <a href="mailto:info@lawafrica.com" className="tap-row" style={{ display: 'flex', alignItems: 'center', gap: 7, color: 'inherit', textDecoration: 'none' }}><span style={{ color: 'var(--gold-400)' }}>✉</span>info@lawafrica.com</a>
-        {/* Everything from here is desktop-only: on a phone the strip keeps the
-            two things worth tapping and the account links move into the drawer. */}
+        {/* Desktop-only: the strip keeps the two things worth tapping on a
+            phone and the rest is the institutional line. */}
         <span className="at-wide" style={{ width: 1, height: 12, background: 'rgba(255,255,255,.22)' }} />
-        <span className="at-wide" style={{ color: 'var(--color-neutral-300)' }}>Verified contact details · last checked 28 Aug 2026</span>
+        <span className="at-wide" style={{ color: 'var(--color-neutral-300)' }}>Verified contact details &middot; last checked 28 Aug 2026</span>
         <span className="at-wide" style={{ marginLeft: 'auto', alignItems: 'center', gap: 18 }}>
           <Link to="/contact" style={{ color: 'var(--color-neutral-200)', textDecoration: 'none' }}>Institutional sales</Link>
-          {signedOut && (
-            <>
-              <Link to="/signin" style={{ background: 'none', border: 0, padding: 0, cursor: 'pointer', font: 'inherit', color: 'var(--color-neutral-200)', textDecoration: 'none' }}>Sign in</Link>
-              <Link to="/signup" style={{ background: 'none', border: 0, padding: 0, cursor: 'pointer', font: 'inherit', color: 'var(--gold-400)', textDecoration: 'none' }}>Create an account</Link>
-            </>
-          )}
-          {signedIn && (
-            <span style={{ display: 'flex', alignItems: 'center', gap: 9 }}>
-              <span style={{ display: 'flex', alignItems: 'center', gap: 9 }}>
-                <span style={{ width: 20, height: 20, borderRadius: '50%', border: '1px solid var(--gold-400)', color: 'var(--gold-400)', display: 'grid', placeItems: 'center', fontFamily: 'var(--font-heading)', fontSize: 'var(--t-base)' }}>{user.name.slice(0, 1)}</span>
-                <span style={{ color: '#fff' }}>{user.name}</span>
-                <span className="tag tag-outline" style={{ fontSize: 'var(--t-base)', padding: '1px 7px', borderColor: 'rgba(212,158,102,.6)', color: 'var(--gold-400)' }}>{user.plan}</span>
-              </span>
-              <Link to="#" style={{ color: 'var(--color-neutral-200)', textDecoration: 'none' }}>My library</Link>
-              <button onClick={signOut} style={{ background: 'none', border: 0, padding: 0, cursor: 'pointer', font: 'inherit', color: 'var(--color-neutral-300)' }}>Sign out</button>
-            </span>
-          )}
+          <a href={LLR_URL} target="_blank" rel="noopener noreferrer" style={{ color: 'var(--gold-400)', textDecoration: 'none' }}>
+            Law Reports <span aria-hidden="true">&#8599;</span>
+          </a>
         </span>
       </div>
     </div>
@@ -68,11 +74,11 @@ function ProductsMenu() {
         <span style={{ fontSize: 'var(--t-base)', transform: open ? 'rotate(180deg)' : 'none', transition: 'transform .15s ease' }}>▾</span>
       </button>
       {open && (
-        <div style={{ position: 'absolute', top: '100%', left: 0, marginTop: 12, background: 'var(--color-bg)', color: 'var(--color-text)', border: '1px solid var(--color-divider)', borderRadius: 4, boxShadow: '0 8px 24px rgba(20,24,46,.16)', minWidth: 180, padding: 6, zIndex: 40 }}>
-          <Link to="/books" onClick={() => setOpen(false)}
-            style={{ display: 'block', padding: '9px 12px', borderRadius: 4, textDecoration: 'none', color: 'var(--color-text)', fontSize: 'calc(var(--t-base) + 4px*var(--tf,1))' }}>Books</Link>
-          <Link to="/ebooks" onClick={() => setOpen(false)}
-            style={{ display: 'block', padding: '9px 12px', borderRadius: 4, textDecoration: 'none', color: 'var(--color-text)', fontSize: 'calc(var(--t-base) + 4px*var(--tf,1))' }}>eBooks</Link>
+        <div style={{ position: 'absolute', top: '100%', left: 0, marginTop: 12, background: 'var(--color-bg)', color: 'var(--color-text)', border: '1px solid var(--color-divider)', borderRadius: 4, boxShadow: '0 8px 24px rgba(20,24,46,.16)', minWidth: 190, padding: 6, zIndex: 40 }}>
+          {PRODUCTS.map(pr => (
+            <Link key={pr.to} to={pr.to} onClick={() => setOpen(false)}
+              style={{ display: 'block', padding: '9px 12px', borderRadius: 4, textDecoration: 'none', color: 'var(--color-text)', fontSize: 'calc(var(--t-base) + 4px*var(--tf,1))' }}>{pr.label}</Link>
+          ))}
         </div>
       )}
     </div>
@@ -80,7 +86,6 @@ function ProductsMenu() {
 }
 
 function Drawer({ onClose }) {
-  const { user, signedIn, signedOut, signOut } = useAuth();
   const closeRef = useRef(null);
 
   // Escape closes, focus lands on the close button, and the page behind is
@@ -107,27 +112,14 @@ function Drawer({ onClose }) {
             style={{ border: 0, padding: 0, minHeight: 44, width: 44, display: 'grid', placeItems: 'center', fontSize: 'calc(var(--t-base) + 10px*var(--tf,1))', fontFamily: 'var(--font-body)' }}>×</button>
         </div>
 
-        <Link to="/books" onClick={onClose}>Books</Link>
-        <Link to="/ebooks" onClick={onClose} className="drawer-sub">eBooks</Link>
-        {NAV.map(n => <Link key={n.to} to={n.to} onClick={onClose}>{n.label}</Link>)}
+        <div className="drawer-head"><span>Products</span></div>
+        {PRODUCTS.map(pr => <Link key={pr.to} to={pr.to} onClick={onClose}>{pr.label}</Link>)}
 
-        <div className="drawer-head" style={{ marginTop: 8 }}><span>Account</span></div>
-        {signedOut && (
-          <>
-            <Link to="/signin" onClick={onClose}>Sign in</Link>
-            <Link to="/signup" onClick={onClose} style={{ color: 'var(--color-accent)' }}>Create an account</Link>
-          </>
-        )}
-        {signedIn && (
-          <>
-            <span style={{ padding: '14px 22px', borderBottom: '1px solid var(--color-divider)', display: 'flex', alignItems: 'center', gap: 9, fontSize: 'calc(var(--t-base) + 2px*var(--tf,1))' }}>
-              <span style={{ width: 24, height: 24, borderRadius: '50%', border: '1px solid var(--color-accent)', color: 'var(--color-accent)', display: 'grid', placeItems: 'center', fontFamily: 'var(--font-heading)' }}>{user.name.slice(0, 1)}</span>
-              {user.name} · {user.plan}
-            </span>
-            <Link to="#" onClick={onClose}>My library</Link>
-            <button type="button" onClick={() => { signOut(); onClose(); }}>Sign out</button>
-          </>
-        )}
+        <div className="drawer-head" style={{ marginTop: 8 }}><span>Site</span></div>
+        {NAV.map(n => (
+          <NavItem key={n.label} item={n} onClick={onClose} />
+        ))}
+
         <Link to="/contact" onClick={onClose}>Institutional sales</Link>
       </nav>
     </>
@@ -159,7 +151,7 @@ export default function Header({ hidden, chromeHdr, chromeFg, chromeBd, chromeBt
 
         <nav className="at-wide" style={{ alignItems: 'center', gap: 18, fontFamily: 'var(--font-heading)', fontSize: 'calc(var(--t-base) + 6px*var(--tf,1))' }}>
           <ProductsMenu />
-          {NAV.map(n => <Link key={n.to} to={n.to} style={navLinkStyle}>{n.label}</Link>)}
+          {NAV.map(n => <NavItem key={n.label} item={n} style={navLinkStyle} />)}
         </nav>
 
         <div className="at-wide" style={{ marginLeft: 'auto', alignItems: 'center', gap: 10 }}>

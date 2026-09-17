@@ -1,6 +1,23 @@
-# lawafrica-web
+# lawafrica-web — `init`
 
-A Vite + React implementation of the LawAfrica website redesign.
+A Vite + React implementation of the LawAfrica website.
+
+> **This is the `init` branch: the initial deployment that goes live.** It is a
+> reduced cut of the full redesign on `redesign`. What is different here:
+>
+> - **No sign-in.** The whole auth surface is gone — `/signin`, `/signup`, the
+>   account strip, `AuthContext`. Old URLs redirect to `/`.
+> - **Law Reports is not a page here.** LLR runs on its own platform. The
+>   top-level nav item goes straight out to `llr.lawafrica.com`; `/llr` is a
+>   description page inside Products that hands over to it. The in-site judgment
+>   search and case reader are gone, and `/reports*` redirects to `/llr`.
+> - **Products is Books, eBooks, LLR** — in that order.
+> - **Catalogue is its own page**, not the books listing. It describes the
+>   printed 2026 catalogue (53pp), lists its titles, and carries the ordering
+>   and trade terms. Cover photography is placeheld and the downloadable PDF is
+>   deliberately not linked yet.
+> - **A title is Print *or* Digital**, never both, so `/books` and `/ebooks` are
+>   a clean partition of the list rather than two views of it.
 
 ```bash
 npm install
@@ -23,8 +40,8 @@ No backend. Auth and the basket are client state; case gating, sign-in and check
 src/
   styles/tokens.css     every colour, type step, spacing and radius
   styles/components.css base type, .btn .card .tag .plate .table .field
-  state/                Auth, Basket, Hero, Type, Overlay, Background contexts
-  data/                 books, cases, plans, articles, events, publishing
+  state/                Basket, Hero, Type, Overlay, Background contexts
+  data/                 books, cases, articles, events, publishing, catalogue
                         (plain modules)
   components/           Header, Footer, Layout, HeroBand, PageHeroBand,
                         BookCard, BookTile, BookCover, Plate, FloatingControls,
@@ -41,16 +58,19 @@ src/
 | `/books` | Print catalogue with jurisdiction/practice-area/audience filters, search, sort |
 | `/ebooks` | Digital catalogue — its own section, same component with `digital`. `/books?format=ebook` still resolves here |
 | `/books/:code` | Title page — format switch, specification table, related titles |
-| `/reports` | Judgment search, gated headnotes, subscription plans |
-| `/reports/:caseId` | Three-column case reader (redirects to sign-in when signed out) |
+| `/llr` | What LawAfrica Law Reports is, and the handover to `llr.lawafrica.com` |
+| `/catalogue` | The printed 2026 catalogue described — titles, ordering and trade terms |
 | `/practice` | Audience landing — practitioners and students |
 | `/insights` | Newsroom — lead pieces, diary, filtered feed |
 | `/insights/article/:id` | Article |
 | `/insights/event/:id` | Event with programme |
-| `/basket`, `/signin`, `/signup` | Commerce and account |
+| `/basket` | Basket |
 | `/about`, `/contact`, `/publish`, `/institutions`, `/careers` | Company |
 
-Anything unmatched renders `<Home />` via the `*` route — there is no 404 page.
+`/reports`, `/reports/*`, `/signin` and `/signup` are kept as redirects — they
+existed in the previous build and may be bookmarked or indexed, so they resolve
+rather than quietly rendering the home page under an old address. Anything else
+unmatched renders `<Home />` via the `*` route — there is no 404 page.
 
 ## Design system
 
