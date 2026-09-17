@@ -425,35 +425,33 @@ textarea.input { min-height: 90px; resize: vertical; }
   flex: 0 0 calc((100% - (var(--cols) - 1) * var(--card-gap)) / var(--cols));
   min-height: 560px;
   display: flex; flex-direction: column; gap: 12px;
-  background: var(--color-bg);
-  color: var(--color-text);
-  /* on a white band a white card has no edge of its own */
-  border: 1px solid var(--color-divider);
+  /* every card carries the maroon, not just the one under the cursor */
+  background: var(--ground-brand);
+  color: var(--on-brand-body);
+  border: 1px solid var(--ground-brand);
   border-radius: var(--radius-lg);
   padding: 20px;
-  transition: background .3s ease, color .3s ease, border-color .3s ease;
+  text-decoration: none;
+  transition: background .25s ease, border-color .25s ease, transform .25s ease;
 }
+/* the whole card is the target, so the whole card answers to hover and focus */
+.carousel-card:hover,
+.carousel-card:focus-visible {
+  background: var(--ground-brand-deep);
+  border-color: var(--ground-brand-deep);
+}
+.carousel-card:focus-visible { outline: 2px solid var(--color-accent); outline-offset: 3px; }
 
-/* The current card takes the mid burgundy. On a white band it is the only
-   dark plane in the section, which is what makes the highlight read. */
-.carousel-card.is-current {
-  background: var(--ground-brand);
-  border-color: var(--ground-brand);
-  color: var(--on-brand-body);
-}
+
 
 .carousel-chip {
   align-self: flex-start;
-  border: 1px solid var(--color-divider);
+  border: 1px solid var(--color-accent-300);
   border-radius: var(--radius-sm);
   padding: 4px 11px;
   font-size: var(--t-micro);
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: var(--color-neutral-700);
-}
-.carousel-card.is-current .carousel-chip {
-  border-color: var(--color-accent-300);
   color: var(--on-brand-body);
 }
 
@@ -463,39 +461,38 @@ textarea.input { min-height: 90px; resize: vertical; }
   font-size: calc(var(--t-base) + 10px*var(--tf,1)*var(--tz,1));
   line-height: 1.15;
   margin: 0;
+  color: #ffffff;
 }
-.carousel-card.is-current h3 { color: #ffffff; }
 
-.carousel-plate { aspect-ratio: 1 / 1; }
-.carousel-card.is-current .carousel-plate { border-color: var(--ground-brand-deep); outline-color: var(--ground-brand-deep); }
+.carousel-plate { aspect-ratio: 1 / 1; display: block; }
+/* the mat matches the card, so the photograph sits in the maroon not on it */
+.carousel-card .carousel-plate { border-color: var(--ground-brand-deep); outline-color: var(--ground-brand-deep); }
 
 .carousel-card p {
   font-size: calc(var(--t-base) + 1px*var(--tf,1));
   line-height: 1.6;
-  color: var(--color-neutral-700);
+  color: var(--on-brand-body);
   flex: 1;
   margin: 0;
 }
-.carousel-card.is-current p { color: var(--color-neutral-200); }
 
-.carousel-card a {
+/* not a link any more — the card is. This is the affordance for it. */
+.carousel-cta {
   display: flex; align-items: center; justify-content: space-between; gap: 12px;
   min-height: 44px;
-  text-decoration: none;
   font-family: var(--font-heading);
   font-size: calc(var(--t-base) + 2px*var(--tf,1));
-  color: var(--color-accent-700);
+  color: #ffffff;
 }
-.carousel-card.is-current a { color: #ffffff; }
-.carousel-card a .carousel-arrow {
+.carousel-cta .carousel-arrow {
   width: 38px; height: 38px; flex: none;
   display: grid; place-items: center;
   border-radius: 50%;
   border: 1px solid currentColor;
   transition: background .2s ease, color .2s ease;
 }
-.carousel-card a:hover .carousel-arrow { background: var(--color-accent); color: var(--color-bg); border-color: var(--color-accent); }
-.carousel-card.is-current a:hover .carousel-arrow { background: #ffffff; color: var(--ground-brand); border-color: #ffffff; }
+.carousel-card:hover .carousel-arrow,
+.carousel-card:focus-visible .carousel-arrow { background: #ffffff; color: var(--ground-brand); border-color: #ffffff; }
 
 .carousel-dots { display: flex; gap: 8px; margin-top: 22px; }
 .carousel-dots button {

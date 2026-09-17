@@ -19,7 +19,7 @@ const NAV = [
 const PRODUCTS = [
   { to: '/books', label: 'Books', note: 'Print titles across six jurisdictions' },
   { to: '/ebooks', label: 'eBooks', note: 'The digital list, read on any device' },
-  { to: '/llr', label: 'LLR', note: 'Reported judgments, on the LLR platform' }
+  { to: '/llr', label: 'Law Reports', note: 'Reported judgments, on the LLR platform' }
 ];
 
 function NavItem({ item, style, onClick }) {

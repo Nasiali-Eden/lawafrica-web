@@ -1,4 +1,7 @@
-// The publishing lines, as carousel cards. Shape mirrors what CardCarousel
+// The publishing lines, as carousel cards. Every card lands on one of the
+// three product destinations — Books, eBooks or Law Reports — because the
+// whole card is the link now, and a card that reads as one thing should not
+// take you somewhere else. Shape mirrors what CardCarousel
 // renders: a category chip, a title, a plate photograph, a short body and a
 // destination. Ordered the way an enquiry usually arrives — primary law first,
 // then commentary, then the formats and services around them.
@@ -18,8 +21,8 @@ export const publishingLines = [
     title: 'Law Reports',
     body: 'Reported judgments from Kenya, Uganda, Tanzania, Zanzibar and South Sudan, with landmark decisions of the COMESA Court — headnoted, catchworded and cross-cited by our own editors.',
     img: '/assets/plate-wide.jpg',
-    to: '/reports',
-    cta: 'Search judgments'
+    to: '/llr',
+    cta: 'Go to Law Reports'
   },
   {
     id: 'commentaries',
@@ -36,8 +39,8 @@ export const publishingLines = [
     title: 'Journals & digests',
     body: 'The LSK Continuing Professional Development Digest, the Rwanda Law Journal and regional periodicals published with law societies and universities.',
     img: '/assets/plate-article.jpg',
-    to: '/insights',
-    cta: 'Read the latest'
+    to: '/books',
+    cta: 'Browse the titles'
   },
   {
     id: 'digital',
@@ -54,7 +57,7 @@ export const publishingLines = [
     title: 'Institutional publishing',
     body: 'Custom and commissioned publishing for firms, courts, ministries and libraries — standing orders, invoicing on account and named editorial contacts.',
     img: '/assets/plate-event.jpg',
-    to: '/institutions',
-    cta: 'Talk to us'
+    to: '/books',
+    cta: 'Browse the catalogue'
   }
 ];

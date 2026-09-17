@@ -13,7 +13,6 @@ const INTERVAL = 5000;
 
 export default function CardCarousel({ eyebrow, titleTop, titleBottom, intro, items }) {
   const trackRef = useRef(null);
-  const [index, setIndex] = useState(0);
   const [paused, setPaused] = useState(false);
   const [progress, setProgress] = useState(0);
 
@@ -65,20 +64,10 @@ export default function CardCarousel({ eyebrow, titleTop, titleBottom, intro, it
     return () => clearInterval(id);
   }, [paused, go]);
 
-  // Keep the highlighted card honest when the track is swiped or dragged
-  // rather than advanced by the buttons.
+  // Track how far along the row we are, for the progress rail.
   const onScroll = () => {
     const track = trackRef.current;
     if (!track) return;
-    const pad = parseFloat(getComputedStyle(track).paddingInlineStart) || 0;
-    const left = track.getBoundingClientRect().left + pad;
-    let nearest = 0;
-    let best = Infinity;
-    for (let i = 0; i < track.children.length; i++) {
-      const d = Math.abs(track.children[i].getBoundingClientRect().left - left);
-      if (d < best) { best = d; nearest = i; }
-    }
-    setIndex(nearest);
     const max = track.scrollWidth - track.clientWidth;
     setProgress(max > 0 ? track.scrollLeft / max : 0);
   };
@@ -113,19 +102,22 @@ export default function CardCarousel({ eyebrow, titleTop, titleBottom, intro, it
           headline above it and shows a whole number of cards. */}
       <div className="wrap">
       <div className="carousel-track" ref={trackRef} onScroll={onScroll}>
-        {items.map((it, i) => (
-          <article key={it.id} className={'carousel-card' + (i === index ? ' is-current' : '')}>
+        {/* The whole card is the link: a card that reads as one thing should be
+            one target, not a block of text with a small link at the foot. The
+            call to action below is therefore a span, not a nested anchor. */}
+        {items.map(it => (
+          <Link key={it.id} to={it.to} className="carousel-card">
             <span className="carousel-chip">{it.chip}</span>
             <h3>{it.title}</h3>
-            <div className="plate carousel-plate">
+            <span className="plate carousel-plate">
               <img src={it.img} alt="" loading="lazy" />
-            </div>
+            </span>
             <p>{it.body}</p>
-            <Link to={it.to} aria-label={it.cta}>
+            <span className="carousel-cta">
               <span>{it.cta}</span>
               <span className="carousel-arrow" aria-hidden="true">↗</span>
-            </Link>
-          </article>
+            </span>
+          </Link>
         ))}
       </div>
       </div>
