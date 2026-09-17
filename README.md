@@ -28,6 +28,13 @@ npm run preview
 
 No backend. Auth and the basket are client state; case gating, sign-in and checkout are prototype behaviour.
 
+## Connecting it to the live site
+
+The live site (www.lawafrica.com) is Botble CMS on Laravel, and its eCommerce
+API is public. What it can and cannot supply — and what that means for books,
+articles, events and insights — is written up in
+[docs/INTEGRATION.md](docs/INTEGRATION.md).
+
 ## Stack
 
 - Vite 5 + React 18
