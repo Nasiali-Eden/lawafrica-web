@@ -34,7 +34,7 @@ export default function Audience() {
           ))}
         </div>
         <div style={{ display: 'flex', alignItems: 'baseline', gap: 14, marginBottom: 22 }}>
-          <h2 style={{ fontSize: 'calc(var(--t-base) + 16px*var(--tf,1)*var(--tz,1))', fontWeight: 400, margin: 0 }}>{aud.listTitle}</h2>
+          <h2 className="section-title" style={{ margin: 0 }}>{aud.listTitle}</h2>
           <span style={{ flex: 1, height: 1, background: 'var(--color-divider)' }} />
           <Link className="btn btn-ghost" to="/books">See all →</Link>
         </div>

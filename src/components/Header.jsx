@@ -17,9 +17,9 @@ const NAV = [
 ];
 
 const PRODUCTS = [
-  { to: '/books', label: 'Books' },
-  { to: '/ebooks', label: 'eBooks' },
-  { to: '/llr', label: 'LLR' }
+  { to: '/books', label: 'Books', note: 'Print titles across six jurisdictions' },
+  { to: '/ebooks', label: 'eBooks', note: 'The digital list, read on any device' },
+  { to: '/llr', label: 'LLR', note: 'Reported judgments, on the LLR platform' }
 ];
 
 function NavItem({ item, style, onClick }) {
@@ -62,22 +62,33 @@ function ProductsMenu() {
   useEffect(() => {
     if (!open) return;
     const onDoc = e => { if (ref.current && !ref.current.contains(e.target)) setOpen(false); };
+    const onKey = e => { if (e.key === 'Escape') setOpen(false); };
     document.addEventListener('mousedown', onDoc);
-    return () => document.removeEventListener('mousedown', onDoc);
+    document.addEventListener('keydown', onKey);
+    return () => {
+      document.removeEventListener('mousedown', onDoc);
+      document.removeEventListener('keydown', onKey);
+    };
   }, [open]);
 
   return (
     <div ref={ref} style={{ position: 'relative' }}>
       <button type="button" onClick={() => setOpen(o => !o)}
+        aria-expanded={open} aria-haspopup="menu"
         style={{ ...navLinkStyle, display: 'flex', alignItems: 'center', gap: 5 }}>
         Products
         <span style={{ fontSize: 'var(--t-base)', transform: open ? 'rotate(180deg)' : 'none', transition: 'transform .15s ease' }}>▾</span>
       </button>
       {open && (
-        <div style={{ position: 'absolute', top: '100%', left: 0, marginTop: 12, background: 'var(--color-bg)', color: 'var(--color-text)', border: '1px solid var(--color-divider)', borderRadius: 4, boxShadow: '0 8px 24px rgba(20,24,46,.16)', minWidth: 190, padding: 6, zIndex: 40 }}>
+        <div className="products-menu" role="menu">
           {PRODUCTS.map(pr => (
-            <Link key={pr.to} to={pr.to} onClick={() => setOpen(false)}
-              style={{ display: 'block', padding: '9px 12px', borderRadius: 4, textDecoration: 'none', color: 'var(--color-text)', fontSize: 'calc(var(--t-base) + 4px*var(--tf,1))' }}>{pr.label}</Link>
+            <Link key={pr.to} to={pr.to} role="menuitem" onClick={() => setOpen(false)}>
+              <span className="products-menu-label">
+                {pr.label}
+                <span aria-hidden="true">&#8594;</span>
+              </span>
+              <span className="products-menu-note">{pr.note}</span>
+            </Link>
           ))}
         </div>
       )}

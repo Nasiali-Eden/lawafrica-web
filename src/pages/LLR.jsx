@@ -70,7 +70,7 @@ export default function LLR() {
       </section>
 
       <section className="wrap" style={{ paddingBlock: '52px 0' }}>
-        <h2 style={{ fontSize: 'calc(var(--t-base) + 16px*var(--tf,1)*var(--tz,1))', fontWeight: 400, margin: '0 0 22px' }}>What it covers</h2>
+        <h2 className="section-title" style={{ margin: '0 0 22px' }}>What it covers</h2>
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(min(100%,240px),1fr))', gap: 20 }}>
           {COVERAGE.map(c => (
             <div className="card" key={c.t} style={{ padding: 20 }}>

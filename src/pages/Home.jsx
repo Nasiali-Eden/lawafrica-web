@@ -3,11 +3,11 @@ import { LLR_URL } from './LLR.jsx';
 import { useHero } from '../state/HeroContext.jsx';
 import BookTile from '../components/BookTile.jsx';
 import CardCarousel from '../components/CardCarousel.jsx';
+import ContactRoutes from '../components/ContactRoutes.jsx';
 import Plate from '../components/Plate.jsx';
 import { featured, jurisdictions, areas } from '../data/books.js';
 import { proof } from '../data/home.js';
 import { publishingLines } from '../data/publishing.js';
-import { contacts } from '../data/footer.js';
 import { allArticles } from '../data/articles.js';
 
 const articles = allArticles.slice(0, 3);
@@ -115,11 +115,23 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 02 · Browse legal books */}
+      {/* 02 · What we publish — the one section on Home that is neither a grid
+           nor a two-column block, so the page changes gait here. The eBook
+           message the old two-column block carried lives on as the "Digital"
+           card rather than being dropped. */}
+      <CardCarousel
+        eyebrow="What we publish"
+        titleTop="Trusted"
+        titleBottom="Authority"
+        intro="Twenty-five years of primary law, commentary and reporting for six African jurisdictions — in print, in loose-leaf and online."
+        items={publishingLines}
+      />
+
+      {/* 03 · Browse legal books */}
       <section style={{ maxWidth: 1180, margin: '0 auto', padding: '60px 24px 10px' }}>
         <div style={{ display: 'flex', alignItems: 'baseline', gap: 14, marginBottom: 8 }}>
-          <SectionNum n="02" />
-          <h2 style={{ fontSize: 'calc(var(--t-base) + 16px*var(--tf,1)*var(--tz,1))', fontWeight: 400, margin: 0 }}>Browse legal books</h2>
+          <SectionNum n="03" />
+          <h2 className="section-title" style={{ margin: 0 }}>Browse legal books</h2>
           <span style={{ flex: 1, height: 1, background: 'var(--color-divider)' }} />
           <Link className="btn btn-ghost" to="/books">All 480 titles →</Link>
         </div>
@@ -148,18 +160,6 @@ export default function Home() {
           </div>
         </div>
       </section>
-
-      {/* 03 · What we publish — the one section on Home that is neither a grid
-           nor a two-column block, so the page changes gait here. The eBook
-           message the old two-column block carried lives on as the "Digital"
-           card rather than being dropped. */}
-      <CardCarousel
-        eyebrow="What we publish"
-        titleTop="Trusted"
-        titleBottom="Authority"
-        intro="Twenty-five years of primary law, commentary and reporting for six African jurisdictions — in print, in loose-leaf and online."
-        items={publishingLines}
-      />
 
       {/* 04 · Why LawAfrica — a figure ledger. The four proofs used to sit in a
            tinted strip that the white ground swallowed; they are now set as
@@ -201,7 +201,7 @@ export default function Home() {
       <section style={{ maxWidth: 1180, margin: '0 auto', padding: '56px 24px' }}>
         <div style={{ display: 'flex', alignItems: 'baseline', gap: 14, marginBottom: 26 }}>
           <SectionNum n="05" />
-          <h2 style={{ fontSize: 'calc(var(--t-base) + 16px*var(--tf,1)*var(--tz,1))', fontWeight: 400, margin: 0 }}>Legal insights</h2>
+          <h2 className="section-title" style={{ margin: 0 }}>Legal insights</h2>
           <span style={{ flex: 1, height: 1, background: 'var(--color-divider)' }} />
           <Link className="btn btn-ghost" to="/insights">All insights →</Link>
         </div>
@@ -261,21 +261,7 @@ export default function Home() {
             <Link className="btn btn-primary" to="/contact" style={{ alignSelf: 'flex-start', textDecoration: 'none' }}>Go to the contact page</Link>
           </div>
 
-          <div className="contact-routes">
-            {contacts.map(c => (
-              <div key={c.email} className="contact-route">
-                <span className="route-kicker">{c.kicker}</span>
-                <div>
-                  <h3>{c.title}</h3>
-                  <p>{c.body}</p>
-                  <div className="route-links">
-                    <a href={`mailto:${c.email}`}>{c.email}</a>
-                    <a href={`tel:${c.phone.replace(/\s/g, '')}`}>{c.phone}</a>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
+          <ContactRoutes />
         </div>
       </section>
     </div>

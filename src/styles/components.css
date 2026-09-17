@@ -588,49 +588,6 @@ textarea.input { min-height: 90px; resize: vertical; }
   line-height: 1.6;
 }
 
-/* Each route gets a full row, a rule above it and room to breathe — the
-   thing that actually makes this section tall. */
-.contact-routes { display: flex; flex-direction: column; }
-.contact-route {
-  display: grid;
-  grid-template-columns: 132px minmax(0, 1fr);
-  gap: 24px;
-  padding-block: 28px;
-  border-top: 1px solid var(--color-divider);
-}
-.contact-route:first-child { border-top: 0; padding-top: 4px; }
-@media (max-width: 620px) {
-  .contact-route { grid-template-columns: minmax(0, 1fr); gap: 10px; }
-}
-
-.route-kicker {
-  font-size: var(--t-micro);
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  color: var(--color-accent-700);
-  padding-top: 5px;
-}
-.contact-route h3 {
-  font-family: var(--font-heading);
-  font-weight: var(--font-heading-weight);
-  font-size: calc(var(--t-base) + 10px*var(--tf,1)*var(--tz,1));
-  line-height: 1.2;
-  margin: 0 0 8px;
-}
-.contact-route p {
-  font-size: calc(var(--t-base) + 2px*var(--tf,1));
-  line-height: 1.65;
-  color: var(--color-neutral-700);
-  margin: 0 0 14px;
-  max-width: 52ch;
-}
-.route-links { display: flex; flex-wrap: wrap; gap: 10px 28px; }
-.route-links a {
-  font-size: calc(var(--t-base) + 2px*var(--tf,1));
-  min-height: 44px;
-  display: inline-flex;
-  align-items: center;
-}
 
 /* ─────────────────────────────────────────────────────────────────────
    CATALOGUE / LLR page furniture
@@ -877,3 +834,158 @@ textarea.input { min-height: 90px; resize: vertical; }
   margin-top: 14px;
 }
 @media (max-width: 560px) { .feedback-send { grid-template-columns: minmax(0, 1fr); } }
+
+/* ── contact routes, on the contact page ──────────────────────────────────
+   Four identical bordered rectangles read as a wall with no way in. These
+   open on a maroon rule with the route's number set against its kicker, and
+   close on a reach block ruled off from the description — so each card has a
+   top, a middle and a bottom instead of five stacked lines.
+   ──────────────────────────────────────────────────────────────────────── */
+
+.contact-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr));
+  gap: 20px;
+  margin-bottom: 34px;
+}
+
+.contact-card {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--color-divider);
+  border-top: 2px solid var(--color-accent);
+  border-radius: 0 0 var(--radius-md) var(--radius-md);
+  padding: 18px 20px 0;
+  transition: border-color .2s ease, box-shadow .2s ease;
+}
+.contact-card:hover {
+  border-color: var(--color-accent-300);
+  border-top-color: var(--color-accent);
+  box-shadow: var(--shadow-sm);
+}
+
+.contact-card-top {
+  display: flex; align-items: baseline; justify-content: space-between; gap: 12px;
+  margin-bottom: 10px;
+}
+.contact-card-kicker {
+  font-size: var(--t-micro);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--color-accent-700);
+}
+/* the index, in the feature face — the same numbering language the home
+   page sections and the proof ledger use */
+.contact-card-index {
+  font-family: var(--font-display);
+  font-size: calc(var(--t-base) + 14px*var(--tf,1));
+  line-height: 1;
+  color: var(--color-neutral-400);
+}
+
+.contact-card h3 {
+  font-family: var(--font-heading);
+  font-weight: var(--font-heading-weight);
+  font-size: calc(var(--t-base) + 8px*var(--tf,1));
+  line-height: 1.2;
+  margin: 0 0 8px;
+}
+.contact-card p {
+  font-size: calc(var(--t-base) + 2px*var(--tf,1));
+  line-height: 1.6;
+  color: var(--color-neutral-700);
+  margin: 0 0 18px;
+  flex: 1;
+}
+
+/* the reach block: ruled off, and pushed to the foot so the cards line up
+   along the bottom however long the descriptions run */
+.contact-card-reach {
+  display: flex; flex-direction: column; gap: 2px;
+  border-top: 1px solid var(--color-divider);
+  margin-inline: -20px;
+  padding: 12px 20px 14px;
+}
+.contact-card-reach a,
+.contact-card-reach span {
+  font-size: calc(var(--t-base) + 2px*var(--tf,1));
+  min-height: 32px;
+  display: inline-flex;
+  align-items: center;
+}
+.contact-card-reach span { color: var(--color-neutral-700); }
+@media (max-width: 1000px) { .contact-card-reach a { min-height: 44px; } }
+
+/* ── the Products menu ────────────────────────────────────────────────────
+   Three bare words in a white box told you nothing about the difference
+   between Books, eBooks and LLR — which matters here, because one of the
+   three leaves for another platform. Each row now carries a line of
+   explanation, and the panel takes the maroon top rule the contact cards
+   and the section bands use.
+   ──────────────────────────────────────────────────────────────────────── */
+
+.products-menu {
+  position: absolute; top: 100%; left: 0; margin-top: 12px; z-index: 40;
+  min-width: 306px;
+  background: var(--color-bg);
+  color: var(--color-text);
+  border: 1px solid var(--color-divider);
+  border-top: 2px solid var(--color-accent);
+  border-radius: 0 0 var(--radius-md) var(--radius-md);
+  box-shadow: var(--shadow-lg);
+  overflow: hidden;
+  animation: la-fade 0.16s ease both;
+}
+.products-menu a {
+  display: block;
+  padding: 13px 18px;
+  text-decoration: none;
+  color: var(--color-text);
+  border-bottom: 1px solid var(--color-divider);
+  transition: background .15s ease;
+}
+.products-menu a:last-child { border-bottom: 0; }
+.products-menu a:hover { background: var(--color-accent-100); }
+
+.products-menu-label {
+  display: flex; align-items: baseline; justify-content: space-between; gap: 14px;
+  font-family: var(--font-heading);
+  font-weight: var(--font-heading-weight);
+  font-size: calc(var(--t-base) + 6px*var(--tf,1));
+  line-height: 1.2;
+}
+/* the arrow only shows on approach, so the resting state stays quiet */
+.products-menu-label > span {
+  color: var(--color-accent);
+  opacity: 0;
+  transform: translateX(-4px);
+  transition: opacity .15s ease, transform .15s ease;
+}
+.products-menu a:hover .products-menu-label > span,
+.products-menu a:focus-visible .products-menu-label > span { opacity: 1; transform: none; }
+
+.products-menu-note {
+  display: block;
+  margin-top: 3px;
+  font-size: calc(var(--t-base) + 1px*var(--tf,1));
+  line-height: 1.5;
+  color: var(--color-neutral-700);
+}
+
+/* ── section titles ───────────────────────────────────────────────────────
+   "Browse legal books", "Legal insights", "Find a title" and the like were
+   set in the pairing heading face at the h3 step, which left them quieter
+   than the copy beneath them. They now take the feature face, the same one
+   the two-line headlines use, at a step below it — so they read as titles
+   rather than labels, and the feature headlines still lead.
+   ──────────────────────────────────────────────────────────────────────── */
+.section-title,
+.desk-head h2,
+.feedback-block h2,
+.catalogue-head + section h2 {
+  font-family: var(--font-display) !important;
+  font-weight: 400 !important;
+  font-size: calc(var(--t-base) + 26px*var(--tf,1)*var(--tz,1)) !important;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+}

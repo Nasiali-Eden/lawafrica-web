@@ -75,7 +75,7 @@ export default function Insights() {
       {showEvents && (
         <section style={{ marginBottom: 44 }}>
           <div style={{ display: 'flex', alignItems: 'baseline', gap: 14, marginBottom: 20 }}>
-            <h2 style={{ fontSize: 'calc(var(--t-base) + 16px*var(--tf,1)*var(--tz,1))', fontWeight: 400, margin: 0 }}>Events diary</h2>
+            <h2 className="section-title" style={{ margin: 0 }}>Events diary</h2>
             <span style={{ flex: 1, height: 1, background: 'var(--color-divider)' }} />
             <span style={{ fontSize: 'calc(var(--t-base) + 2px*var(--tf,1))', color: 'var(--color-neutral-600)' }}>Webinars, launches, CPD workshops and academic forums</span>
           </div>
@@ -109,7 +109,7 @@ export default function Insights() {
       {showFeed && (
         <section>
           <div style={{ display: 'flex', alignItems: 'baseline', gap: 14, marginBottom: 24 }}>
-            <h2 style={{ fontSize: 'calc(var(--t-base) + 16px*var(--tf,1)*var(--tz,1))', fontWeight: 400, margin: 0 }}>Latest writing</h2>
+            <h2 className="section-title" style={{ margin: 0 }}>Latest writing</h2>
             <span style={{ flex: 1, height: 1, background: 'var(--color-divider)' }} />
           </div>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(min(100%,240px),1fr))', gap: 32 }}>

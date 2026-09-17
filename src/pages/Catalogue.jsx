@@ -60,7 +60,7 @@ export default function Catalogue() {
 
       {/* Image placeholders — real jacket and spread photography to follow */}
       <section className="wrap" style={{ paddingBlock: '52px 0' }}>
-        <h2 style={{ fontSize: 'calc(var(--t-base) + 16px*var(--tf,1)*var(--tz,1))', fontWeight: 400, margin: '0 0 6px' }}>Inside the catalogue</h2>
+        <h2 className="section-title" style={{ margin: '0 0 6px' }}>Inside the catalogue</h2>
         <p style={{ fontSize: 'calc(var(--t-base) + 2px*var(--tf,1))', color: 'var(--color-neutral-700)', margin: '0 0 22px' }}>
           Photography to be supplied.
         </p>
@@ -82,7 +82,7 @@ export default function Catalogue() {
       {/* The list */}
       <section className="wrap" style={{ paddingBlock: '52px 0' }}>
         <div style={{ display: 'flex', alignItems: 'baseline', gap: 14, flexWrap: 'wrap', marginBottom: 6 }}>
-          <h2 style={{ fontSize: 'calc(var(--t-base) + 16px*var(--tf,1)*var(--tz,1))', fontWeight: 400, margin: 0 }}>Titles in this edition</h2>
+          <h2 className="section-title" style={{ margin: 0 }}>Titles in this edition</h2>
           <span style={{ fontSize: 'calc(var(--t-base) + 2px*var(--tf,1))', color: 'var(--color-neutral-700)' }} className="tnum">
             {shown.length} of {catalogueTitles.length}
           </span>

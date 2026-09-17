@@ -20,7 +20,7 @@ export default function Basket() {
 
       {empty && (
         <div style={{ border: '1px solid var(--color-divider)', borderRadius: 4, padding: '46px 40px', textAlign: 'center', background: 'var(--color-surface)' }}>
-          <h2 style={{ fontSize: 'calc(var(--t-base) + 16px*var(--tf,1)*var(--tz,1))', fontWeight: 400, margin: '0 0 8px' }}>Nothing in the basket yet</h2>
+          <h2 className="section-title" style={{ margin: '0 0 8px' }}>Nothing in the basket yet</h2>
           <p style={{ fontSize: 'calc(var(--t-base) + 4px*var(--tf,1))', lineHeight: 1.65, color: 'var(--color-neutral-700)', maxWidth: 460, margin: '0 auto 20px' }}>Add a title from the catalogue, or ask us for a quotation if you are buying for a firm, court or library.</p>
           <div style={{ display: 'flex', gap: 10, justifyContent: 'center' }}>
             <Link className="btn" to="/books" style={{ background: 'var(--color-accent)', color: '#fff', minHeight: 44, textDecoration: 'none' }}>Browse the catalogue</Link>
