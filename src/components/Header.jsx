@@ -120,6 +120,7 @@ function Drawer({ onClose }) {
           <NavItem key={n.label} item={n} onClick={onClose} />
         ))}
 
+        <Link to="/publish" onClick={onClose} style={{ color: 'var(--color-accent)' }}>Publish with us</Link>
         <Link to="/contact" onClick={onClose}>Institutional sales</Link>
       </nav>
     </>
@@ -155,6 +156,11 @@ export default function Header({ hidden, chromeHdr, chromeFg, chromeBd, chromeBt
         </nav>
 
         <div className="at-wide" style={{ marginLeft: 'auto', alignItems: 'center', gap: 10 }}>
+          {/* Author acquisition is a business line, so it gets an action in the
+              header rather than a link buried in the footer. Outlined like its
+              neighbours because the chrome inverts over a hero — a maroon fill
+              would sink into the maroon wash up there. */}
+          <Link className="btn btn-primary" to="/publish" style={{ gap: 8, whiteSpace: 'nowrap', color: 'inherit', borderColor: chromeBtnBd, textDecoration: 'none' }}>Publish with us</Link>
           <button className="btn btn-secondary" onClick={() => navigate('/books')} style={{ gap: 8, whiteSpace: 'nowrap', color: 'inherit', borderColor: chromeBtnBd }}>Search</button>
           <button className="btn btn-secondary" onClick={() => navigate('/basket')} style={{ gap: 8, whiteSpace: 'nowrap', color: 'inherit', borderColor: chromeBtnBd }}>{basketLabel}</button>
         </div>

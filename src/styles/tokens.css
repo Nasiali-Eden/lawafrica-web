@@ -12,10 +12,12 @@
    older and 11px micro copy was the weakest point in the design. */
 
 :root {
-  /* ground + ink */
-  --color-bg: #f6f5f4;
-  --color-surface: #f1efec;
-  --color-panel: #eceae7;
+  /* ground + ink — white wherever the ground is not maroon.
+     --color-panel keeps a hair of grey so a recessed panel still reads as
+     recessed against the page; everything else is pure white. */
+  --color-bg: #ffffff;
+  --color-surface: #ffffff;
+  --color-panel: #f7f7f7;
   --color-text: #2d292a;
   --color-divider: color-mix(in srgb, #2d292a 15%, transparent);
 

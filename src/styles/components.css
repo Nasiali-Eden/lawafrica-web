@@ -87,7 +87,9 @@ textarea.input { min-height: 90px; resize: vertical; }
 /* — tags — */
 .tag { display: inline-flex; align-items: center; font-size: var(--t-micro); letter-spacing: 0.02em; padding: 3px 10px; border-radius: 3px; }
 .tag-accent { background: var(--color-accent-100); color: var(--color-accent-800); }
-.tag-neutral { background: var(--color-neutral-100); color: var(--color-neutral-800); }
+/* Outlined, not filled: the page ground is white now, so a pale grey fill
+   would read as a smudge rather than a chip. */
+.tag-neutral { background: #ffffff; border: 1px solid var(--color-neutral-400); color: var(--color-neutral-800); }
 .tag-outline { border: 1px solid var(--color-accent); color: var(--color-accent-700); }
 
 /* — tables — */
@@ -172,7 +174,11 @@ textarea.input { min-height: 90px; resize: vertical; }
    JS, so there is no resize listener and no flash of the wrong nav on load. */
 .at-wide { display: flex; }
 .at-narrow { display: none; }
-@media (max-width: 1000px) {
+/* 1100px, not the 1000px the layout rules use: the header carries a third
+   action ("Publish with us") and the wide row stops fitting at 1080px, with
+   headroom on top of that because the type-pairing switcher changes the nav's
+   metrics. Below this the drawer takes over. */
+@media (max-width: 1100px) {
   .at-wide { display: none !important; }
   .at-narrow { display: flex !important; }
 }

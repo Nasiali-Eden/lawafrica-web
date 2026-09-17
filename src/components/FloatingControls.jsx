@@ -14,7 +14,7 @@ import { useHero } from '../state/HeroContext.jsx';
 // single round button and opens on tap; nothing is removed, it is only stowed.
 export default function FloatingControls() {
   const { overlayOn, toggleOverlay } = useOverlay();
-  const { isWhite, toggleBackground } = useBackground();
+  const { isWarm, toggleBackground } = useBackground();
   const { pairs, pairOpen, togglePair } = useType();
   const { listLayout, toggleListLayout } = useHero();
   const isHome = useLocation().pathname === '/';
@@ -68,12 +68,12 @@ export default function FloatingControls() {
         style={{
           display: 'flex', alignItems: 'center', gap: 8, borderRadius: 4, padding: '9px 14px', cursor: 'pointer',
           font: 'inherit', fontSize: 'calc(var(--t-base) + 2px*var(--tf,1))', boxShadow: '0 4px 14px rgba(20,24,46,.12)',
-          border: `1px solid ${isWhite ? 'var(--color-accent)' : 'var(--color-text)'}`,
-          background: isWhite ? 'var(--color-accent-100)' : 'var(--color-bg)',
-          color: isWhite ? 'var(--color-accent-800)' : 'var(--color-text)'
+          border: `1px solid ${isWarm ? 'var(--color-accent)' : 'var(--color-text)'}`,
+          background: isWarm ? 'var(--color-accent-100)' : 'var(--color-bg)',
+          color: isWarm ? 'var(--color-accent-800)' : 'var(--color-text)'
         }}>
-        <span style={{ width: 11, height: 11, borderRadius: '50%', flex: 'none', border: '1px solid var(--color-neutral-400)', background: isWhite ? '#ffffff' : 'var(--color-bg)' }} />
-        <span>{isWhite ? 'Background: White' : 'Background: Current'}</span>
+        <span style={{ width: 11, height: 11, borderRadius: '50%', flex: 'none', border: '1px solid var(--color-neutral-400)', background: isWarm ? '#f6f5f4' : '#ffffff' }} />
+        <span>{isWarm ? 'Background: Warm' : 'Background: White'}</span>
       </button>
 
       {isHome && (
