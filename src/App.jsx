@@ -18,9 +18,21 @@ import Basket from './pages/Basket.jsx';
 import About from './pages/About.jsx';
 import Contact from './pages/Contact.jsx';
 
+// A navigation goes to the top of the new page, except when the link carries a
+// hash — /contact#feedback has to land on the block it names, and forcing the
+// top would make the footer's feedback button look broken.
 function ScrollToTop() {
-  const { pathname } = useLocation();
-  useEffect(() => { window.scrollTo(0, 0); }, [pathname]);
+  const { pathname, hash } = useLocation();
+  useEffect(() => {
+    if (hash) {
+      const el = document.getElementById(hash.slice(1));
+      if (el) {
+        el.scrollIntoView({ block: 'start' });
+        return;
+      }
+    }
+    window.scrollTo(0, 0);
+  }, [pathname, hash]);
   return null;
 }
 

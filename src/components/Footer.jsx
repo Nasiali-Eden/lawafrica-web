@@ -9,6 +9,11 @@ export default function Footer() {
           <div style={{ fontFamily: 'var(--font-heading)', fontSize: 'calc(var(--t-base) + 16px*var(--tf,1)*var(--tz,1))', color: 'var(--on-brand)', marginBottom: 6 }}>lawAfrica</div>
           <div style={{ fontFamily: 'var(--font-heading)', fontStyle: 'italic', color: 'var(--on-brand-eyebrow)', fontSize: 'calc(var(--t-base) + 4px*var(--tf,1))', marginBottom: 16 }}>Know. Do. Be More</div>
           <p style={{ fontSize: 'calc(var(--t-base) + 2px*var(--tf,1))', lineHeight: 1.65, maxWidth: 280, marginBottom: 18 }}>Legal publishing and legal information solutions across Africa since 1999. A subsidiary of Longhorn Publishers PLC.</p>
+          {/* Site feedback lives on the contact page; this is the way in from
+              anywhere, which is what it was doing as a home-page section. */}
+          <Link to="/contact#feedback" className="btn" style={{ alignSelf: 'flex-start', marginBottom: 18, borderColor: 'var(--color-neutral-500)', color: 'var(--on-brand)', textDecoration: 'none' }}>
+            Give feedback
+          </Link>
           <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap' }}>
             <a href="#" style={{ width: 32, height: 32, border: '1px solid var(--color-neutral-500)', borderRadius: 3, display: 'grid', placeItems: 'center', color: 'var(--on-brand-body)', textDecoration: 'none', fontSize: 'calc(var(--t-base) + 1px*var(--tf,1))' }} aria-label="LawAfrica on LinkedIn">in</a>
             <a href="#" style={{ width: 32, height: 32, border: '1px solid var(--color-neutral-500)', borderRadius: 3, display: 'grid', placeItems: 'center', color: 'var(--on-brand-body)', textDecoration: 'none', fontSize: 'calc(var(--t-base) + 1px*var(--tf,1))' }} aria-label="LawAfrica on X">X</a>

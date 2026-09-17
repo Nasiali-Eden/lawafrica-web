@@ -227,35 +227,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 06 · Feedback */}
-      <section style={{ borderTop: '1px solid var(--color-divider)' }}>
-        <div style={{ maxWidth: 1180, margin: '0 auto', padding: '56px 24px' }}>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(min(100%,280px),1fr))', gap: 48, alignItems: 'center' }}>
-            <div>
-              <div style={{ display: 'flex', alignItems: 'baseline', gap: 14, marginBottom: 16 }}>
-                <SectionNum n="06" />
-                <h2 style={{ fontSize: 'calc(var(--t-base) + 16px*var(--tf,1)*var(--tz,1))', fontWeight: 400, margin: 0 }}>Tell us what to fix</h2>
-              </div>
-              <p style={{ fontSize: 'calc(var(--t-base) + 4px*var(--tf,1))', lineHeight: 1.65, color: 'var(--color-neutral-700)', maxWidth: 460, margin: 0 }}>Wrong edition, broken link, a search that didn't find what it should — this site is worked on continually, and every note goes straight to the desk that owns it.</p>
-            </div>
-            <div style={{ border: '1px solid var(--color-divider)', borderRadius: 4, padding: 24, background: 'var(--color-surface)' }}>
-              <div style={{ fontSize: 'var(--t-base)', letterSpacing: '.1em', textTransform: 'uppercase', color: 'var(--color-neutral-600)', marginBottom: 12 }}>Quick feedback</div>
-              <div style={{ display: 'flex', gap: 8, marginBottom: 12 }}>
-                {['Great', 'Okay', 'Not great'].map(f => (
-                  <button key={f} type="button" className="tag tag-outline" style={{ cursor: 'pointer', padding: '6px 14px', fontSize: 'calc(var(--t-base) + 1px*var(--tf,1))' }}>{f}</button>
-                ))}
-              </div>
-              <textarea className="input" placeholder="What should we know?" style={{ minHeight: 64, marginBottom: 10 }} />
-              <div style={{ display: 'flex', gap: 8 }}>
-                <input className="input" placeholder="Email (optional)" style={{ minHeight: 40, fontSize: 'calc(var(--t-base) + 2px*var(--tf,1))' }} />
-                <button className="btn btn-primary" style={{ minHeight: 40, whiteSpace: 'nowrap' }}>Send</button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* 07 · Help and contact — elongated. This was three squat cards in a
+      {/* 06 · Help and contact — elongated. This was three squat cards in a
            row, which made the page end abruptly; it now runs as a tall block,
            an intro rail against four contact routes stacked with real space
            between them, each carrying both an address and a number. */}

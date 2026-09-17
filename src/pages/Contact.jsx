@@ -1,6 +1,9 @@
+import { useState } from 'react';
 import { contacts } from '../data/footer.js';
 
 export default function Contact() {
+  const [mood, setMood] = useState(null);
+
   return (
     <div className="page" style={{ maxWidth: 1180, margin: '0 auto', padding: '34px 24px 64px' }}>
       <h1 style={{ fontSize: 'calc(var(--t-base) + 33px*var(--tf,1)*var(--tz,1))', fontWeight: 400, margin: '0 0 10px' }}>Talk to us</h1>
@@ -30,6 +33,46 @@ export default function Contact() {
               <p style={{ fontSize: 'calc(var(--t-base) + 4px*var(--tf,1))', lineHeight: 1.65, color: 'var(--color-neutral-700)', margin: 0 }}>Monday to Friday, 08:30–17:00 EAT<br />Closed on Kenyan public holidays<br />Email replies within one working day</p>
             </div>
           </div>
+
+          {/* Site feedback. This used to be a section on the home page, which is
+              not where someone goes when something is wrong with the site; it
+              lives here with the other ways of reaching us, and the footer
+              links straight to it. */}
+          <section id="feedback" className="feedback-block">
+            <h2>Tell us what to fix</h2>
+            <p>
+              Wrong price, a broken link, an edition we have not listed, or
+              something that simply would not work &mdash; it reaches the people who
+              can change it.
+            </p>
+
+            <fieldset className="feedback-mood">
+              <legend>How is the site working for you?</legend>
+              {['Great', 'Okay', 'Not great'].map(f => (
+                <button
+                  key={f}
+                  type="button"
+                  aria-pressed={mood === f}
+                  onClick={() => setMood(m => (m === f ? null : f))}
+                  className={'tag ' + (mood === f ? 'tag-accent' : 'tag-outline')}
+                >
+                  {f}
+                </button>
+              ))}
+            </fieldset>
+
+            <div className="field">
+              <label htmlFor="fb-note">What should we know?</label>
+              <textarea id="fb-note" className="input" />
+            </div>
+            <div className="feedback-send">
+              <div className="field">
+                <label htmlFor="fb-mail">Email <span style={{ color: 'var(--color-neutral-700)' }}>(optional)</span></label>
+                <input id="fb-mail" className="input" type="email" />
+              </div>
+              <button className="btn" style={{ background: 'var(--color-accent)', color: '#fff' }}>Send feedback</button>
+            </div>
+          </section>
         </div>
         <div style={{ border: '1px solid var(--color-divider)', borderRadius: 4, padding: 26, background: 'var(--color-surface)' }}>
           <h2 style={{ fontSize: 'calc(var(--t-base) + 16px*var(--tf,1)*var(--tz,1))', fontWeight: 400, margin: '0 0 6px' }}>Send an enquiry</h2>
