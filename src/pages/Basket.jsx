@@ -13,7 +13,7 @@ export default function Basket() {
         <span style={{ margin: '0 8px' }}>/</span><span>Basket</span>
       </div>
       <div style={{ display: 'flex', alignItems: 'baseline', gap: 14, marginBottom: 8 }}>
-        <h1 style={{ fontSize: 'calc(var(--t-base) + 33px*var(--tf,1)*var(--tz,1))', fontWeight: 400, margin: 0 }}>Your basket</h1>
+        <h1 className="page-title" style={{ fontSize: 'calc(var(--t-base) + 33px*var(--tf,1)*var(--tz,1))', margin: 0 }}>Your basket</h1>
         <span style={{ fontSize: 'calc(var(--t-base) + 2px*var(--tf,1))', color: 'var(--color-neutral-600)' }}>{basketCount}</span>
       </div>
       <hr className="hr" style={{ margin: '14px 0 28px' }} />

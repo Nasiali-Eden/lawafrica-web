@@ -14,7 +14,7 @@ export default function Careers() {
       <div className="stack" style={{ display: 'grid', gridTemplateColumns: 'minmax(0,1fr) 400px', gap: 52, alignItems: 'end', paddingBottom: 32, borderBottom: '1px solid var(--color-text)', marginBottom: 38 }}>
         <div>
           <div style={{ fontSize: 'var(--t-base)', letterSpacing: '.16em', textTransform: 'uppercase', color: 'var(--color-accent-700)', marginBottom: 14 }}>Careers</div>
-          <h1 style={{ fontFamily: 'var(--font-heading)', fontSize: 'calc(var(--t-base) + 33px*var(--tf,1)*var(--tz,1))', fontWeight: 'var(--fw-heading,400)', lineHeight: 1.05, margin: '0 0 16px', maxWidth: '22ch' }}>Work on the books practitioners actually open</h1>
+          <h1 className="page-title" style={{ fontSize: 'calc(var(--t-base) + 33px*var(--tf,1)*var(--tz,1))', fontWeight: 'var(--fw-heading,400)', lineHeight: 1.05, margin: '0 0 16px', maxWidth: '22ch' }}>Work on the books practitioners actually open</h1>
           <p style={{ fontSize: 'calc(var(--t-base) + 6px*var(--tf,1))', lineHeight: 1.65, color: 'var(--color-neutral-800)', margin: 0, maxWidth: '60ch' }}>We are a small publishing house doing unglamorous, exacting work: reading judgments closely, checking citations, and getting editions to press on time. If that appeals more than it repels, look below.</p>
         </div>
         <Plate src="/assets/plate-wide.jpg" aspectRatio="16/10" />

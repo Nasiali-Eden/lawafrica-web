@@ -45,8 +45,10 @@ export const biblio = [
 export const filters = [
   { name: 'Jurisdiction', opts: [['Kenya', '284', true], ['Tanzania', '96'], ['Uganda', '74'], ['East Africa', '118'], ['South Sudan', '21']] },
   { name: 'Practice area', opts: [['Commercial law', '42', true], ['Constitutional law', '31'], ['Land & conveyancing', '28'], ['Employment', '19'], ['Criminal law', '24']] },
-  { name: 'Written for', opts: [['Practitioner', '42', true], ['Student', '86'], ['Academic', '37'], ['General reader', '12']] },
-  { name: 'Format', opts: [['Print', '310'], ['Digital', '241'], ['Print', '188']] },
+  // One row per mark. The third option here was 'Print + eBook' before a title
+  // carried a single format; its count is folded into Print rather than left
+  // as a second row with the same label.
+  { name: 'Format', opts: [['Print', '498'], ['Digital', '241']] },
   { name: 'Edition year', opts: [['2025–2026', '64'], ['2022–2024', '152'], ['2019–2021', '117'], ['Before 2019', '147']] },
   { name: 'Author', opts: [['Prof. A. Mwangi', '7'], ['J. Otieno SC', '5'], ['Dr. M. Wanjiru', '4'], ['H. Kimani', '3']] }
 ].map(f => ({ name: f.name, opts: f.opts.map(([label, n, on]) => ({ label, n, on: !!on })) }));

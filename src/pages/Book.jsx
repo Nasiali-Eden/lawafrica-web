@@ -39,7 +39,7 @@ export default function Book() {
             <span className="tag tag-accent">Commercial law</span>
             <span className="tag tag-neutral">Practitioner</span>
           </div>
-          <h1 style={{ fontSize: 'calc(var(--t-base) + 33px*var(--tf,1)*var(--tz,1))', fontWeight: 400, lineHeight: 1.05, margin: '0 0 10px' }}>{book.title}</h1>
+          <h1 className="page-title" style={{ fontSize: 'calc(var(--t-base) + 33px*var(--tf,1)*var(--tz,1))', lineHeight: 1.05, margin: '0 0 10px' }}>{book.title}</h1>
           <p style={{ fontSize: 'calc(var(--t-base) + 6px*var(--tf,1))', color: 'var(--color-neutral-700)', marginBottom: 6 }}>{book.author} · {book.credential}</p>
           <p style={{ fontSize: 'calc(var(--t-base) + 4px*var(--tf,1))', color: 'var(--color-neutral-600)', marginBottom: 22 }}>{book.edline} · LawAfrica Publishing</p>
           <hr className="hr" style={{ margin: '0 0 22px' }} />

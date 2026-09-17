@@ -22,7 +22,7 @@ export default function Publish() {
       <div className="stack" style={{ display: 'grid', gridTemplateColumns: 'minmax(0,1fr) 380px', gap: 52, alignItems: 'start', paddingBottom: 34, borderBottom: '1px solid var(--color-text)', marginBottom: 38 }}>
         <div>
           <div style={{ fontSize: 'var(--t-base)', letterSpacing: '.16em', textTransform: 'uppercase', color: 'var(--color-accent-700)', marginBottom: 14 }}>For authors</div>
-          <h1 style={{ fontFamily: 'var(--font-heading)', fontSize: 'calc(var(--t-base) + 33px*var(--tf,1)*var(--tz,1))', fontWeight: 'var(--fw-heading,400)', lineHeight: 1.05, margin: '0 0 16px', maxWidth: '22ch' }}>Publish with LawAfrica</h1>
+          <h1 className="page-title" style={{ fontSize: 'calc(var(--t-base) + 33px*var(--tf,1)*var(--tz,1))', fontWeight: 'var(--fw-heading,400)', lineHeight: 1.05, margin: '0 0 16px', maxWidth: '22ch' }}>Publish with LawAfrica</h1>
           <p style={{ fontSize: 'calc(var(--t-base) + 6px*var(--tf,1))', lineHeight: 1.65, color: 'var(--color-neutral-800)', margin: '0 0 16px', maxWidth: '62ch' }}>We publish practitioner texts, student texts and monographs for the East African market, in print and digital, with our own editorial and reporting desks behind them. If you are teaching a course without a current text, or defending a proposition that deserves a book, we would like to hear from you.</p>
           <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap' }}>
             <Link className="btn" to="/contact" style={{ background: 'var(--color-accent)', color: '#fff', minHeight: 44, textDecoration: 'none' }}>Submit a proposal</Link>

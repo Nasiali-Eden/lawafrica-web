@@ -8,7 +8,7 @@ export default function Institutions() {
     <div className="page" style={{ maxWidth: 1180, margin: '0 auto', padding: '44px 24px 72px' }}>
       <div style={{ maxWidth: '62ch', marginBottom: 34 }}>
         <div style={{ fontSize: 'var(--t-base)', letterSpacing: '.16em', textTransform: 'uppercase', color: 'var(--color-accent-700)', marginBottom: 14 }}>For institutions</div>
-        <h1 style={{ fontFamily: 'var(--font-heading)', fontSize: 'calc(var(--t-base) + 33px*var(--tf,1)*var(--tz,1))', fontWeight: 'var(--fw-heading,400)', lineHeight: 1.05, margin: '0 0 16px' }}>Firms, courts, ministries and libraries</h1>
+        <h1 className="page-title" style={{ fontSize: 'calc(var(--t-base) + 33px*var(--tf,1)*var(--tz,1))', fontWeight: 'var(--fw-heading,400)', lineHeight: 1.05, margin: '0 0 16px' }}>Firms, courts, ministries and libraries</h1>
         <p style={{ fontSize: 'calc(var(--t-base) + 6px*var(--tf,1))', lineHeight: 1.65, color: 'var(--color-neutral-800)', margin: 0 }}>One account, one invoice, and access that follows your people rather than their devices. Site licences are priced by seat band; standing orders keep your shelves current without a purchase order for every edition.</p>
       </div>
 

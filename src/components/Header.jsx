@@ -40,16 +40,6 @@ export function TopBar({ chromeTop }) {
       <div className="wrap" style={{ paddingBlock: 7, display: 'flex', alignItems: 'center', gap: 22, flexWrap: 'wrap', rowGap: 4 }}>
         <a href="tel:+254202495067" className="tap-row" style={{ display: 'flex', alignItems: 'center', gap: 7, color: 'inherit', textDecoration: 'none' }}><span style={{ color: 'var(--gold-400)' }}>✆</span>+254 20 249 5067</a>
         <a href="mailto:info@lawafrica.com" className="tap-row" style={{ display: 'flex', alignItems: 'center', gap: 7, color: 'inherit', textDecoration: 'none' }}><span style={{ color: 'var(--gold-400)' }}>✉</span>info@lawafrica.com</a>
-        {/* Desktop-only: the strip keeps the two things worth tapping on a
-            phone and the rest is the institutional line. */}
-        <span className="at-wide" style={{ width: 1, height: 12, background: 'rgba(255,255,255,.22)' }} />
-        <span className="at-wide" style={{ color: 'var(--color-neutral-300)' }}>Verified contact details &middot; last checked 28 Aug 2026</span>
-        <span className="at-wide" style={{ marginLeft: 'auto', alignItems: 'center', gap: 18 }}>
-          <Link to="/contact" style={{ color: 'var(--color-neutral-200)', textDecoration: 'none' }}>Institutional sales</Link>
-          <a href={LLR_URL} target="_blank" rel="noopener noreferrer" style={{ color: 'var(--gold-400)', textDecoration: 'none' }}>
-            Law Reports <span aria-hidden="true">&#8599;</span>
-          </a>
-        </span>
       </div>
     </div>
   );
@@ -132,7 +122,6 @@ function Drawer({ onClose }) {
         ))}
 
         <Link to="/publish" onClick={onClose} style={{ color: 'var(--color-accent)' }}>Publish with us</Link>
-        <Link to="/contact" onClick={onClose}>Institutional sales</Link>
       </nav>
     </>
   );
@@ -172,7 +161,6 @@ export default function Header({ hidden, chromeHdr, chromeFg, chromeBd, chromeBt
               neighbours because the chrome inverts over a hero — a maroon fill
               would sink into the maroon wash up there. */}
           <Link className="btn btn-primary" to="/publish" style={{ gap: 8, whiteSpace: 'nowrap', color: 'inherit', borderColor: chromeBtnBd, textDecoration: 'none' }}>Publish with us</Link>
-          <button className="btn btn-secondary" onClick={() => navigate('/books')} style={{ gap: 8, whiteSpace: 'nowrap', color: 'inherit', borderColor: chromeBtnBd }}>Search</button>
           <button className="btn btn-secondary" onClick={() => navigate('/basket')} style={{ gap: 8, whiteSpace: 'nowrap', color: 'inherit', borderColor: chromeBtnBd }}>{basketLabel}</button>
         </div>
 

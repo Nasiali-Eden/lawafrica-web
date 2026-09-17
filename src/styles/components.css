@@ -989,3 +989,29 @@ textarea.input { min-height: 90px; resize: vertical; }
   line-height: 1.1;
   letter-spacing: -0.02em;
 }
+
+/* ── page titles ──────────────────────────────────────────────────────────
+   Page titles were still in the pairing heading face while the section
+   titles under them had moved to the feature face, so a subhead out-weighed
+   the title it sat beneath. Titles take the same face, a step above.
+
+   Hero headlines are deliberately excluded: they are set over a photograph
+   and keep the pairing face, which is what the type switcher is there to
+   change. The selector reaches page titles only — a hero h1 is nested in a
+   section, never a direct child of .page.
+   ──────────────────────────────────────────────────────────────────────── */
+.page > h1,
+.page > section > h1:not(.contact-title),
+.page-title {
+  font-family: var(--font-display) !important;
+  font-weight: 400 !important;
+  letter-spacing: -0.02em;
+}
+
+/* the two lead stories on Insights, which the section-title pass missed
+   because they carry their own font-family inline */
+.lead-title {
+  font-family: var(--font-display) !important;
+  font-weight: 400 !important;
+  letter-spacing: -0.02em;
+}

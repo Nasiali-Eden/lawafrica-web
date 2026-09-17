@@ -6,7 +6,7 @@ export default function Contact() {
 
   return (
     <div className="page" style={{ maxWidth: 1180, margin: '0 auto', padding: '34px 24px 64px' }}>
-      <h1 style={{ fontSize: 'calc(var(--t-base) + 33px*var(--tf,1)*var(--tz,1))', fontWeight: 400, margin: '0 0 10px' }}>Talk to us</h1>
+      <h1 className="page-title" style={{ fontSize: 'calc(var(--t-base) + 33px*var(--tf,1)*var(--tz,1))', margin: '0 0 10px' }}>Talk to us</h1>
       <p style={{ fontSize: 'calc(var(--t-base) + 6px*var(--tf,1))', color: 'var(--color-neutral-700)', maxWidth: 640, marginBottom: 30 }}>Every route below is checked monthly and owned by a named team. Choose the one that matches your enquiry and you will reach a person, not a queue.</p>
       <div className="stack" style={{ display: 'grid', gridTemplateColumns: '1fr 380px', gap: 52, alignItems: 'start' }}>
         <div>

@@ -19,7 +19,7 @@ export default function Insights() {
     <div className="page" style={{ maxWidth: 1180, margin: '0 auto', padding: '34px 24px 64px' }}>
       <div style={{ display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between', gap: 40, flexWrap: 'wrap', marginBottom: 18 }}>
         <div>
-          <h1 style={{ fontSize: 'calc(var(--t-base) + 33px*var(--tf,1)*var(--tz,1))', fontWeight: 400, margin: '0 0 10px' }}>Insights &amp; events</h1>
+          <h1 className="page-title" style={{ fontSize: 'calc(var(--t-base) + 33px*var(--tf,1)*var(--tz,1))', margin: '0 0 10px' }}>Insights &amp; events</h1>
           <p style={{ fontSize: 'calc(var(--t-base) + 6px*var(--tf,1))', color: 'var(--color-neutral-700)', maxWidth: 660, margin: 0 }}>One newsroom for everything we publish outside the catalogue — legal updates, case notes, the editors' blog, press announcements and the events diary. Nothing off-topic, nothing stale.</p>
         </div>
         <div style={{ border: '1px solid var(--color-divider)', borderRadius: 4, padding: '16px 18px', maxWidth: 320 }}>
@@ -50,7 +50,7 @@ export default function Insights() {
               <span style={{ fontSize: 'calc(var(--t-base) + 1px*var(--tf,1))', color: 'var(--color-neutral-600)' }}>{leadMain.read}</span>
             </div>
             <Link to={`/insights/article/${leadMain.id}`} style={{ display: 'block', textAlign: 'left', background: 'none', border: 0, padding: 0, cursor: 'pointer', textDecoration: 'none', color: 'inherit' }}>
-              <h2 style={{ fontFamily: 'var(--font-heading)', fontSize: 'calc(var(--t-base) + 23px*var(--tf,1)*var(--tz,1))', fontWeight: 'var(--fw-heading,400)', lineHeight: 1.15, margin: '0 0 12px', textWrap: 'pretty' }}>{leadMain.title}</h2>
+              <h2 className="lead-title" style={{ fontFamily: 'var(--font-heading)', fontSize: 'calc(var(--t-base) + 23px*var(--tf,1)*var(--tz,1))', fontWeight: 'var(--fw-heading,400)', lineHeight: 1.15, margin: '0 0 12px', textWrap: 'pretty' }}>{leadMain.title}</h2>
             </Link>
             <p style={{ fontSize: 'calc(var(--t-base) + 4px*var(--tf,1))', lineHeight: 1.65, color: 'var(--color-neutral-800)', margin: '0 0 14px', maxWidth: '60ch' }}>{leadMain.dek}</p>
             <div style={{ display: 'flex', alignItems: 'center', gap: 16, flexWrap: 'wrap' }}>
@@ -63,7 +63,7 @@ export default function Insights() {
             <Plate src={leadSecond.img} aspectRatio="4/3" style={{ marginBottom: 16 }} />
             <div style={{ fontSize: 'var(--t-base)', letterSpacing: '.16em', textTransform: 'uppercase', color: 'var(--color-accent-700)', marginBottom: 8 }}>{leadSecond.pillar}</div>
             <Link to={`/insights/article/${leadSecond.id}`} style={{ display: 'block', textAlign: 'left', background: 'none', border: 0, padding: 0, cursor: 'pointer', textDecoration: 'none', color: 'inherit' }}>
-              <h2 style={{ fontFamily: 'var(--font-heading)', fontSize: 'calc(var(--t-base) + 16px*var(--tf,1)*var(--tz,1))', fontWeight: 'var(--fw-heading,400)', lineHeight: 1.15, margin: '0 0 10px', textWrap: 'pretty' }}>{leadSecond.title}</h2>
+              <h2 className="lead-title" style={{ fontFamily: 'var(--font-heading)', fontSize: 'calc(var(--t-base) + 16px*var(--tf,1)*var(--tz,1))', fontWeight: 'var(--fw-heading,400)', lineHeight: 1.15, margin: '0 0 10px', textWrap: 'pretty' }}>{leadSecond.title}</h2>
             </Link>
             <p style={{ fontSize: 'calc(var(--t-base) + 4px*var(--tf,1))', lineHeight: 1.65, color: 'var(--color-neutral-700)', margin: '0 0 12px' }}>{leadSecond.dek}</p>
             <Link className="btn btn-secondary" to={`/insights/article/${leadSecond.id}`} style={{ minHeight: 38, textDecoration: 'none' }}>Read the piece →</Link>
