@@ -12,7 +12,7 @@ export default function Audience() {
 
   return (
     <div className="page">
-      <section style={{ minHeight: 420, display: 'flex', alignItems: 'center', color: 'var(--color-bg)' }}>
+      <section className="hero-copy" style={{ minHeight: 420, display: 'flex', alignItems: 'center', color: 'var(--color-bg)' }}>
         <div style={{ maxWidth: 1180, margin: '0 auto', padding: '96px 24px 40px', width: '100%' }}>
           <div style={{ display: 'flex', gap: 0, marginBottom: 26, border: '1px solid rgba(255,255,255,.4)', borderRadius: 4, overflow: 'hidden', width: 'max-content' }}>
             <button onClick={() => setParams({ aud: 'pro' })} style={tabStyle(isPro)}>For Professionals</button>

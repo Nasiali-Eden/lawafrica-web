@@ -8,10 +8,8 @@ import { featured, jurisdictions, areas } from '../data/books.js';
 import { proof } from '../data/home.js';
 import { publishingLines } from '../data/publishing.js';
 import { contacts } from '../data/footer.js';
-import { caseList } from '../data/cases.js';
 import { allArticles } from '../data/articles.js';
 
-const deskCases = caseList.slice(0, 3);
 const articles = allArticles.slice(0, 3);
 
 function SectionNum({ n }) {
@@ -26,10 +24,17 @@ export default function Home() {
   // there instead of opening an in-site reader.
   const heroAct = () => (current.caseId ? window.open(LLR_URL, '_blank', 'noopener') : navigate(current.to));
 
+  // The slides' headlines run to different lengths. Left alone the hero grows
+  // and shrinks with each one, and everything below it — the desk card most
+  // visibly — jumps. Reserving the tallest headline keeps the band, and so the
+  // desk, still. The longest slide takes four lines at the display step's 1.05
+  // leading; the margin is in the reservation so the block below never shifts.
+  const headlineBox = { minHeight: 'calc(4 * 1.05em + 18px)' };
+
   return (
     <div className="page">
       {/* Hero */}
-      <section style={{ minHeight: 530, display: 'flex', alignItems: 'flex-end', color: 'var(--color-bg)' }}>
+      <section className="hero-copy" style={{ minHeight: 530, display: 'flex', alignItems: 'flex-end', color: 'var(--color-bg)' }}>
         <div style={{ maxWidth: 1180, margin: '0 auto', padding: listLayout === 'horizontal' ? '96px 24px 130px' : '96px 24px 64px', width: '100%' }}>
           {/* minmax(0,…) on both tracks: the headline and the button row have a
               min-content width wider than their share of a phone, and a bare fr
@@ -40,7 +45,7 @@ export default function Home() {
                 <span style={{ width: 52, height: 2, background: 'var(--gold-400)' }} />
                 <span style={{ fontSize: 'var(--t-base)', letterSpacing: '.16em', textTransform: 'uppercase', color: 'var(--gold-400)' }}>{current.kicker}</span>
               </div>
-              <h1 style={{ fontFamily: 'var(--font-heading)', fontSize: 'calc(var(--t-base) + 49px*var(--tf,1)*var(--tz,1))', fontWeight: 'var(--fw-heading,400)', lineHeight: 1.05, letterSpacing: 'var(--ls-heading,-.02em)', margin: '0 0 18px', color: '#fff', textWrap: 'pretty', maxWidth: '16ch' }}>{current.title}</h1>
+              <h1 style={{ fontFamily: 'var(--font-heading)', fontSize: 'calc(var(--t-base) + 49px*var(--tf,1)*var(--tz,1))', fontWeight: 'var(--fw-heading,400)', lineHeight: 1.05, letterSpacing: 'var(--ls-heading,-.02em)', margin: '0 0 18px', color: '#fff', textWrap: 'pretty', maxWidth: '16ch', ...headlineBox }}>{current.title}</h1>
               <div style={{ fontFamily: 'ui-monospace,Menlo,monospace', fontSize: 'calc(var(--t-base) + 2px*var(--tf,1))', letterSpacing: 0, color: 'rgba(246,245,244,.78)', marginBottom: 26 }}>{current.meta}</div>
               <div style={{ display: 'flex', alignItems: 'center', gap: 16, flexWrap: 'wrap' }}>
                 <button className="btn" onClick={heroAct} style={{ background: 'var(--color-bg)', color: 'var(--ground-brand)', padding: '13px 26px', fontSize: 'calc(var(--t-base) + 4px*var(--tf,1))' }}>{current.cta}</button>
@@ -75,43 +80,38 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 01 · The desk */}
-      <section style={{ maxWidth: 1180, margin: '-46px auto 0', padding: '0 24px', position: 'relative', zIndex: 5 }}>
-        <div style={{ background: 'var(--color-bg)', border: '1px solid var(--color-divider)', borderRadius: 4, boxShadow: 'var(--shadow-lg)' }}>
-          <div style={{ display: 'flex', alignItems: 'baseline', gap: 16, padding: '20px 26px 16px', borderBottom: '1px solid var(--color-divider)', flexWrap: 'wrap' }}>
+      {/* 01 · The desk — finding a book, and nothing else. It carried a Law
+           Reports search and a "this week" judgment list as well, both of which
+           belong to the LLR platform now; without them the card is one row and
+           a great deal shorter. */}
+      <section className="desk">
+        <div className="desk-card">
+          <div className="desk-head">
             <SectionNum n="01" />
-            <h2 style={{ fontFamily: 'var(--font-heading)', fontSize: 'calc(var(--t-base) + 16px*var(--tf,1)*var(--tz,1))', fontWeight: 'var(--fw-heading,400)', margin: 0 }}>The desk</h2>
-            <span style={{ fontSize: 'calc(var(--t-base) + 2px*var(--tf,1))', color: 'var(--color-neutral-700)' }}>Start with the task you came for, not with our menu.</span>
+            <h2>Find a title</h2>
+            <span>Start with the book you came for, not with our menu.</span>
           </div>
-          <div className="stack" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr .82fr' }}>
-            <div style={{ padding: '22px 26px 26px', borderRight: '1px solid var(--color-divider)', display: 'flex', flexDirection: 'column', gap: 12 }}>
-              <div style={{ fontSize: 'var(--t-base)', letterSpacing: '.16em', textTransform: 'uppercase', color: 'var(--color-neutral-600)' }}>Find a title</div>
-              <div className="field"><label>Title, author or keyword</label><input className="input" placeholder="e.g. law of contract" /></div>
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(min(100%,280px),1fr))', gap: 12 }}>
-                <div className="field"><label>Jurisdiction</label><select className="input"><option>All jurisdictions</option><option>Kenya</option><option>Tanzania</option><option>Uganda</option></select></div>
-                <div className="field"><label>Practice area</label><select className="input"><option>All areas</option><option>Commercial</option><option>Constitutional</option><option>Land &amp; conveyancing</option></select></div>
-              </div>
-              <button className="btn" onClick={() => navigate('/books')} style={{ background: 'var(--color-accent)', color: '#fff', alignSelf: 'flex-start', paddingInline: 26, marginTop: 2 }}>Search the catalogue</button>
+          <form className="desk-row" onSubmit={e => { e.preventDefault(); navigate('/books'); }}>
+            <div className="field" style={{ gridArea: 'q' }}>
+              <label htmlFor="desk-q">Title, author or keyword</label>
+              <input id="desk-q" className="input" placeholder="e.g. law of contract" />
             </div>
-            <div style={{ padding: '22px 26px 26px', borderRight: '1px solid var(--color-divider)', display: 'flex', flexDirection: 'column', gap: 12 }}>
-              <div style={{ fontSize: 'var(--t-base)', letterSpacing: '.16em', textTransform: 'uppercase', color: 'var(--color-neutral-600)' }}>Search the Law Reports</div>
-              <div className="field"><label>Party name, keyword or catchword</label><input className="input" placeholder="e.g. structural interdict" /></div>
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(min(100%,280px),1fr))', gap: 12 }}>
-                <div className="field"><label>Citation</label><input className="input" placeholder="[2021] KESC 34" /></div>
-                <div className="field"><label>Court</label><select className="input"><option>All courts</option><option>Supreme Court</option><option>Court of Appeal</option><option>High Court</option></select></div>
-              </div>
-              <button className="btn btn-primary" onClick={() => window.open(LLR_URL, '_blank', 'noopener')} style={{ alignSelf: 'flex-start', paddingInline: 26, marginTop: 2 }}>Search judgments</button>
+            <div className="field" style={{ gridArea: 'j' }}>
+              <label htmlFor="desk-j">Jurisdiction</label>
+              <select id="desk-j" className="input">
+                <option>All jurisdictions</option><option>Kenya</option><option>Tanzania</option><option>Uganda</option>
+              </select>
             </div>
-            <div style={{ padding: '22px 26px 26px', background: 'var(--color-surface)', borderRadius: '0 0 4px 0' }}>
-              <div style={{ fontSize: 'var(--t-base)', letterSpacing: '.16em', textTransform: 'uppercase', color: 'var(--color-neutral-600)', marginBottom: 12 }}>On the desk this week</div>
-              {deskCases.map(c => (
-                <button key={c.id} onClick={() => window.open(LLR_URL, '_blank', 'noopener')} style={{ width: '100%', textAlign: 'left', background: 'none', border: 0, borderTop: '1px solid var(--color-divider)', padding: '11px 0', cursor: 'pointer', font: 'inherit', display: 'block' }}>
-                  <span style={{ fontFamily: 'var(--font-heading)', fontSize: 'calc(var(--t-base) + 4px*var(--tf,1))', lineHeight: 1.25, display: 'block', marginBottom: 3 }}>{c.name}</span>
-                  <span style={{ fontFamily: 'ui-monospace,Menlo,monospace', fontSize: 'var(--t-base)', color: 'var(--color-neutral-600)' }}>{c.cite} · {c.shortCourt}</span>
-                </button>
-              ))}
+            <div className="field" style={{ gridArea: 'a' }}>
+              <label htmlFor="desk-a">Practice area</label>
+              <select id="desk-a" className="input">
+                <option>All areas</option><option>Commercial</option><option>Constitutional</option><option>Land &amp; conveyancing</option>
+              </select>
             </div>
-          </div>
+            <button type="submit" className="btn" style={{ gridArea: 'go', background: 'var(--color-accent)', color: '#fff' }}>
+              Search books
+            </button>
+          </form>
         </div>
       </section>
 
@@ -149,31 +149,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 04 · Law Reports */}
-      <section style={{ marginTop: 56, background: 'var(--ground-brand)', color: 'var(--on-brand-body)', borderTop: '1px solid var(--color-divider)' }}>
-        <div style={{ maxWidth: 1180, margin: '0 auto', padding: '56px 24px', display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(min(100%,280px),1fr))', gap: 56, alignItems: 'center' }}>
-          <div>
-            <div style={{ fontSize: 'var(--t-base)', letterSpacing: '.16em', textTransform: 'uppercase', color: 'var(--on-brand-eyebrow)', marginBottom: 16 }}>03 · LawAfrica Law Reports</div>
-            <h2 style={{ fontSize: 'calc(var(--t-base) + 23px*var(--tf,1)*var(--tz,1))', fontWeight: 400, margin: '0 0 16px', color: 'var(--on-brand)', lineHeight: 1.15 }}>Twenty-five years of reported judgments, searchable in one place.</h2>
-            <p style={{ color: 'var(--on-brand-body)', fontSize: 'calc(var(--t-base) + 4px*var(--tf,1))', lineHeight: 1.65, maxWidth: 480, marginBottom: 24 }}>Court of Appeal, High Court and specialised tribunal decisions from Kenya, Tanzania and Uganda — headnoted, catchworded and cross-cited by our editorial team.</p>
-            <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap' }}>
-              <a className="btn" href={LLR_URL} target="_blank" rel="noopener noreferrer" style={{ background: 'var(--on-brand)', color: 'var(--ground-brand)', padding: '12px 22px', textDecoration: 'none' }}>Search case law</a>
-              <Link className="btn btn-primary" to="/llr" style={{ color: 'var(--on-brand)', borderColor: 'rgba(255,255,255,.4)', padding: '12px 22px', textDecoration: 'none' }}>About LLR</Link>
-            </div>
-          </div>
-          <div style={{ border: '1px solid rgba(255,255,255,.18)', borderRadius: 4, padding: 24, background: 'rgba(255,255,255,.03)' }}>
-            <div style={{ fontSize: 'var(--t-base)', letterSpacing: '.1em', textTransform: 'uppercase', color: 'var(--on-brand-muted)', marginBottom: 14 }}>Recently reported</div>
-            {deskCases.map(c => (
-              <button key={c.id} onClick={() => window.open(LLR_URL, '_blank', 'noopener')} style={{ width: '100%', textAlign: 'left', display: 'block', background: 'none', border: 0, borderBottom: '1px solid rgba(255,255,255,.12)', padding: '12px 0', cursor: 'pointer', font: 'inherit' }}>
-                <span style={{ fontFamily: 'var(--font-heading)', fontSize: 'calc(var(--t-base) + 6px*var(--tf,1))', color: 'var(--on-brand)', marginBottom: 3, display: 'block', lineHeight: 1.25 }}>{c.name}</span>
-                <span style={{ fontSize: 'calc(var(--t-base) + 1px*var(--tf,1))', color: 'var(--on-brand-muted)', fontFamily: 'ui-monospace,Menlo,monospace' }}>{c.cite} · {c.shortCourt}</span>
-              </button>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* 05 · What we publish — the one section on Home that is neither a grid
+      {/* 03 · What we publish — the one section on Home that is neither a grid
            nor a two-column block, so the page changes gait here. The eBook
            message the old two-column block carried lives on as the "Digital"
            card rather than being dropped. */}
@@ -185,26 +161,46 @@ export default function Home() {
         items={publishingLines}
       />
 
-      {/* 06 · Why LawAfrica */}
-      <section style={{ borderTop: '1px solid var(--color-divider)', borderBottom: '1px solid var(--color-divider)', background: 'var(--color-surface)' }}>
-        <div style={{ maxWidth: 1180, margin: '0 auto', padding: '48px 24px' }}>
-          <div style={{ fontSize: 'var(--t-base)', letterSpacing: '.16em', textTransform: 'uppercase', color: 'var(--color-accent-700)', marginBottom: 26 }}>05 · Why LawAfrica</div>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(min(100%,190px),1fr))', gap: 1, background: 'var(--color-divider)' }}>
+      {/* 04 · Why LawAfrica — a figure ledger. The four proofs used to sit in a
+           tinted strip that the white ground swallowed; they are now set as
+           oversized numerals in the feature face, each over a rule, so the
+           section carries weight without another dark band immediately after
+           the carousel. */}
+      <section className="proof-band">
+        <div className="wrap">
+          <div className="proof-head">
+            <div>
+              <span className="chip-light">04 &middot; Why LawAfrica</span>
+              <h2 className="contact-title" style={{ margin: '16px 0 0' }}>
+                The reference
+                <span>practitioners keep</span>
+              </h2>
+            </div>
+            <p>
+              A quarter of a century of primary law, commentary and reporting for
+              six African jurisdictions &mdash; edited in house, and relied on by the
+              bench, the bar and the universities across the region.
+            </p>
+          </div>
+
+          <dl className="proof-ledger">
             {proof.map(s => (
-              <div key={s.label} style={{ background: 'var(--color-surface)', padding: '4px 22px 4px 0' }}>
-                <div style={{ fontFamily: 'var(--font-heading)', fontSize: 'calc(var(--t-base) + 33px*var(--tf,1)*var(--tz,1))', lineHeight: 1, fontWeight: 'var(--fw-heading,400)', fontVariantNumeric: 'tabular-nums', marginBottom: 8 }}>{s.num}</div>
-                <div style={{ fontSize: 'calc(var(--t-base) + 4px*var(--tf,1))', fontFamily: 'var(--font-heading)', marginBottom: 4 }}>{s.label}</div>
-                <div style={{ fontSize: 'calc(var(--t-base) + 1px*var(--tf,1))', color: 'var(--color-neutral-600)', lineHeight: 1.5 }}>{s.note}</div>
+              <div key={s.label}>
+                <dt className="tnum">{s.num}</dt>
+                <dd>
+                  <span>{s.label}</span>
+                  <span>{s.note}</span>
+                </dd>
               </div>
             ))}
-          </div>
+          </dl>
         </div>
       </section>
 
-      {/* 06 · Legal insights */}
+      {/* 05 · Legal insights */}
       <section style={{ maxWidth: 1180, margin: '0 auto', padding: '56px 24px' }}>
         <div style={{ display: 'flex', alignItems: 'baseline', gap: 14, marginBottom: 26 }}>
-          <SectionNum n="06" />
+          <SectionNum n="05" />
           <h2 style={{ fontSize: 'calc(var(--t-base) + 16px*var(--tf,1)*var(--tz,1))', fontWeight: 400, margin: 0 }}>Legal insights</h2>
           <span style={{ flex: 1, height: 1, background: 'var(--color-divider)' }} />
           <Link className="btn btn-ghost" to="/insights">All insights →</Link>
@@ -231,13 +227,13 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 07 · Feedback */}
+      {/* 06 · Feedback */}
       <section style={{ borderTop: '1px solid var(--color-divider)' }}>
         <div style={{ maxWidth: 1180, margin: '0 auto', padding: '56px 24px' }}>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(min(100%,280px),1fr))', gap: 48, alignItems: 'center' }}>
             <div>
               <div style={{ display: 'flex', alignItems: 'baseline', gap: 14, marginBottom: 16 }}>
-                <SectionNum n="07" />
+                <SectionNum n="06" />
                 <h2 style={{ fontSize: 'calc(var(--t-base) + 16px*var(--tf,1)*var(--tz,1))', fontWeight: 400, margin: 0 }}>Tell us what to fix</h2>
               </div>
               <p style={{ fontSize: 'calc(var(--t-base) + 4px*var(--tf,1))', lineHeight: 1.65, color: 'var(--color-neutral-700)', maxWidth: 460, margin: 0 }}>Wrong edition, broken link, a search that didn't find what it should — this site is worked on continually, and every note goes straight to the desk that owns it.</p>
@@ -259,7 +255,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 08 · Help and contact — elongated. This was three squat cards in a
+      {/* 07 · Help and contact — elongated. This was three squat cards in a
            row, which made the page end abruptly; it now runs as a tall block,
            an intro rail against four contact routes stacked with real space
            between them, each carrying both an address and a number. */}

@@ -678,3 +678,154 @@ textarea.input { min-height: 90px; resize: vertical; }
 .catalogue-table td { vertical-align: top; }
 .catalogue-table tbody tr:hover { background: var(--color-surface); }
 .table-scroll > .catalogue-table { min-width: 760px; }
+
+/* ─────────────────────────────────────────────────────────────────────
+   PROOF LEDGER  ("Why LawAfrica")
+
+   This was a tinted strip of four stats, which the white ground swallowed.
+   It is now a ledger: oversized numerals in the feature face, each sitting
+   on its own rule. It carries weight without being another dark band —
+   the publishing carousel runs on deep burgundy immediately above it, and
+   two dark planes back to back would make the page heavy again.
+   ───────────────────────────────────────────────────────────────────── */
+
+.proof-band {
+  border-top: 1px solid var(--color-divider);
+  border-bottom: 1px solid var(--color-divider);
+  padding-block: 64px 68px;
+}
+
+.proof-head {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 0.9fr);
+  gap: 48px;
+  align-items: end;
+  margin-bottom: 48px;
+}
+@media (max-width: 860px) { .proof-head { grid-template-columns: minmax(0, 1fr); gap: 18px; align-items: start; } }
+.proof-head p {
+  margin: 0;
+  font-size: calc(var(--t-base) + 3px*var(--tf,1));
+  line-height: 1.7;
+  color: var(--color-neutral-700);
+  max-width: 46ch;
+}
+
+.proof-ledger {
+  margin: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 210px), 1fr));
+  gap: 36px 32px;
+}
+.proof-ledger > div { display: flex; flex-direction: column; }
+
+/* the figure: the largest type on the page, and the reason the section reads */
+.proof-ledger dt {
+  font-family: var(--font-display);
+  font-size: calc(var(--t-base) + 44px*var(--tf,1)*var(--tz,1));
+  line-height: 1;
+  color: var(--color-accent-700);
+  padding-bottom: 14px;
+  border-bottom: 2px solid var(--color-accent);
+}
+.proof-ledger dd { margin: 14px 0 0; display: flex; flex-direction: column; gap: 6px; }
+.proof-ledger dd > span:first-child {
+  font-family: var(--font-heading);
+  font-weight: var(--font-heading-weight);
+  font-size: calc(var(--t-base) + 6px*var(--tf,1));
+  line-height: 1.2;
+}
+.proof-ledger dd > span:last-child {
+  font-size: calc(var(--t-base) + 1px*var(--tf,1));
+  line-height: 1.55;
+  color: var(--color-neutral-700);
+}
+
+/* ─────────────────────────────────────────────────────────────────────
+   HERO COPY
+
+   The band's wash is heavy on the left and clears completely by ~74%, so
+   the right of the photograph shows through unveiled. That only works if
+   the text stays in the covered part — About and Practice previously ran
+   their headlines into the cleared side, where white type fell to 2.4:1
+   and 1.6:1 against the picture. Measured under the actual glyph pixels,
+   not the text box, which is the only way to see it.
+
+   So hero copy is held to the left column. Nothing else about the layout
+   changes; the constraint is only on the text that sits over the picture.
+   ───────────────────────────────────────────────────────────────────── */
+.hero-copy h1,
+.hero-copy > div > p,
+.hero-copy > div > div > p { max-width: min(100%, 600px) !important; }
+
+@media (max-width: 860px) {
+  /* stacked, the wash covers the full width, so the cap comes off */
+  .hero-copy h1,
+  .hero-copy > div > p,
+  .hero-copy > div > div > p { max-width: 100% !important; }
+}
+
+/* ─────────────────────────────────────────────────────────────────────
+   THE DESK
+
+   One job: find a book. It used to run three columns — book search, Law
+   Reports search, and a list of recent judgments — but reporting lives on
+   the LLR platform now, so the card is a single row and much shorter. It
+   still overlaps the hero band, which is what makes it read as sitting on
+   the page rather than after it.
+   ───────────────────────────────────────────────────────────────────── */
+
+.desk {
+  max-width: 1180px;
+  margin: -46px auto 0;
+  padding-inline: 24px;
+  position: relative;
+  z-index: 5;
+}
+.desk-card {
+  background: var(--color-bg);
+  border: 1px solid var(--color-divider);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-lg);
+}
+.desk-head {
+  display: flex; align-items: baseline; gap: 16px; flex-wrap: wrap;
+  padding: 18px 26px 14px;
+  border-bottom: 1px solid var(--color-divider);
+}
+.desk-head h2 {
+  font-family: var(--font-heading);
+  font-size: calc(var(--t-base) + 16px*var(--tf,1)*var(--tz,1));
+  font-weight: var(--fw-heading, 400);
+  margin: 0;
+}
+.desk-head span {
+  font-size: calc(var(--t-base) + 2px*var(--tf,1));
+  color: var(--color-neutral-700);
+}
+
+/* One row on a desktop: the keyword field takes the slack, the two selects
+   and the button size to their content. */
+.desk-row {
+  display: grid;
+  grid-template-columns: minmax(0, 2fr) minmax(0, 1fr) minmax(0, 1fr) auto;
+  grid-template-areas: 'q j a go';
+  gap: 14px;
+  align-items: end;
+  padding: 18px 26px 22px;
+}
+.desk-row .btn { white-space: nowrap; }
+
+@media (max-width: 900px) {
+  .desk-row {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    grid-template-areas: 'q q' 'j a' 'go go';
+  }
+}
+@media (max-width: 560px) {
+  .desk { margin-top: -28px; }
+  .desk-row {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-areas: 'q' 'j' 'a' 'go';
+  }
+}

@@ -5,7 +5,7 @@ import { values, catalogueParts, milestones, timeline, whyChoose } from '../data
 export default function About() {
   return (
     <div className="page">
-      <section style={{ minHeight: 530, display: 'flex', alignItems: 'center', color: 'var(--color-bg)' }}>
+      <section className="hero-copy" style={{ minHeight: 530, display: 'flex', alignItems: 'center', color: 'var(--color-bg)' }}>
         <div style={{ maxWidth: 1180, margin: '0 auto', padding: '96px 24px 56px', width: '100%' }}>
           <div style={{ fontFamily: 'var(--font-heading)', fontStyle: 'italic', color: 'var(--gold-400)', fontSize: 'calc(var(--t-base) + 6px*var(--tf,1))', marginBottom: 18 }}>Know. Do. Be More</div>
           <h1 style={{ fontSize: 'calc(var(--t-base) + 49px*var(--tf,1)*var(--tz,1))', fontWeight: 400, lineHeight: 1.05, letterSpacing: 'var(--ls-heading,-.02em)', margin: '0 0 20px', color: '#fff', maxWidth: '18ch' }}>Africa&rsquo;s legal publisher since 1999.</h1>
