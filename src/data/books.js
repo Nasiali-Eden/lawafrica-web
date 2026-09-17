@@ -28,11 +28,6 @@ function mk([code, title, author, edline, price, juris, format, stock]) {
 export const featured = FEATURED.map(mk);
 export const books = FEATURED.concat(REST).map(mk);
 
-export const book = {
-  title: 'The Law of Contract in Kenya', code: 'CON-25',
-  author: 'Prof. A. Mwangi', credential: 'Professor of Commercial Law, University of Nairobi',
-  edline: '4th edition · 2025'
-};
 
 export const biblio = [
   { k: 'Edition', v: '4th edition, revised' }, { k: 'Publication date', v: 'March 2025' },

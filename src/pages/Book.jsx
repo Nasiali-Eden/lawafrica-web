@@ -1,17 +1,46 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import BookCover from '../components/BookCover.jsx';
 import BookTile from '../components/BookTile.jsx';
-import { book, biblio, featured } from '../data/books.js';
+import { books, biblio, featured } from '../data/books.js';
 import { useBasket } from '../state/BasketContext.jsx';
 import { money } from '../lib/format.js';
 
 export default function Book() {
+  const { code } = useParams();
   const [fmt, setFmt] = useState('print');
   const { addItem, added } = useBasket();
+
+  // The page used to read one hardcoded record, so every code — including one
+  // that does not exist — rendered the same title at the same price. It reads
+  // the code off the URL now, and says so when there is no such title rather
+  // than quietly showing a different book.
+  const book = books.find(b => b.code === code);
+  if (!book) {
+    return (
+      <div className="page" style={{ maxWidth: 1180, margin: '0 auto', padding: '48px 24px 96px' }}>
+        <div style={{ fontSize: 'calc(var(--t-base) + 1px*var(--tf,1))', color: 'var(--color-neutral-600)', marginBottom: 18 }}>Home / Books</div>
+        <h1 className="page-title" style={{ fontSize: 'calc(var(--t-base) + 33px*var(--tf,1)*var(--tz,1))', margin: '0 0 10px' }}>Title not found</h1>
+        <p style={{ fontSize: 'calc(var(--t-base) + 4px*var(--tf,1))', color: 'var(--color-neutral-700)', maxWidth: '52ch', marginBottom: 22 }}>
+          We have no title with the reference <strong>{code}</strong>. It may have been
+          withdrawn, or the link may be mistyped.
+        </p>
+        <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap' }}>
+          <Link className="btn btn-primary" to="/books" style={{ textDecoration: 'none' }}>Browse all books</Link>
+          <Link className="btn btn-secondary" to="/contact" style={{ textDecoration: 'none' }}>Ask us about it</Link>
+        </div>
+      </div>
+    );
+  }
+
   const isPrint = fmt === 'print';
-  const unit = isPrint ? 6500 : 4800;
-  const key = 'CON-25|' + (isPrint ? 'Print' : 'Digital');
+  // the print price is the record's own; the digital edition runs at about
+  // three quarters of it until real per-format pricing arrives
+  // until per-format pricing exists upstream, the digital edition runs at
+  // about three quarters of print, rounded to the nearest 50
+  const digitalUnit = Math.round(book.unit * 0.74 / 50) * 50;
+  const unit = isPrint ? book.unit : digitalUnit;
+  const key = book.code + '|' + (isPrint ? 'Print' : 'Digital');
   const addLabel = added === key ? 'Added to basket ✓' : 'Add to basket · ' + money(unit);
 
   const optStyle = active => ({
@@ -25,18 +54,16 @@ export default function Book() {
   return (
     <div className="page">
       <div style={{ maxWidth: 1180, margin: '0 auto', padding: '28px 24px 20px' }}>
-        <div style={{ fontSize: 'calc(var(--t-base) + 1px*var(--tf,1))', color: 'var(--color-neutral-600)' }}>Home / Books / Commercial law / <span style={{ color: 'var(--color-text)' }}>{book.title}</span></div>
+        <div style={{ fontSize: 'calc(var(--t-base) + 1px*var(--tf,1))', color: 'var(--color-neutral-600)' }}>Home / Books / {book.juris} / <span style={{ color: 'var(--color-text)' }}>{book.title}</span></div>
       </div>
       <div className="stack product-stack" style={{ maxWidth: 1180, margin: '0 auto', padding: '0 24px 56px', display: 'grid', gridTemplateColumns: '320px 1fr 300px', gap: 44, alignItems: 'start' }}>
         <div>
           <BookCover title={book.title} author={book.author} variant="plain" style={{ marginBottom: 14 }} />
-          <button className="btn btn-secondary btn-block">Read a sample chapter</button>
-          <button className="btn btn-secondary btn-block">View table of contents</button>
         </div>
         <div>
           <div style={{ display: 'flex', gap: 7, marginBottom: 14 }}>
             <span className="tag tag-accent">Kenya</span>
-            <span className="tag tag-accent">Commercial law</span>
+            <span className="tag tag-accent">{book.juris}</span>
             <span className="tag tag-neutral">Practitioner</span>
           </div>
           <h1 className="page-title" style={{ fontSize: 'calc(var(--t-base) + 33px*var(--tf,1)*var(--tz,1))', lineHeight: 1.05, margin: '0 0 10px' }}>{book.title}</h1>
@@ -69,15 +96,15 @@ export default function Book() {
           <div style={{ display: 'flex', flexDirection: 'column', gap: 8, marginBottom: 18 }}>
             <button onClick={() => setFmt('print')} style={optStyle(isPrint)}>
               <span style={dotStyle(isPrint)} />
-              <span style={{ flex: 1, fontSize: 'calc(var(--t-base) + 4px*var(--tf,1))' }}>Print · hardback</span><span style={{ fontFamily: 'var(--font-heading)', fontSize: 'calc(var(--t-base) + 6px*var(--tf,1))' }}>KES 6,500</span>
+              <span style={{ flex: 1, fontSize: 'calc(var(--t-base) + 4px*var(--tf,1))' }}>Print · hardback</span><span style={{ fontFamily: 'var(--font-heading)', fontSize: 'calc(var(--t-base) + 6px*var(--tf,1))' }}>{money(book.unit)}</span>
             </button>
             <button onClick={() => setFmt('ebook')} style={optStyle(!isPrint)}>
               <span style={dotStyle(!isPrint)} />
-              <span style={{ flex: 1, fontSize: 'calc(var(--t-base) + 4px*var(--tf,1))' }}>Digital · instant access</span><span style={{ fontFamily: 'var(--font-heading)', fontSize: 'calc(var(--t-base) + 6px*var(--tf,1))' }}>KES 4,800</span>
+              <span style={{ flex: 1, fontSize: 'calc(var(--t-base) + 4px*var(--tf,1))' }}>Digital · instant access</span><span style={{ fontFamily: 'var(--font-heading)', fontSize: 'calc(var(--t-base) + 6px*var(--tf,1))' }}>{money(digitalUnit)}</span>
             </button>
           </div>
-          <div style={{ fontSize: 'calc(var(--t-base) + 2px*var(--tf,1))', color: 'var(--color-success)', marginBottom: 14 }}>● In stock — dispatched within 2 working days</div>
-          <button className="btn btn-block" onClick={() => addItem({ code: 'CON-25', title: book.title, author: 'Prof. A. Mwangi · 4th edition 2025', fmt: isPrint ? 'Print' : 'Digital', unit })} style={{ background: 'var(--color-accent)', color: '#fff', minHeight: 44, fontSize: 'calc(var(--t-base) + 4px*var(--tf,1))', marginTop: 0 }}>{addLabel}</button>
+          <div style={{ fontSize: 'calc(var(--t-base) + 2px*var(--tf,1))', color: 'var(--color-success)', marginBottom: 14 }}>{'● ' + book.stock}</div>
+          <button className="btn btn-block" onClick={() => addItem({ code: book.code, title: book.title, author: book.author + ' · ' + book.edline, fmt: isPrint ? 'Print' : 'Digital', unit })} style={{ background: 'var(--color-accent)', color: '#fff', minHeight: 44, fontSize: 'calc(var(--t-base) + 4px*var(--tf,1))', marginTop: 0 }}>{addLabel}</button>
           <Link className="btn btn-secondary btn-block" to="/basket" style={{ minHeight: 40, fontSize: 'calc(var(--t-base) + 4px*var(--tf,1))', textDecoration: 'none' }}>View basket</Link>
           <button className="btn btn-primary btn-block" style={{ minHeight: 44, fontSize: 'calc(var(--t-base) + 4px*var(--tf,1))' }}>Request an institutional quote</button>
           <hr className="hr" />
