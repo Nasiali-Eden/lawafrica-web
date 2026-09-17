@@ -114,7 +114,6 @@ sort, and a clean Print/Digital split across `/books` and `/ebooks`.
 
 - **All nine titles are invented.** "Prof. A. Mwangi", "KES 6,500" and
   "CON-25" are not real. The live site has **211 real products**.
-- **No ISBNs.** Nothing in the data carries one.
 - **No synopsis.** The product page's "What this book covers" is written copy,
   not per-title data.
 - **One shared bibliographic table and contents list**, used for every title.
@@ -130,22 +129,27 @@ There are two halves, and they can move independently.
 `/api/v1/ecommerce/products` is public and returns all 211 with id, slug, name,
 price, stock status and a cover URL. No credentials, no server change.
 
-**The editorial fields cannot.** Author, ISBN, edition, jurisdiction and synopsis
-are empty on every record the API returns — they exist only in the admin and in
+**The editorial fields cannot.** Author, edition, jurisdiction and synopsis are
+empty on every record the API returns — they exist only in the admin and in
 the page HTML. So they have to come from you, as an export or a spreadsheet:
 
 | Column | Example | Needed for |
 | --- | --- | --- |
 | `slug` | `public-international-law` | the join key — must match the live URL |
 | `author` | `Prof. David Bakibinga` | card, masthead, filters |
-| `isbn` | `9789966031259` | specification table, search |
 | `edition` | `2nd edition · 2024` | card, masthead |
 | `jurisdiction` | `Uganda` | the jurisdiction filter |
 | `synopsis` | one paragraph | product page |
 
-Twenty of these are already in `src/data/catalogue.js` — I read them out of the
-2026 printed catalogue PDF, with real ISBNs and authors. That file is a working
-sample of the shape, and could seed the first import.
+**ISBNs are out of scope** — confirmed 17 Sep 2026, they will not be available.
+The invented ISBN rows have been removed from the product specification table,
+the catalogue's ISBN column is gone, and the catalogue search no longer claims
+to match on one. The reference on a card is the product **code**; the join key
+upstream is the product **slug**.
+
+Twenty titles with real authors are already in `src/data/catalogue.js`, read out
+of the 2026 printed catalogue PDF. That file is a working sample of the shape and
+could seed the first import.
 
 **Covers.** Live covers are at `/storage/products/{image-slug}-1.jpg`. Note the
 image slug is not always the URL slug — `/products/the-essence-of-pupillage` has
@@ -237,13 +241,13 @@ consistency of subject matters more than polish.
 - Import the 211-title spine from the public API — real titles, prices, stock and
   covers, replacing the nine invented ones.
 - Reduce the article list to the pieces that have bodies, so nothing opens empty.
-- Wire `src/data/catalogue.js`'s 20 real titles (with ISBNs) into the catalogue.
+- Wire `src/data/catalogue.js`'s 20 real titles and authors into the catalogue.
 
 **I need from you:**
 
 1. Four hero slides — kicker, headline, one line, CTA, destination — and four images.
-2. The editorial spreadsheet for books: slug, author, ISBN, edition, jurisdiction,
-   synopsis.
+2. The editorial spreadsheet for books: slug, author, edition, jurisdiction,
+   synopsis. (No ISBN — out of scope.)
 3. Which of the 12 live blog posts are really yours, and body text for the ones
    worth keeping.
 4. A decision on events: static, blog category, new content type, or drop for now.

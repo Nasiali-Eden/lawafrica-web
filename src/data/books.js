@@ -29,9 +29,11 @@ export const featured = FEATURED.map(mk);
 export const books = FEATURED.concat(REST).map(mk);
 
 
+// No ISBN row: ISBNs are not part of the data this site will carry. The
+// reference on a card is the product code, and the join key upstream is the
+// product slug.
 export const biblio = [
   { k: 'Edition', v: '4th edition, revised' }, { k: 'Publication date', v: 'March 2025' },
-  { k: 'ISBN (print)', v: '978-9966-031-88-4' }, { k: 'ISBN (eBook)', v: '978-9966-031-89-1' },
   { k: 'Extent', v: '742 pages, with tables of cases and statutes' },
   { k: 'Jurisdiction', v: 'Kenya, with comparative notes on Tanzania and Uganda' },
   { k: 'Written for', v: 'Advocates, in-house counsel and final-year students' }

@@ -1,4 +1,4 @@
-// Titles, ISBNs and authors taken from the LawAfrica printed catalogue
+// Titles and authors taken from the LawAfrica printed catalogue
 // (LawAfrica Catalogue - 2026.pdf, 53pp). The PDF remains the authority; this
 // is the web description of it until a downloadable version is published.
 //
@@ -35,10 +35,12 @@ export const orderingNotes = [
 // placeholders here until the real cover shots are supplied.
 export const cataloguePlates = [
   { id: 'cover', label: 'Catalogue cover', note: 'Front cover, 2026 edition' },
-  { id: 'spread', label: 'Inside spread', note: 'A typical title page — jacket, ISBN, format, author and synopsis' },
+  { id: 'spread', label: 'Inside spread', note: 'A typical title page — jacket, format, author and synopsis' },
   { id: 'shelf', label: 'The list in print', note: 'Soft-back titles across six jurisdictions' }
 ];
 
+// `isbn` is kept as the record's stable key — it is real, read off the printed
+// catalogue — but it is not shown: ISBN is not a field this site carries.
 function mk([title, author, isbn, subject, juris]) {
   return { title, author, isbn, subject, juris, format: 'Print' };
 }

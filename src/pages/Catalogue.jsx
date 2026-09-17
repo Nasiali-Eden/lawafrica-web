@@ -39,7 +39,7 @@ export default function Catalogue() {
           </h1>
           <p style={{ fontSize: 'calc(var(--t-base) + 3px*var(--tf,1))', lineHeight: 1.7, color: 'var(--color-neutral-700)', maxWidth: '46ch', margin: '18px 0 0' }}>
             {catalogueMeta.pages} pages of the current list — every title with its
-            ISBN, format, author and synopsis, arranged by jurisdiction and subject,
+            format, author and synopsis, arranged by jurisdiction and subject,
             together with our ordering, trade and shipping terms.
           </p>
           <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap', marginTop: 24 }}>
@@ -110,7 +110,6 @@ export default function Catalogue() {
                 <th scope="col">Author</th>
                 <th scope="col">Jurisdiction</th>
                 <th scope="col">Subject</th>
-                <th scope="col">ISBN</th>
                 <th scope="col">Format</th>
               </tr>
             </thead>
@@ -121,7 +120,6 @@ export default function Catalogue() {
                   <td>{t.author}</td>
                   <td>{t.juris}</td>
                   <td>{t.subject}</td>
-                  <td className="tnum" style={{ whiteSpace: 'nowrap' }}>{t.isbn}</td>
                   <td><span className="tag tag-neutral">{t.format}</span></td>
                 </tr>
               ))}

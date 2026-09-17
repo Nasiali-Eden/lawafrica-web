@@ -27,7 +27,7 @@ export default function Books({ digital = false }) {
       <h1 className="page-title" style={{ fontSize: 'calc(var(--t-base) + 33px*var(--tf,1)*var(--tz,1))', margin: '0 0 8px' }}>{catalogueTitle}</h1>
       <p style={{ fontSize: 'calc(var(--t-base) + 4px*var(--tf,1))', color: 'var(--color-neutral-700)', maxWidth: 620, marginBottom: 18 }}>{introduction}</p>
       <div className="field" style={{ maxWidth: 520, marginBottom: 24 }}>
-        <label htmlFor="catalogue-search">Search {ebooksOnly ? 'eBooks' : 'books'} by title, author or ISBN</label>
+        <label htmlFor="catalogue-search">Search {ebooksOnly ? 'eBooks' : 'books'} by title, author or reference</label>
         <input
           id="catalogue-search"
           className="input"
@@ -92,7 +92,7 @@ export default function Books({ digital = false }) {
             </div>
           ) : (
             <p role="status" style={{ margin: 0, padding: '24px 0', color: 'var(--color-neutral-700)', borderTop: '1px solid var(--color-divider)' }}>
-              No {ebooksOnly ? 'eBooks' : 'books'} match &ldquo;{query}&rdquo;. Try a title, author or ISBN.
+              No {ebooksOnly ? 'eBooks' : 'books'} match &ldquo;{query}&rdquo;. Try a title, author or reference.
             </p>
           )}
         </div>

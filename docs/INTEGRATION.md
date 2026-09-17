@@ -114,10 +114,13 @@ one:
 `image_with_sizes` is populated on only 6 of 24.
 
 **This is the central constraint.** The API is a catalogue *spine* — id, slug,
-title, price, stock, thumbnail. It carries **no author, no ISBN, no edition, no
+title, price, stock, thumbnail. It carries **no author, no edition, no
 jurisdiction, no synopsis**, which are exactly the fields this front end's book
 cards and title pages are built around. Those live in the product's page HTML
 and in the admin, not in the API.
+
+(`sku` is null throughout too, but that no longer matters — **ISBN is out of
+scope**, confirmed 17 Sep 2026.)
 
 No per-product endpoint exists: `/products/649` 404s and `/products/{slug}` 500s.
 
@@ -187,7 +190,7 @@ entrepreneurship, not law. Any integration should filter, not import wholesale.
 ### A. Read the public API, fill the gaps by hand — *recommended to start*
 
 Pull the 211 products from `/api/v1/ecommerce/products`, then hold the fields the
-API does not expose (author, ISBN, edition, jurisdiction, synopsis) in a small
+API does not expose (author, edition, jurisdiction, synopsis) in a small
 editorial file keyed by product `id` or `slug`.
 
 - Works today, no server change, no credentials.
@@ -197,7 +200,7 @@ editorial file keyed by product `id` or `slug`.
 ### B. Extend the API, then read only the API — *the right end state*
 
 Add the missing fields to the products API resource in Botble (a small change in
-the eCommerce plugin's transformer) so `sku`/ISBN, description, brand/author and
+the eCommerce plugin's transformer) so description, brand/author and
 categories are returned. Then this front end needs no editorial file at all.
 
 - One source of truth.
@@ -237,7 +240,6 @@ What this front end needs, against what the live site can supply.
 | `author` | product page HTML / admin | ❌ not in the API |
 | `edline` (edition, year) | product page HTML / admin | ❌ not in the API |
 | `juris` (jurisdiction) | not modelled upstream | ❌ |
-| ISBN | `sku` — null on every record | ❌ |
 | synopsis | `description` / `content` — empty on every record | ❌ |
 
 ### `src/data/articles.js` — an article
@@ -267,9 +269,10 @@ No upstream source. See §6.
 In rough order of how much it unblocks:
 
 1. **A decision on §7** — A, B or C. Everything else follows from it.
-2. **The editorial fields for the catalogue**, if A: author, ISBN, edition/year
-   and jurisdiction per title. A spreadsheet keyed by product slug is ideal; it
-   maps straight onto `src/data/books.js`.
+2. **The editorial fields for the catalogue**, if A: author, edition/year and
+   jurisdiction per title. A spreadsheet keyed by product slug is ideal; it maps
+   straight onto `src/data/books.js`. **ISBN is out of scope** — confirmed
+   17 Sep 2026 — so `sku` being null upstream no longer matters.
 3. **Category clean-up** — 97 of 211 products sit in neither Law Books nor Law
    Ebooks. Until that is fixed the print/digital split cannot be derived.
 4. **A decision on events** — static, new content type, or a blog category.
