@@ -1,9 +1,7 @@
 import { useEffect, useState } from 'react';
-import { useLocation } from 'react-router-dom';
 import { useOverlay } from '../state/OverlayContext.jsx';
 import { useType } from '../state/TypeContext.jsx';
 import { useBackground } from '../state/BackgroundContext.jsx';
-import { useHero } from '../state/HeroContext.jsx';
 
 // Floating preview toggles, stacked bottom-right: background (current /
 // white), hero "this week" list layout (Home only), hero overlay on/off,
@@ -16,8 +14,6 @@ export default function FloatingControls() {
   const { overlayOn, toggleOverlay } = useOverlay();
   const { isWarm, toggleBackground } = useBackground();
   const { pairs, pairOpen, togglePair } = useType();
-  const { listLayout, toggleListLayout } = useHero();
-  const isHome = useLocation().pathname === '/';
 
   const [narrow, setNarrow] = useState(false);
   const [open, setOpen] = useState(false);
@@ -75,22 +71,6 @@ export default function FloatingControls() {
         <span style={{ width: 11, height: 11, borderRadius: '50%', flex: 'none', border: '1px solid var(--color-neutral-400)', background: isWarm ? '#f6f5f4' : '#ffffff' }} />
         <span>{isWarm ? 'Background: Warm' : 'Background: White'}</span>
       </button>
-
-      {isHome && (
-        <button type="button" onClick={toggleListLayout}
-          style={{
-            display: 'flex', alignItems: 'center', gap: 8, borderRadius: 4, padding: '9px 14px', cursor: 'pointer',
-            font: 'inherit', fontSize: 'calc(var(--t-base) + 2px*var(--tf,1))', boxShadow: '0 4px 14px rgba(20,24,46,.12)',
-            border: '1px solid var(--color-text)', background: 'var(--color-bg)', color: 'var(--color-text)'
-          }}>
-          <span style={{ width: 11, height: 11, flex: 'none', border: '1px solid var(--color-neutral-400)', display: 'grid', placeItems: 'center' }}>
-            {listLayout === 'horizontal'
-              ? <span style={{ width: 7, height: 1, background: 'var(--color-accent)' }} />
-              : <span style={{ width: 1, height: 7, background: 'var(--color-accent)' }} />}
-          </span>
-          <span>This week: {listLayout === 'horizontal' ? 'Horizontal' : 'Vertical'}</span>
-        </button>
-      )}
 
       <button type="button" onClick={toggleOverlay}
         style={{

@@ -1,6 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
 import { Outlet, useLocation } from 'react-router-dom';
-import { HeroProvider } from '../state/HeroContext.jsx';
 import HeroBand from './HeroBand.jsx';
 import PageHeroBand from './PageHeroBand.jsx';
 import Header, { TopBar } from './Header.jsx';
@@ -62,7 +61,6 @@ export default function Layout() {
   };
 
   return (
-    <HeroProvider>
       <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column', fontFamily: 'var(--font-body)', position: 'relative' }}>
         {isHome && <HeroBand />}
         {staticHero && <PageHeroBand image={staticHero.image} height={staticHero.height} />}
@@ -74,6 +72,5 @@ export default function Layout() {
         <Footer />
         <FloatingControls />
       </div>
-    </HeroProvider>
   );
 }

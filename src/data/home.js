@@ -1,21 +1,19 @@
-export const heroSlides = [
-  { img: '/assets/plate-hero-1.jpg', kicker: 'Current news updates',
-    title: 'The Supreme Court on eviction, housing and the remedies a court may fashion',
-    meta: 'Mitu-Bell Welfare Society v Kenya Airports Authority · [2021] KESC 34 (KLR)',
-    cta: 'Read the judgment', caseId: 'mitubell' },
-  { img: '/assets/plate-hero-2.jpg', kicker: 'Upcoming events',
-    title: 'Drafting around the new withholding rules in the 2026 Finance Act',
-    meta: 'Online · 17 September · 60 minutes · 1 CPD point',
-    cta: 'Register free', to: '/insights?feed=Events' },
-  { img: '/assets/plate-hero-3.jpg', kicker: 'New releases',
-    title: 'The Law of Contract in Kenya returns in a fourth edition',
-    meta: 'Prof. A. Mwangi · 742 pages · print and eBook · launch 2 October',
-    cta: 'See the title', to: '/books/CON-25' },
-  { img: '/assets/plate-hero-4.jpg', kicker: 'Spotlight of the week',
-    title: 'Constitutional Practice in East Africa',
-    meta: 'J. Otieno SC · 2nd edition · 2024 · KES 7,200',
-    cta: 'See the title', to: '/books/CST-24' }
-];
+// Accounts were removed from this release, so signing in hands off to the
+// existing platform — the same treatment Law Reports gets. Change this one
+// constant if the account ever moves.
+export const ACCOUNT_URL = 'https://www.lawafrica.com/login';
+
+// One hero. It was a four-slide rotation; the images no longer switch, so the
+// content is a single record rather than an array, and the slide picker that
+// used to sit beside it has gone with the rotation.
+export const hero = {
+  img: '/assets/plate-hero-1.jpg',
+  eyebrow: 'Know. Do. Be More',
+  titleLead: 'Trusted Legal Knowledge.',
+  titleTail: 'Innovative Digital Solutions.',
+  body: 'LawAfrica provides authoritative legal publishing, research resources and technology solutions that empower advocates, legal practitioners, law students and institutions with trusted knowledge for learning, research and practice.'
+};
+
 
 export const proof = [
   { num: '1999', label: 'Founded in Nairobi', note: 'The pioneer online law-reporting firm in East Africa.' },
