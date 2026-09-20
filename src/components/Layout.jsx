@@ -6,12 +6,13 @@ import Header, { TopBar } from './Header.jsx';
 import { HERO_HEIGHT } from './heroTreatment.js';
 import Footer from './Footer.jsx';
 import FloatingControls from './FloatingControls.jsx';
+import { asset } from '../lib/format.js';
 
 // Routes that get the full-bleed image-behind-transparent-header treatment,
 // same mechanism as Home: a static band for these, a rotating one for Home.
 const STATIC_HERO_ROUTES = {
-  '/about': { image: '/assets/plate-wide.jpg', height: HERO_HEIGHT },
-  '/practice': { image: '/assets/plate-land.jpg', height: HERO_HEIGHT }
+  '/about': { image: asset('/assets/plate-wide.jpg'), height: HERO_HEIGHT },
+  '/practice': { image: asset('/assets/plate-land.jpg'), height: HERO_HEIGHT }
 };
 
 export default function Layout() {

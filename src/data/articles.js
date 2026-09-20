@@ -1,5 +1,6 @@
+import { asset } from '../lib/format.js';
 function art(o) {
-  return { kind: 'Articles', live: false, img: '/assets/plate-article.jpg', ...o, img: o.img || '/assets/plate-article.jpg' };
+  return { kind: 'Articles', live: false, img: asset('/assets/plate-article.jpg'), ...o, img: o.img || asset('/assets/plate-article.jpg') };
 }
 
 export const allArticles = [

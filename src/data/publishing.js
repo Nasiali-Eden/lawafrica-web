@@ -1,3 +1,4 @@
+import { asset } from '../lib/format.js';
 // The publishing lines, as carousel cards. Every card lands on one of the
 // three product destinations — Books, eBooks or Law Reports — because the
 // whole card is the link now, and a card that reads as one thing should not
@@ -11,7 +12,7 @@ export const publishingLines = [
     chip: 'Primary law',
     title: 'Statutes',
     body: 'The Laws of Kenya — a 24-volume compilation of everything in force, with Chapters, yearly Acts and key subsidiary legislation, in loose-leaf so a set can be kept current.',
-    img: '/assets/plate-library.jpg',
+    img: asset('/assets/plate-library.jpg'),
     to: '/books',
     cta: 'Browse statutes'
   },
@@ -20,7 +21,7 @@ export const publishingLines = [
     chip: 'Primary law',
     title: 'Law Reports',
     body: 'Reported judgments from Kenya, Uganda, Tanzania, Zanzibar and South Sudan, with landmark decisions of the COMESA Court — headnoted, catchworded and cross-cited by our own editors.',
-    img: '/assets/plate-wide.jpg',
+    img: asset('/assets/plate-wide.jpg'),
     to: '/llr',
     cta: 'Go to Law Reports'
   },
@@ -29,7 +30,7 @@ export const publishingLines = [
     chip: 'Commentary',
     title: 'Commentaries & treatises',
     body: 'Practitioner and academic titles across administrative, arbitration, banking, commercial, constitutional, criminal, employment, land and tax law.',
-    img: '/assets/plate-hero-3.jpg',
+    img: asset('/assets/plate-hero-3.jpg'),
     to: '/books',
     cta: 'Browse titles'
   },
@@ -38,7 +39,7 @@ export const publishingLines = [
     chip: 'Periodicals',
     title: 'Journals & digests',
     body: 'The LSK Continuing Professional Development Digest, the Rwanda Law Journal and regional periodicals published with law societies and universities.',
-    img: '/assets/plate-article.jpg',
+    img: asset('/assets/plate-article.jpg'),
     to: '/books',
     cta: 'Browse the titles'
   },
@@ -47,7 +48,7 @@ export const publishingLines = [
     chip: 'Digital',
     title: 'eBooks & databases',
     body: 'The same catalogue on desktop, tablet and phone: full-text search inside every title, and one sign-in across all three LawAfrica platforms.',
-    img: '/assets/plate-land.jpg',
+    img: asset('/assets/plate-land.jpg'),
     to: '/ebooks',
     cta: 'Browse digital books'
   },
@@ -56,7 +57,7 @@ export const publishingLines = [
     chip: 'Services',
     title: 'Institutional publishing',
     body: 'Custom and commissioned publishing for firms, courts, ministries and libraries — standing orders, invoicing on account and named editorial contacts.',
-    img: '/assets/plate-event.jpg',
+    img: asset('/assets/plate-event.jpg'),
     to: '/books',
     cta: 'Browse the catalogue'
   }

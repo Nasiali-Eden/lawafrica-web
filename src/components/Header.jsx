@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useBasket } from '../state/BasketContext.jsx';
 import { LLR_URL } from '../pages/LLR.jsx';
+import { asset } from '../lib/format.js';
 
 const navLinkStyle = { background: 'none', border: 0, padding: '4px 0', cursor: 'pointer', font: 'inherit', color: 'inherit', borderBottom: '2px solid transparent', whiteSpace: 'nowrap', textDecoration: 'none' };
 
@@ -147,7 +148,7 @@ export default function Header({ hidden, chromeHdr, chromeFg, chromeBd, chromeBt
     }}>
       <div className="wrap" style={{ paddingBlock: 16, display: 'flex', alignItems: 'center', gap: 22 }}>
         <Link to="/" style={{ background: 'none', border: 0, padding: 0, cursor: 'pointer', flex: 'none', display: 'flex', alignItems: 'center' }}>
-          <img src="/assets/lawafrica-logo.png" alt="LawAfrica — Know. Do. Be More." style={{ height: 38, width: 'auto', display: 'block', filter: logoFilter, transition: 'filter .3s ease' }} />
+          <img src={asset("/assets/lawafrica-logo.png")} alt="LawAfrica — Know. Do. Be More." style={{ height: 38, width: 'auto', display: 'block', filter: logoFilter, transition: 'filter .3s ease' }} />
         </Link>
 
         <nav className="at-wide" style={{ alignItems: 'center', gap: 18, fontFamily: 'var(--font-heading)', fontSize: 'calc(var(--t-base) + 6px*var(--tf,1))' }}>

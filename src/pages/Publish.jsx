@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import Plate from '../components/Plate.jsx';
+import { asset } from '../lib/format.js';
 
 const WHAT = [
   ['Practitioner texts', 'Working books with forms, precedents and procedure, kept current through new editions.'],
@@ -29,7 +30,7 @@ export default function Publish() {
             <Link className="btn btn-secondary" to="/contact" style={{ minHeight: 44, textDecoration: 'none' }}>Talk to a commissioning editor</Link>
           </div>
         </div>
-        <Plate src="/assets/plate-cover.jpg" aspectRatio="4/5" />
+        <Plate src={asset("/assets/plate-cover.jpg")} aspectRatio="4/5" />
       </div>
 
       <section style={{ marginBottom: 44 }}>

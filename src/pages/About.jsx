@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import Plate from '../components/Plate.jsx';
 import { values, catalogueParts, milestones, timeline, whyChoose } from '../data/about.js';
+import { asset } from '../lib/format.js';
 
 export default function About() {
   return (
@@ -126,7 +127,7 @@ export default function About() {
 
       <section style={{ background: 'var(--ground-brand-deep)', color: 'var(--on-brand-body)', borderBottom: '1px solid var(--color-divider)' }}>
         <div style={{ maxWidth: 1180, margin: '0 auto', padding: '56px 24px', display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(min(100%,280px),1fr))', gap: 56, alignItems: 'center' }}>
-          <Plate src="/assets/plate-wide.jpg" aspectRatio="16/10" />
+          <Plate src={asset("/assets/plate-wide.jpg")} aspectRatio="16/10" />
           <div>
             <div style={{ fontSize: 'var(--t-base)', letterSpacing: '.16em', textTransform: 'uppercase', color: 'var(--on-brand-eyebrow)', marginBottom: 14 }}>Digital innovation</div>
             <h2 style={{ fontSize: 'calc(var(--t-base) + 23px*var(--tf,1)*var(--tz,1))', fontWeight: 400, lineHeight: 1.15, margin: '0 0 16px', color: '#ffffff' }}>The future of legal publishing is accessible, searchable and everywhere.</h2>

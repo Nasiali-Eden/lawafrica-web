@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import Plate from '../components/Plate.jsx';
+import { asset } from '../lib/format.js';
 
 const STATS = [['6', 'Jurisdictions reported'], ['25k+', 'Headnoted judgments'], ['400+', 'Titles in the catalogue'], ['1', 'Invoice, however many seats']];
 
@@ -77,7 +78,7 @@ export default function Institutions() {
             ))}
           </div>
         </div>
-        <Plate src="/assets/plate-wide.jpg" aspectRatio="4/3" />
+        <Plate src={asset("/assets/plate-wide.jpg")} aspectRatio="4/3" />
       </section>
 
       <section style={{ border: '1px solid var(--color-divider)', borderRadius: 4, padding: '26px 30px', background: 'var(--color-surface)', display: 'grid', gridTemplateColumns: '1fr auto', gap: 32, alignItems: 'center' }}>

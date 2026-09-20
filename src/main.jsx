@@ -11,7 +11,7 @@ import { BackgroundProvider } from './state/BackgroundContext.jsx';
 
 createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <BrowserRouter>
+    <BrowserRouter basename={import.meta.env.BASE_URL}>
       <TypeProvider>
         <BackgroundProvider>
           <OverlayProvider>

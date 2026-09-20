@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import Plate from '../components/Plate.jsx';
+import { asset } from '../lib/format.js';
 
 const ROLES = [
   ['Law reporter (two posts)', 'Read judgments as they are delivered, write the headnote, assign catchwords and keep the citator honest. Admitted advocates and recent graduates both considered.', 'Reports desk', 'Full time'],
@@ -17,7 +18,7 @@ export default function Careers() {
           <h1 className="page-title" style={{ fontSize: 'calc(var(--t-base) + 33px*var(--tf,1)*var(--tz,1))', fontWeight: 'var(--fw-heading,400)', lineHeight: 1.05, margin: '0 0 16px', maxWidth: '22ch' }}>Work on the books practitioners actually open</h1>
           <p style={{ fontSize: 'calc(var(--t-base) + 6px*var(--tf,1))', lineHeight: 1.65, color: 'var(--color-neutral-800)', margin: 0, maxWidth: '60ch' }}>We are a small publishing house doing unglamorous, exacting work: reading judgments closely, checking citations, and getting editions to press on time. If that appeals more than it repels, look below.</p>
         </div>
-        <Plate src="/assets/plate-wide.jpg" aspectRatio="16/10" />
+        <Plate src={asset("/assets/plate-wide.jpg")} aspectRatio="16/10" />
       </div>
 
       <section style={{ marginBottom: 44 }}>

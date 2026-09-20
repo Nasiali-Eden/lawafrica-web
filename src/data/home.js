@@ -1,3 +1,4 @@
+import { asset } from '../lib/format.js';
 // Accounts were removed from this release, so signing in hands off to the
 // existing platform — the same treatment Law Reports gets. Change this one
 // constant if the account ever moves.
@@ -7,7 +8,7 @@ export const ACCOUNT_URL = 'https://www.lawafrica.com/login';
 // content is a single record rather than an array, and the slide picker that
 // used to sit beside it has gone with the rotation.
 export const hero = {
-  img: '/assets/plate-hero-1.jpg',
+  img: asset('/assets/plate-hero-1.jpg'),
   eyebrow: 'Know. Do. Be More',
   titleLead: 'Trusted Legal Knowledge.',
   titleTail: 'Innovative Digital Solutions.',

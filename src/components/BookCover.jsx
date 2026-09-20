@@ -1,3 +1,4 @@
+import { asset } from '../lib/format.js';
 // The book-jacket treatment: a desaturated cover photo under a maroon/indigo
 // multiply wash. "full" prints the title/author on the jacket (container-query
 // sized, so the same markup works from a 56px basket thumbnail up to a full
@@ -6,7 +7,7 @@
 export default function BookCover({ title, author, variant = 'full', style }) {
   return (
     <div className="plate" style={{ aspectRatio: '3/4', containerType: 'inline-size', overflow: 'hidden', position: 'relative', ...style }}>
-      <img src="/assets/plate-cover.jpg" alt="" loading="lazy"
+      <img src={asset("/assets/plate-cover.jpg")} alt="" loading="lazy"
         style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block', filter: 'grayscale(1) contrast(1.06) brightness(.92)' }} />
       <span style={{ position: 'absolute', inset: 0, background: 'linear-gradient(180deg,rgba(130,0,36,.62),rgba(57,56,58,.86))', mixBlendMode: 'multiply' }} />
       {/* Jacket lettering is decorative: every caller that passes variant="full"
