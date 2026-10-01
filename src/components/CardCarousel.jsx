@@ -81,26 +81,18 @@ export default function CardCarousel({ eyebrow, titleTop, titleBottom, intro, it
       onBlurCapture={() => setPaused(false)}
     >
       <div className="wrap feature-head">
-        <div>
-          <span className="feature-chip">{eyebrow}</span>
-          <h2 className="feature-title">
-            {titleTop}
-            <span>{titleBottom}</span>
-          </h2>
-        </div>
-        <div className="feature-aside">
-          <p>{intro}</p>
-          <div className="carousel-nav">
-            <button type="button" onClick={() => go(-1)} aria-label="Previous">‹</button>
-            <button type="button" onClick={() => go(1)} aria-label="Next" className="is-active">›</button>
-          </div>
-        </div>
+        <span className="feature-chip">{eyebrow}</span>
+        <h2 className="feature-title">
+          {titleTop} <span>{titleBottom}</span>
+        </h2>
+        <p>{intro}</p>
       </div>
 
       {/* The track lives inside the content column rather than bleeding to the
           viewport edge, so the row starts and ends on the same margin as the
           headline above it and shows a whole number of cards. */}
-      <div className="wrap">
+      <div className="wrap carousel-stage">
+      <button type="button" className="carousel-side" onClick={() => go(-1)} aria-label="Previous">‹</button>
       <div className="carousel-track" ref={trackRef} onScroll={onScroll}>
         {/* The whole card is the link: a card that reads as one thing should be
             one target, not a block of text with a small link at the foot. The
@@ -120,6 +112,7 @@ export default function CardCarousel({ eyebrow, titleTop, titleBottom, intro, it
           </Link>
         ))}
       </div>
+      <button type="button" className="carousel-side is-active" onClick={() => go(1)} aria-label="Next">›</button>
       </div>
 
       {/* A progress rail, not pagination. The last cards cannot be brought to

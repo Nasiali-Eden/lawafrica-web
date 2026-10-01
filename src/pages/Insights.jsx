@@ -1,5 +1,5 @@
 import { useSearchParams, Link } from 'react-router-dom';
-import { allArticles } from '../data/articles.js';
+import { allArticles, pillarInk } from '../data/articles.js';
 import { events } from '../data/events.js';
 import Plate from '../components/Plate.jsx';
 
@@ -45,7 +45,7 @@ export default function Insights() {
           <article>
             <Plate src={leadMain.img} aspectRatio="16/9" style={{ marginBottom: 18 }} />
             <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 10 }}>
-              <span style={{ fontSize: 'var(--t-base)', letterSpacing: '.16em', textTransform: 'uppercase', color: 'var(--color-accent-700)' }}>{leadMain.pillar}</span>
+              <span style={{ fontSize: 'var(--t-base)', letterSpacing: '.16em', textTransform: 'uppercase', color: pillarInk(leadMain.pillar) }}>{leadMain.pillar}</span>
               <span style={{ width: 22, height: 1, background: 'var(--color-accent)' }} />
               <span style={{ fontSize: 'calc(var(--t-base) + 1px*var(--tf,1))', color: 'var(--color-neutral-600)' }}>{leadMain.read}</span>
             </div>
@@ -61,7 +61,7 @@ export default function Insights() {
           <article style={{ borderLeft: '1px solid var(--color-divider)', paddingLeft: 34 }}>
             <div style={{ fontSize: 'var(--t-base)', letterSpacing: '.16em', textTransform: 'uppercase', color: 'var(--color-neutral-600)', marginBottom: 14 }}>Also this week</div>
             <Plate src={leadSecond.img} aspectRatio="4/3" style={{ marginBottom: 16 }} />
-            <div style={{ fontSize: 'var(--t-base)', letterSpacing: '.16em', textTransform: 'uppercase', color: 'var(--color-accent-700)', marginBottom: 8 }}>{leadSecond.pillar}</div>
+            <div style={{ fontSize: 'var(--t-base)', letterSpacing: '.16em', textTransform: 'uppercase', color: pillarInk(leadSecond.pillar), marginBottom: 8 }}>{leadSecond.pillar}</div>
             <Link to={`/insights/article/${leadSecond.id}`} style={{ display: 'block', textAlign: 'left', background: 'none', border: 0, padding: 0, cursor: 'pointer', textDecoration: 'none', color: 'inherit' }}>
               <h2 className="lead-title" style={{ fontFamily: 'var(--font-heading)', fontSize: 'calc(var(--t-base) + 16px*var(--tf,1)*var(--tz,1))', fontWeight: 'var(--fw-heading,400)', lineHeight: 1.15, margin: '0 0 10px', textWrap: 'pretty' }}>{leadSecond.title}</h2>
             </Link>
@@ -120,7 +120,7 @@ export default function Insights() {
                 </Link>
                 <div>
                   <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 7 }}>
-                    <span style={{ fontSize: 'var(--t-base)', letterSpacing: '.1em', textTransform: 'uppercase', color: 'var(--color-accent-700)' }}>{a.pillar}</span>
+                    <span style={{ fontSize: 'var(--t-base)', letterSpacing: '.1em', textTransform: 'uppercase', color: pillarInk(a.pillar) }}>{a.pillar}</span>
                     <span className="tag tag-outline" style={{ fontSize: 'var(--t-base)', padding: '2px 8px', whiteSpace: 'nowrap' }}>{a.kind}</span>
                   </div>
                   <Link to={`/insights/article/${a.id}`} style={{ display: 'block', textAlign: 'left', background: 'none', border: 0, padding: 0, cursor: 'pointer', marginBottom: 8, textDecoration: 'none', color: 'inherit' }}>

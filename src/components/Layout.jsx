@@ -51,14 +51,15 @@ export default function Layout() {
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
-  const solid = !isHeroRoute || scrolled;
+  // The header is always solid, so the hero photograph starts below it.
+  const solid = true;
   const chrome = {
-    chromeTop: solid ? 'var(--ground-brand-deepest)' : 'rgba(65,0,18,.4)',
+    chromeTop: 'var(--ground-brand-deepest)',
     chromeHdr: solid ? 'var(--color-bg)' : 'transparent',
-    chromeFg: solid ? 'var(--color-text)' : 'var(--color-bg)',
-    chromeBd: solid ? '1px solid var(--color-divider)' : '1px solid rgba(255,255,255,.16)',
-    chromeBtnBd: solid ? 'var(--color-accent)' : 'rgba(255,255,255,.55)',
-    logoFilter: solid ? 'none' : 'brightness(0) invert(1)'
+    chromeFg: 'var(--color-text)',
+    chromeBd: solid ? '1px solid var(--color-divider)' : '1px solid rgba(130,0,36,.28)',
+    chromeBtnBd: solid ? 'var(--color-accent)' : 'var(--color-text)',
+    logoFilter: 'none'
   };
 
   return (

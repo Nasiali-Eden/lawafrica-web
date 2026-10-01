@@ -1,5 +1,5 @@
 import { useParams, Link } from 'react-router-dom';
-import { allArticles, artBodies } from '../data/articles.js';
+import { allArticles, artBodies, pillarInk } from '../data/articles.js';
 import Plate from '../components/Plate.jsx';
 
 export default function Article() {
@@ -26,7 +26,7 @@ export default function Article() {
       <div style={{ maxWidth: 1180, margin: '0 auto', padding: '0 24px 30px', borderBottom: '1px solid var(--color-text)' }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 16 }}>
           <span style={{ width: 44, height: 2, background: 'var(--color-accent)' }} />
-          <span style={{ fontSize: 'var(--t-base)', letterSpacing: '.16em', textTransform: 'uppercase', color: 'var(--color-accent-700)' }}>{art.pillar}</span>
+          <span style={{ fontSize: 'var(--t-base)', letterSpacing: '.16em', textTransform: 'uppercase', color: pillarInk(art.pillar) }}>{art.pillar}</span>
         </div>
         <h1 style={{ fontFamily: 'var(--font-heading)', fontSize: 'calc(var(--t-base) + 33px*var(--tf,1)*var(--tz,1))', fontWeight: 'var(--fw-heading,400)', lineHeight: 1.05, letterSpacing: 'var(--ls-heading,-.02em)', margin: '0 0 18px', maxWidth: '24ch', textWrap: 'pretty' }}>{art.title}</h1>
         <p style={{ fontFamily: 'var(--font-heading)', fontSize: 'calc(var(--t-base) + 10px*var(--tf,1)*var(--tz,1))', fontStyle: 'italic', lineHeight: 1.5, color: 'var(--color-neutral-800)', margin: '0 0 22px', maxWidth: '62ch' }}>{stand}</p>
@@ -92,7 +92,7 @@ export default function Article() {
             <div style={{ fontSize: 'var(--t-base)', letterSpacing: '.16em', textTransform: 'uppercase', color: 'var(--color-neutral-600)', marginBottom: 9 }}>More in {art.kind}</div>
             {more.map(a => (
               <Link key={a.id} to={`/insights/article/${a.id}`} style={{ width: '100%', textAlign: 'left', display: 'block', background: 'none', border: 0, borderTop: '1px solid var(--color-divider)', padding: '12px 0', cursor: 'pointer', font: 'inherit', textDecoration: 'none', color: 'inherit' }}>
-                <span style={{ fontSize: 'var(--t-base)', letterSpacing: '.1em', textTransform: 'uppercase', color: 'var(--color-accent-700)', display: 'block', marginBottom: 4 }}>{a.pillar}</span>
+                <span style={{ fontSize: 'var(--t-base)', letterSpacing: '.1em', textTransform: 'uppercase', color: pillarInk(a.pillar), display: 'block', marginBottom: 4 }}>{a.pillar}</span>
                 <span style={{ fontFamily: 'var(--font-heading)', fontSize: 'calc(var(--t-base) + 4px*var(--tf,1))', lineHeight: 1.25, display: 'block' }}>{a.title}</span>
               </Link>
             ))}

@@ -6,7 +6,6 @@ import './styles/components.css';
 import './styles/tokens.css';
 import { BasketProvider } from './state/BasketContext.jsx';
 import { TypeProvider } from './state/TypeContext.jsx';
-import { OverlayProvider } from './state/OverlayContext.jsx';
 import { BackgroundProvider } from './state/BackgroundContext.jsx';
 
 createRoot(document.getElementById('root')).render(
@@ -14,11 +13,9 @@ createRoot(document.getElementById('root')).render(
     <BrowserRouter basename={import.meta.env.BASE_URL}>
       <TypeProvider>
         <BackgroundProvider>
-          <OverlayProvider>
             <BasketProvider>
                 <App />
             </BasketProvider>
-          </OverlayProvider>
         </BackgroundProvider>
       </TypeProvider>
     </BrowserRouter>

@@ -55,6 +55,19 @@
   --gold-300: #e6c39c;
   --gold-400: #d49e66;
 
+  /* secondary palette (brand book p.23) — BTL / supporting colours, used to
+     break up the maroon-and-grey, never to lead it. Navy is Pantone 282U; the
+     tan is already --gold-*. The teal and coral are read off the swatches (the
+     book prints 7509U's values under both). Each has a -ink step dark enough
+     for small text on the white ground (all >= 4.5:1). */
+  --navy: #434867;
+  --navy-ink: #434867;
+  --teal: #087d7a;
+  --teal-ink: #066966;
+  --coral: #ea5b4f;
+  --coral-ink: #b8352b;
+  --tan-ink: #8a5a2b;
+
   /* neutrals — the charcoal ramp, for ink rather than ground. -600 is the
      muted body step and is the lightest grey that still clears 4.5:1 on every
      surface in the app, including the --color-panel and accent-100 tints;

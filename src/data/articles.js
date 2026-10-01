@@ -4,13 +4,13 @@ function art(o) {
 }
 
 export const allArticles = [
-  art({ id: 'wht', pillar: 'Legal update', title: 'One year of the Finance Act 2025: the withholding provisions as chambers actually meet them',
+  art({ id: 'wht', img: asset('/assets/article-library.jpg'), pillar: 'Legal update', title: 'One year of the Finance Act 2025: the withholding provisions as chambers actually meet them',
     dek: 'The public-supply deduction, the widened royalty definition and the shipping charge have settled into practice. Three drafting consequences for facility and supply agreements.',
     meta: 'Editorial team · 12 Aug 2026 · 8 min', author: 'LawAfrica editorial team', role: 'Tax and commercial desk', date: '12 August 2026', read: '8 min read', live: true }),
-  art({ id: 'sectional', pillar: 'Practice insight', title: 'Sectional title conversion: a procedural map for conveyancers',
+  art({ id: 'sectional', img: asset('/assets/article-land.jpg'), pillar: 'Practice insight', title: 'Sectional title conversion: a procedural map for conveyancers',
     dek: 'Long-term leases over multi-unit developments must migrate to sectional titles. Where the conversion stalls, and what the Environment and Land Court has said about the developer’s duty.',
     meta: 'Dr. M. Wanjiru · 2 Aug 2026 · 11 min', author: 'Dr. M. Wanjiru', role: 'Advocate of the High Court of Kenya; contributing author', date: '2 August 2026', read: '11 min read', live: true }),
-  art({ id: 'arbitration', pillar: 'Practice insight', title: 'Drafting arbitration clauses that survive challenge',
+  art({ id: 'arbitration', img: asset('/assets/article-contract.jpg'), pillar: 'Practice insight', title: 'Drafting arbitration clauses that survive challenge',
     dek: 'A checklist drawn from the last five years of Court of Appeal decisions on seat and scope.', meta: 'L. Hassan · 4 Aug 2026 · 9 min', author: 'L. Hassan', role: 'Contributing author', date: '4 August 2026', read: '9 min read' }),
   art({ id: 'editions', pillar: 'Academic support', title: 'Which edition does your syllabus actually require?',
     dek: 'A short guide for students and lecturers on reading edition statements and publication dates.', meta: 'Academic desk · 28 Jul 2026 · 4 min', author: 'Academic desk', role: 'LawAfrica', date: '28 July 2026', read: '4 min read' }),
@@ -103,3 +103,16 @@ export const artBodies = {
     ]
   }
 };
+
+// Each pillar takes a secondary colour from the brand palette, so a row of
+// article cards is told apart at a glance and the page is not all maroon.
+const PILLAR_INK = {
+  'Legal update': 'var(--navy-ink)',
+  'Practice insight': 'var(--teal-ink)',
+  'Academic support': 'var(--azure-800)',
+  'LawAfrica news': 'var(--tan-ink)',
+  'Case note': 'var(--coral-ink)',
+  'From the editors': 'var(--color-neutral-700)',
+  'Press release': 'var(--navy-ink)'
+};
+export const pillarInk = p => PILLAR_INK[p] || 'var(--color-accent-700)';

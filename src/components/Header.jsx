@@ -151,7 +151,7 @@ export default function Header({ hidden, chromeHdr, chromeFg, chromeBd, chromeBt
           <img src={asset("/assets/lawafrica-logo.png")} alt="LawAfrica — Know. Do. Be More." style={{ height: 38, width: 'auto', display: 'block', filter: logoFilter, transition: 'filter .3s ease' }} />
         </Link>
 
-        <nav className="at-wide" style={{ alignItems: 'center', gap: 18, fontFamily: 'var(--font-heading)', fontSize: 'calc(var(--t-base) + 6px*var(--tf,1))' }}>
+        <nav className="at-wide" style={{ alignItems: 'center', gap: 18, fontWeight: 600, fontFamily: 'var(--font-heading)', fontSize: 'calc(var(--t-base) + 6px*var(--tf,1))' }}>
           <ProductsMenu />
           {NAV.map(n => <NavItem key={n.label} item={n} style={navLinkStyle} />)}
         </nav>
@@ -161,8 +161,8 @@ export default function Header({ hidden, chromeHdr, chromeFg, chromeBd, chromeBt
               header rather than a link buried in the footer. Outlined like its
               neighbours because the chrome inverts over a hero — a maroon fill
               would sink into the maroon wash up there. */}
-          <Link className="btn btn-primary" to="/publish" style={{ gap: 8, whiteSpace: 'nowrap', color: 'inherit', borderColor: chromeBtnBd, textDecoration: 'none' }}>Publish with us</Link>
-          <button className="btn btn-secondary" onClick={() => navigate('/basket')} style={{ gap: 8, whiteSpace: 'nowrap', color: 'inherit', borderColor: chromeBtnBd }}>{basketLabel}</button>
+          <Link className="btn btn-primary" to="/publish" style={{ gap: 8, whiteSpace: 'nowrap', background: 'var(--color-accent)', color: '#fff', borderColor: 'var(--color-accent)', textDecoration: 'none' }}>Publish with us</Link>
+          <button className="btn btn-secondary" onClick={() => navigate('/basket')} style={{ gap: 8, whiteSpace: 'nowrap', background: 'var(--color-bg)', color: 'inherit', borderColor: chromeBtnBd }}>{basketLabel}</button>
         </div>
 
         {/* Narrow chrome: basket stays on the bar because it carries a count,

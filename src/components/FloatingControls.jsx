@@ -1,17 +1,14 @@
 import { useEffect, useState } from 'react';
-import { useOverlay } from '../state/OverlayContext.jsx';
 import { useType } from '../state/TypeContext.jsx';
 import { useBackground } from '../state/BackgroundContext.jsx';
 
 // Floating preview toggles, stacked bottom-right: background (current /
-// white), hero "this week" list layout (Home only), hero overlay on/off,
-// and the type-pairing switcher — same pill style and corner for all.
+// white), and the type-pairing switcher — same pill style and corner for both.
 //
-// The stack is four pills tall, which on a phone covers most of the content
+// The stack is three pills tall, which on a phone covers most of the content
 // it is supposed to be previewing. Below 700px it therefore collapses behind a
 // single round button and opens on tap; nothing is removed, it is only stowed.
 export default function FloatingControls() {
-  const { overlayOn, toggleOverlay } = useOverlay();
   const { isWarm, toggleBackground } = useBackground();
   const { pairs, pairOpen, togglePair } = useType();
 
@@ -70,20 +67,6 @@ export default function FloatingControls() {
         }}>
         <span style={{ width: 11, height: 11, borderRadius: '50%', flex: 'none', border: '1px solid var(--color-neutral-400)', background: isWarm ? '#f6f5f4' : '#ffffff' }} />
         <span>{isWarm ? 'Background: Warm' : 'Background: White'}</span>
-      </button>
-
-      <button type="button" onClick={toggleOverlay}
-        style={{
-          display: 'flex', alignItems: 'center', gap: 8, borderRadius: 4, padding: '9px 14px', cursor: 'pointer',
-          font: 'inherit', fontSize: 'calc(var(--t-base) + 2px*var(--tf,1))', boxShadow: '0 4px 14px rgba(20,24,46,.12)',
-          border: `1px solid ${overlayOn ? 'var(--color-accent)' : 'var(--color-text)'}`,
-          background: overlayOn ? 'var(--color-accent-100)' : 'var(--color-bg)',
-          color: overlayOn ? 'var(--color-accent-800)' : 'var(--color-text)'
-        }}>
-        <span style={{ width: 11, height: 11, borderRadius: '50%', flex: 'none', border: `1px solid ${overlayOn ? 'var(--color-accent)' : 'var(--color-neutral-400)'}`, display: 'grid', placeItems: 'center' }}>
-          {overlayOn && <span style={{ width: 5, height: 5, borderRadius: '50%', background: 'var(--color-accent)' }} />}
-        </span>
-        <span>{overlayOn ? 'Overlay: On' : 'Overlay: Off'}</span>
       </button>
 
       <button type="button" onClick={togglePair}

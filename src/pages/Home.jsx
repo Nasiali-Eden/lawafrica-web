@@ -6,12 +6,20 @@ import Plate from '../components/Plate.jsx';
 import { featured, jurisdictions, areas } from '../data/books.js';
 import { ACCOUNT_URL, hero, proof } from '../data/home.js';
 import { publishingLines } from '../data/publishing.js';
-import { allArticles } from '../data/articles.js';
+import { allArticles, pillarInk } from '../data/articles.js';
 
 const articles = allArticles.slice(0, 3);
 
-function SectionNum({ n }) {
-  return <span style={{ fontFamily: 'ui-monospace,Menlo,monospace', fontSize: 'var(--t-base)', color: 'var(--color-accent-700)' }}>{n}</span>;
+// Centred section head, set like "Trusted Authority": chip, a one-line
+// two-tone title, supporting text beneath.
+function SectionHead({ eyebrow, lead, tail, children }) {
+  return (
+    <div className="section-head">
+      <span className="feature-chip">{eyebrow}</span>
+      <h2 className="feature-title">{lead} <span>{tail}</span></h2>
+      <p>{children}</p>
+    </div>
+  );
 }
 
 export default function Home() {
@@ -23,25 +31,27 @@ export default function Home() {
            picker beside it and no reserved headline height: with a single
            headline the band cannot change depth, and the desk below cannot
            be pushed around. */}
-      <section className="hero-copy" style={{ minHeight: 530, display: 'flex', alignItems: 'flex-end', color: 'var(--color-bg)' }}>
+      <section className="hero-copy" style={{ minHeight: 530, display: 'flex', alignItems: 'flex-end', color: 'var(--color-text)' }}>
         <div className="wrap" style={{ paddingBlock: '96px 72px', width: '100%' }}>
+          <div>
           <div style={{ display: 'flex', alignItems: 'center', gap: 14, marginBottom: 22 }}>
-            <span style={{ width: 52, height: 2, background: 'var(--gold-400)' }} />
-            <span style={{ fontFamily: 'var(--font-heading)', fontStyle: 'italic', fontSize: 'calc(var(--t-base) + 4px*var(--tf,1))', color: 'var(--gold-300)' }}>{hero.eyebrow}</span>
+            <span style={{ width: 52, height: 2, background: 'var(--color-accent)' }} />
+            <span style={{ fontFamily: 'var(--font-heading)', fontStyle: 'italic', fontSize: 'calc(var(--t-base) + 4px*var(--tf,1))', color: 'var(--color-accent-700)' }}>{hero.eyebrow}</span>
           </div>
 
-          <h1 style={{ fontFamily: 'var(--font-heading)', fontSize: 'calc(var(--t-base) + 40px*var(--tf,1)*var(--tz,1))', fontWeight: 'var(--fw-heading,400)', lineHeight: 1.08, letterSpacing: 'var(--ls-heading,-.02em)', margin: '0 0 22px', color: '#fff', textWrap: 'balance' }}>
+          <h1 style={{ fontFamily: 'var(--font-heading)', fontSize: 'calc(var(--t-base) + 40px*var(--tf,1)*var(--tz,1))', fontWeight: 'var(--fw-heading,400)', lineHeight: 1.08, letterSpacing: 'var(--ls-heading,-.02em)', margin: '0 0 22px', color: 'var(--color-text)', textWrap: 'balance' }}>
             {hero.titleLead}
-            <span style={{ display: 'block', color: 'var(--gold-300)' }}>{hero.titleTail}</span>
+            <span style={{ display: 'block', color: 'var(--color-accent-700)' }}>{hero.titleTail}</span>
           </h1>
 
-          <p style={{ fontSize: 'calc(var(--t-base) + 5px*var(--tf,1))', lineHeight: 1.65, color: 'var(--color-bg)', margin: '0 0 30px' }}>
+          <p style={{ fontSize: 'calc(var(--t-base) + 5px*var(--tf,1))', lineHeight: 1.65, color: 'var(--color-text)', margin: '0 0 30px' }}>
             {hero.body}
           </p>
 
           <div style={{ display: 'flex', alignItems: 'center', gap: 16, flexWrap: 'wrap' }}>
-            <button className="btn" onClick={() => navigate('/books')} style={{ background: 'var(--color-bg)', color: 'var(--ground-brand)', padding: '13px 26px', fontSize: 'calc(var(--t-base) + 4px*var(--tf,1))' }}>Explore legal resources</button>
-            <a className="btn" href={ACCOUNT_URL} target="_blank" rel="noopener noreferrer" style={{ border: '1px solid rgba(255,255,255,.5)', color: 'var(--color-bg)', background: 'transparent', padding: '13px 24px', fontSize: 'calc(var(--t-base) + 4px*var(--tf,1))', textDecoration: 'none' }}>Sign in &#8599;</a>
+            <button className="btn" onClick={() => navigate('/books')} style={{ background: 'var(--color-accent)', color: '#fff', padding: '13px 26px', fontSize: 'calc(var(--t-base) + 4px*var(--tf,1))' }}>Explore legal resources</button>
+            <a className="btn" href={ACCOUNT_URL} target="_blank" rel="noopener noreferrer" style={{ border: '1px solid var(--color-text)', color: 'var(--color-text)', background: 'transparent', padding: '13px 24px', fontSize: 'calc(var(--t-base) + 4px*var(--tf,1))', textDecoration: 'none' }}>Sign in &#8599;</a>
+          </div>
           </div>
         </div>
       </section>
@@ -53,7 +63,6 @@ export default function Home() {
       <section className="desk">
         <div className="desk-card">
           <div className="desk-head">
-            <SectionNum n="01" />
             <h2>Find a title</h2>
             <span>Start with the book you came for, not with our menu.</span>
           </div>
@@ -95,12 +104,9 @@ export default function Home() {
 
       {/* 03 · Browse legal books */}
       <section style={{ maxWidth: 1180, margin: '0 auto', padding: '60px 24px 10px' }}>
-        <div style={{ display: 'flex', alignItems: 'baseline', gap: 14, marginBottom: 8 }}>
-          <SectionNum n="03" />
-          <h2 className="section-title" style={{ margin: 0 }}>Browse legal books</h2>
-          <span style={{ flex: 1, height: 1, background: 'var(--color-divider)' }} />
-          <Link className="btn btn-ghost" to="/books">All 480 titles →</Link>
-        </div>
+        <SectionHead eyebrow="The catalogue" lead="Browse legal" tail="books">
+          Filter by jurisdiction or practice area, or start with the newest and current editions.
+        </SectionHead>
         <div className="stack" style={{ display: 'grid', gridTemplateColumns: '260px 1fr', gap: 40, marginTop: 24 }}>
           <div>
             <h4 style={{ fontSize: 'calc(var(--t-base) + 2px*var(--tf,1))', letterSpacing: '.08em', textTransform: 'uppercase', color: 'var(--color-neutral-600)', marginBottom: 12 }}>By jurisdiction</h4>
@@ -123,6 +129,7 @@ export default function Home() {
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(min(100%,190px),1fr))', gap: 20 }}>
               {featured.map(b => <BookTile key={b.code} b={b} />)}
             </div>
+            <div style={{ textAlign: 'center', marginTop: 24 }}><Link className="btn btn-ghost" to="/books">All 480 titles →</Link></div>
           </div>
         </div>
       </section>
@@ -134,20 +141,11 @@ export default function Home() {
            the carousel. */}
       <section className="proof-band">
         <div className="wrap">
-          <div className="proof-head">
-            <div>
-              <span className="chip-light">04 &middot; Why LawAfrica</span>
-              <h2 className="contact-title" style={{ margin: '16px 0 0' }}>
-                The reference
-                <span>practitioners keep</span>
-              </h2>
-            </div>
-            <p>
-              A quarter of a century of primary law, commentary and reporting for
-              six African jurisdictions &mdash; edited in house, and relied on by the
-              bench, the bar and the universities across the region.
-            </p>
-          </div>
+          <SectionHead eyebrow="Why LawAfrica" lead="The reference" tail="practitioners keep">
+            A quarter of a century of primary law, commentary and reporting for
+            six African jurisdictions &mdash; edited in house, and relied on by the
+            bench, the bar and the universities across the region.
+          </SectionHead>
 
           <dl className="proof-ledger">
             {proof.map(s => (
@@ -165,12 +163,9 @@ export default function Home() {
 
       {/* 05 · Legal insights */}
       <section style={{ maxWidth: 1180, margin: '0 auto', padding: '56px 24px' }}>
-        <div style={{ display: 'flex', alignItems: 'baseline', gap: 14, marginBottom: 26 }}>
-          <SectionNum n="05" />
-          <h2 className="section-title" style={{ margin: 0 }}>Legal insights</h2>
-          <span style={{ flex: 1, height: 1, background: 'var(--color-divider)' }} />
-          <Link className="btn btn-ghost" to="/insights">All insights →</Link>
-        </div>
+        <SectionHead eyebrow="From our editors" lead="Legal" tail="insights">
+          Commentary, analysis and updates on the law from the people who publish it.
+        </SectionHead>
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(min(100%,240px),1fr))', gap: 28 }}>
           {articles.map(a => (
             <article key={a.id} style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
@@ -178,7 +173,7 @@ export default function Home() {
                 <Plate src={a.img} aspectRatio="16/10" />
               </Link>
               <div>
-                <div style={{ fontSize: 'var(--t-base)', letterSpacing: '.1em', textTransform: 'uppercase', color: 'var(--color-accent-700)', marginBottom: 7 }}>{a.pillar}</div>
+                <div style={{ fontSize: 'var(--t-base)', letterSpacing: '.1em', textTransform: 'uppercase', color: pillarInk(a.pillar), marginBottom: 7 }}>{a.pillar}</div>
                 <Link to={`/insights/article/${a.id}`} style={{ display: 'block', textAlign: 'left', background: 'none', border: 0, padding: 0, cursor: 'pointer', marginBottom: 8, textDecoration: 'none', color: 'inherit' }}>
                   <h3 style={{ fontFamily: 'var(--font-heading)', fontSize: 'calc(var(--t-base) + 10px*var(--tf,1)*var(--tz,1))', fontWeight: 'var(--fw-heading,400)', lineHeight: 1.25, margin: 0 }}>{a.title}</h3>
                 </Link>
@@ -191,6 +186,7 @@ export default function Home() {
             </article>
           ))}
         </div>
+        <div style={{ textAlign: 'center', marginTop: 32 }}><Link className="btn btn-ghost" to="/insights">All insights →</Link></div>
       </section>
 
       {/* 06 · Help and contact — elongated. This was three squat cards in a

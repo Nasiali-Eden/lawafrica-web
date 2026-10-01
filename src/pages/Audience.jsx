@@ -8,18 +8,20 @@ export default function Audience() {
   const isPro = params.get('aud') !== 'stu';
   const aud = audiences[isPro ? 'pro' : 'stu'];
 
-  const tabStyle = active => ({ cursor: 'pointer', fontFamily: 'var(--font-heading)', fontSize: 'calc(var(--t-base) + 4px*var(--tf,1))', padding: '9px 20px', border: 0, background: active ? 'var(--color-accent)' : 'transparent', color: '#fff', textDecoration: 'none' });
+  const tabStyle = active => ({ cursor: 'pointer', fontFamily: 'var(--font-heading)', fontSize: 'calc(var(--t-base) + 4px*var(--tf,1))', padding: '9px 20px', border: 0, background: active ? 'var(--color-accent)' : 'transparent', color: active ? '#fff' : 'var(--color-text)', textDecoration: 'none' });
 
   return (
     <div className="page">
-      <section className="hero-copy" style={{ minHeight: 420, display: 'flex', alignItems: 'center', color: 'var(--color-bg)' }}>
+      <section className="hero-copy" style={{ minHeight: 420, display: 'flex', alignItems: 'center', color: 'var(--color-text)' }}>
         <div style={{ maxWidth: 1180, margin: '0 auto', padding: '96px 24px 40px', width: '100%' }}>
-          <div style={{ display: 'flex', gap: 0, marginBottom: 26, border: '1px solid rgba(255,255,255,.4)', borderRadius: 4, overflow: 'hidden', width: 'max-content' }}>
+          <div>
+          <div style={{ display: 'flex', gap: 0, marginBottom: 26, border: '1px solid var(--color-text)', borderRadius: 4, overflow: 'hidden', width: 'max-content' }}>
             <button onClick={() => setParams({ aud: 'pro' })} style={tabStyle(isPro)}>For Professionals</button>
-            <button onClick={() => setParams({ aud: 'stu' })} style={{ ...tabStyle(!isPro), borderLeft: '1px solid rgba(255,255,255,.4)' }}>For Students</button>
+            <button onClick={() => setParams({ aud: 'stu' })} style={{ ...tabStyle(!isPro), borderLeft: '1px solid var(--color-text)' }}>For Students</button>
           </div>
-          <h1 style={{ fontSize: 'calc(var(--t-base) + 33px*var(--tf,1)*var(--tz,1))', fontWeight: 400, margin: '0 0 12px', lineHeight: 1.05, maxWidth: 760, color: '#fff' }}>{aud.h1}</h1>
-          <p style={{ fontSize: 'calc(var(--t-base) + 6px*var(--tf,1))', lineHeight: 1.65, color: 'rgba(246,245,244,.82)', maxWidth: 660 }}>{aud.dek}</p>
+          <h1 style={{ fontSize: 'calc(var(--t-base) + 33px*var(--tf,1)*var(--tz,1))', fontWeight: 400, margin: '0 0 12px', lineHeight: 1.05, maxWidth: 760, color: 'var(--color-text)' }}>{aud.h1}</h1>
+          <p style={{ fontSize: 'calc(var(--t-base) + 6px*var(--tf,1))', lineHeight: 1.65, color: 'var(--color-text)', maxWidth: 660 }}>{aud.dek}</p>
+          </div>
         </div>
       </section>
       <div style={{ maxWidth: 1180, margin: '0 auto', padding: '44px 24px 64px' }}>

@@ -6,14 +6,16 @@ import { asset } from '../lib/format.js';
 export default function About() {
   return (
     <div className="page">
-      <section className="hero-copy" style={{ minHeight: 530, display: 'flex', alignItems: 'center', color: 'var(--color-bg)' }}>
+      <section className="hero-copy" style={{ minHeight: 530, display: 'flex', alignItems: 'center', color: 'var(--color-text)' }}>
         <div style={{ maxWidth: 1180, margin: '0 auto', padding: '96px 24px 56px', width: '100%' }}>
-          <div style={{ fontFamily: 'var(--font-heading)', fontStyle: 'italic', color: 'var(--gold-400)', fontSize: 'calc(var(--t-base) + 6px*var(--tf,1))', marginBottom: 18 }}>Know. Do. Be More</div>
-          <h1 style={{ fontSize: 'calc(var(--t-base) + 49px*var(--tf,1)*var(--tz,1))', fontWeight: 400, lineHeight: 1.05, letterSpacing: 'var(--ls-heading,-.02em)', margin: '0 0 20px', color: '#fff', maxWidth: '18ch' }}>Africa&rsquo;s legal publisher since 1999.</h1>
-          <p style={{ fontSize: 'calc(var(--t-base) + 6px*var(--tf,1))', lineHeight: 1.65, color: 'rgba(246,245,244,.82)', maxWidth: 560, margin: '0 0 28px' }}>LawAfrica is a legal publishing and legal information solutions company dedicated to advancing access to reliable, current and authoritative legal knowledge across the continent — for legal professionals, governments, universities, judiciaries, law firms and researchers.</p>
+          <div>
+          <div style={{ fontFamily: 'var(--font-heading)', fontStyle: 'italic', color: 'var(--color-accent-700)', fontSize: 'calc(var(--t-base) + 6px*var(--tf,1))', marginBottom: 18 }}>Know. Do. Be More</div>
+          <h1 style={{ fontSize: 'calc(var(--t-base) + 49px*var(--tf,1)*var(--tz,1))', fontWeight: 400, lineHeight: 1.05, letterSpacing: 'var(--ls-heading,-.02em)', margin: '0 0 20px', color: 'var(--color-text)', maxWidth: '18ch' }}>Africa&rsquo;s legal publisher since 1999.</h1>
+          <p style={{ fontSize: 'calc(var(--t-base) + 6px*var(--tf,1))', lineHeight: 1.65, color: 'var(--color-text)', maxWidth: 560, margin: '0 0 28px' }}>LawAfrica is a legal publishing and legal information solutions company dedicated to advancing access to reliable, current and authoritative legal knowledge across the continent — for legal professionals, governments, universities, judiciaries, law firms and researchers.</p>
           <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap' }}>
             <Link className="btn" to="/books" style={{ background: 'var(--color-accent)', color: '#fff', padding: '13px 24px', fontSize: 'calc(var(--t-base) + 4px*var(--tf,1))', textDecoration: 'none' }}>Browse the catalogue</Link>
-            <Link className="btn btn-outline" to="/contact" style={{ padding: '13px 24px', fontSize: 'calc(var(--t-base) + 4px*var(--tf,1))', border: '1px solid rgba(255,255,255,.5)', color: 'var(--color-bg)', background: 'transparent', textDecoration: 'none' }}>Partner with us</Link>
+            <Link className="btn btn-outline" to="/contact" style={{ padding: '13px 24px', fontSize: 'calc(var(--t-base) + 4px*var(--tf,1))', border: '1px solid var(--color-text)', color: 'var(--color-text)', background: 'transparent', textDecoration: 'none' }}>Partner with us</Link>
+          </div>
           </div>
         </div>
       </section>

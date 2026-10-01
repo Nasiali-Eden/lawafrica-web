@@ -97,13 +97,12 @@ textarea.input { min-height: 90px; resize: vertical; }
 .table th { text-align: left; font-size: var(--t-micro); letter-spacing: 0.08em; text-transform: uppercase; color: color-mix(in srgb, var(--color-text) 60%, transparent); padding: var(--space-2); border-bottom: 1px solid var(--color-divider); }
 .table td { padding: var(--space-2); border-bottom: 1px solid var(--color-divider); }
 
-/* — plate: the matted-photograph treatment shared by covers, article & event images — */
+/* — plate: the photograph treatment shared by covers, article & event images — */
 .plate {
-  filter: sepia(0.22) saturate(0.82) contrast(1.05);
-  box-sizing: border-box; border: 6px solid var(--color-surface); outline: 1px solid var(--color-divider);
+  box-sizing: border-box; border: 0; outline: 0;
   overflow: hidden; position: relative;
 }
-.plate img { display: block; width: 100%; height: 100%; object-fit: cover; }
+.plate img { display: block; width: 100%; height: 100%; object-fit: cover; filter: sepia(0.22) saturate(0.82) contrast(1.05); }
 
 /* ─────────────────────────────────────────────────────────────────────
    RESPONSIVE LAYER
@@ -336,14 +335,16 @@ textarea.input { min-height: 90px; resize: vertical; }
 }
 
 .feature-head {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(0, 0.9fr);
-  gap: 40px;
-  align-items: end;
+  display: flex; flex-direction: column; align-items: center;
+  text-align: center;
   margin-bottom: 34px;
 }
-@media (max-width: 860px) {
-  .feature-head { grid-template-columns: minmax(0, 1fr); gap: 20px; align-items: start; }
+.feature-head p {
+  font-size: calc(var(--t-base) + 2px*var(--tf,1));
+  line-height: 1.65;
+  color: var(--color-neutral-700);
+  max-width: 60ch;
+  margin: 18px 0 0;
 }
 
 .feature-chip {
@@ -370,39 +371,44 @@ textarea.input { min-height: 90px; resize: vertical; }
   color: var(--color-text);
   margin: 0;
 }
-.feature-title > span { display: block; color: var(--color-accent-700); }
+.feature-title > span { color: var(--color-accent-700); }
+.feature-title { white-space: nowrap; }
+@media (max-width: 560px) { .feature-title { white-space: normal; } }
 
-.feature-aside { display: flex; flex-direction: column; gap: 18px; align-items: flex-start; }
-.feature-aside p {
-  font-size: calc(var(--t-base) + 2px*var(--tf,1));
-  line-height: 1.65;
-  color: var(--color-neutral-700);
-  max-width: 46ch;
-}
+.section-head { display: flex; flex-direction: column; align-items: center; text-align: center; margin-bottom: 34px; }
+.section-head p { font-size: calc(var(--t-base) + 2px*var(--tf,1)); line-height: 1.65; color: var(--color-neutral-700); max-width: 60ch; margin: 18px 0 0; }
 
-.carousel-nav { display: flex; gap: 10px; }
-.carousel-nav button {
-  width: 46px; height: 46px; border-radius: 50%;
-  display: grid; place-items: center;
-  cursor: pointer; font: inherit;
-  font-size: calc(var(--t-base) + 8px);
-  line-height: 1;
-  background: transparent;
-  border: 1px solid var(--color-neutral-400);
-  color: var(--color-neutral-800);
-  transition: background .2s ease, color .2s ease, border-color .2s ease;
-}
-.carousel-nav button:hover { background: var(--ground-brand); color: #ffffff; border-color: var(--ground-brand); }
-.carousel-nav button.is-active { border-color: var(--color-accent); color: var(--color-accent-700); }
-.carousel-nav button.is-active:hover { background: var(--color-accent); color: #ffffff; border-color: var(--color-accent); }
+
 
 /* The track. Scroll-snap does the positioning, so how many cards are visible
    is a CSS decision at each width and never a measurement in JS. */
+/* Prev / next sit beside the cards, one either side of the track. */
+.carousel-stage {
+  display: grid;
+  grid-template-columns: 48px minmax(0, 1fr) 48px;
+  gap: 16px;
+  align-items: center;
+}
+.carousel-side {
+  width: 48px; height: 48px; border-radius: 50%;
+  display: grid; place-items: center; cursor: pointer;
+  background: var(--color-bg); color: var(--color-text);
+  border: 1px solid var(--color-neutral-400);
+  font: inherit; font-size: 26px; line-height: 1;
+}
+.carousel-side:hover { background: var(--ground-brand); color: #fff; border-color: var(--ground-brand); }
+.carousel-side.is-active { border-color: var(--color-accent); color: var(--color-accent-700); }
+.carousel-side.is-active:hover { background: var(--color-accent); color: #fff; }
+@media (max-width: 560px) {
+  .carousel-stage { grid-template-columns: 34px minmax(0, 1fr) 34px; gap: 8px; }
+  .carousel-side { width: 34px; height: 34px; font-size: 20px; }
+}
+
 .carousel-track {
   /* --cols is how many cards the row shows at this width; the cards divide the
      visible track between them, so the row always ends on a whole card at the
      content margin instead of a part-card at the viewport edge. */
-  --cols: 4;
+  --cols: 3;
   --card-gap: 22px;
   display: flex;
   gap: var(--card-gap);
@@ -412,19 +418,18 @@ textarea.input { min-height: 90px; resize: vertical; }
   scrollbar-width: none;
   padding-block: 4px 8px;
 }
-@media (max-width: 1040px) { .carousel-track { --cols: 3; } }
-@media (max-width: 780px)  { .carousel-track { --cols: 2; } }
+@media (max-width: 1040px) { .carousel-track { --cols: 2; } }
+@media (max-width: 700px)  { .carousel-track { --cols: 1; } }
 /* a fraction on the smallest screens, so the next card peeks and the row
    reads as scrollable rather than as a single static card */
-@media (max-width: 560px)  { .carousel-track { --cols: 1.15; } }
 .carousel-track::-webkit-scrollbar { display: none; }
 
 .carousel-card {
   scroll-snap-align: start;
   /* one --cols-th of the visible track, gaps taken out */
   flex: 0 0 calc((100% - (var(--cols) - 1) * var(--card-gap)) / var(--cols));
-  min-height: 560px;
-  display: flex; flex-direction: column; gap: 12px;
+  min-height: 380px;
+  display: flex; flex-direction: column; gap: 10px;
   /* every card carries the maroon, not just the one under the cursor */
   background: var(--ground-brand);
   color: var(--on-brand-body);
@@ -464,9 +469,7 @@ textarea.input { min-height: 90px; resize: vertical; }
   color: #ffffff;
 }
 
-.carousel-plate { aspect-ratio: 1 / 1; display: block; }
-/* the mat matches the card, so the photograph sits in the maroon not on it */
-.carousel-card .carousel-plate { border-color: var(--ground-brand-deep); outline-color: var(--ground-brand-deep); }
+.carousel-plate { aspect-ratio: 16 / 7; display: block; }
 
 .carousel-card p {
   font-size: calc(var(--t-base) + 1px*var(--tf,1));
@@ -653,7 +656,7 @@ textarea.input { min-height: 90px; resize: vertical; }
 .proof-band {
   border-top: 1px solid var(--color-divider);
   border-bottom: 1px solid var(--color-divider);
-  padding-block: 64px 68px;
+  padding-block: 96px 104px;
 }
 
 .proof-head {
@@ -673,12 +676,12 @@ textarea.input { min-height: 90px; resize: vertical; }
 }
 
 .proof-ledger {
-  margin: 0;
+  margin:  0 auto; max-width: 760px;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(min(100%, 210px), 1fr));
-  gap: 36px 32px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 56px 64px;
 }
-.proof-ledger > div { display: flex; flex-direction: column; }
+.proof-ledger > div { display: flex; flex-direction: column; align-items: center; text-align: center; width: 100%; max-width: 300px; margin-inline: auto; }
 
 /* the figure: the largest type on the page, and the reason the section reads */
 .proof-ledger dt {
@@ -689,7 +692,8 @@ textarea.input { min-height: 90px; resize: vertical; }
   padding-bottom: 14px;
   border-bottom: 2px solid var(--color-accent);
 }
-.proof-ledger dd { margin: 14px 0 0; display: flex; flex-direction: column; gap: 6px; }
+.proof-ledger dt { width: 100%; }
+.proof-ledger dd { margin: 14px 0 0; display: flex; flex-direction: column; gap: 6px; align-items: center; }
 .proof-ledger dd > span:first-child {
   font-family: var(--font-heading);
   font-weight: var(--font-heading-weight);
@@ -738,8 +742,8 @@ textarea.input { min-height: 90px; resize: vertical; }
 
 .desk {
   max-width: 1180px;
-  margin: -46px auto 0;
-  padding-inline: 24px;
+  margin: 0 auto;
+  padding: 110px 24px 56px;
   position: relative;
   z-index: 5;
 }
@@ -784,7 +788,7 @@ textarea.input { min-height: 90px; resize: vertical; }
   }
 }
 @media (max-width: 560px) {
-  .desk { margin-top: -28px; }
+  .desk { padding-block: 36px; }
   .desk-row {
     grid-template-columns: minmax(0, 1fr);
     grid-template-areas: 'q' 'j' 'a' 'go';
@@ -849,15 +853,16 @@ textarea.input { min-height: 90px; resize: vertical; }
 .contact-card {
   display: flex;
   flex-direction: column;
-  border: 1px solid var(--color-divider);
-  border-top: 2px solid var(--color-accent);
-  border-radius: 0 0 var(--radius-md) var(--radius-md);
+  background: var(--ground-brand);
+  color: var(--on-brand-body);
+  border: 1px solid var(--ground-brand);
+  border-radius: var(--radius-md);
   padding: 18px 20px 0;
   transition: border-color .2s ease, box-shadow .2s ease;
 }
 .contact-card:hover {
-  border-color: var(--color-accent-300);
-  border-top-color: var(--color-accent);
+  background: var(--ground-brand-deep);
+  border-color: var(--ground-brand-deep);
   box-shadow: var(--shadow-sm);
 }
 
@@ -869,7 +874,7 @@ textarea.input { min-height: 90px; resize: vertical; }
   font-size: var(--t-micro);
   letter-spacing: 0.16em;
   text-transform: uppercase;
-  color: var(--color-accent-700);
+  color: var(--on-brand-eyebrow);
 }
 /* the index, in the feature face — the same numbering language the home
    page sections and the proof ledger use */
@@ -877,7 +882,7 @@ textarea.input { min-height: 90px; resize: vertical; }
   font-family: var(--font-display);
   font-size: calc(var(--t-base) + 14px*var(--tf,1));
   line-height: 1;
-  color: var(--color-neutral-400);
+  color: var(--on-brand-muted);
 }
 
 .contact-card h3 {
@@ -886,11 +891,12 @@ textarea.input { min-height: 90px; resize: vertical; }
   font-size: calc(var(--t-base) + 8px*var(--tf,1));
   line-height: 1.2;
   margin: 0 0 8px;
+  color: #fff;
 }
 .contact-card p {
   font-size: calc(var(--t-base) + 2px*var(--tf,1));
   line-height: 1.6;
-  color: var(--color-neutral-700);
+  color: var(--on-brand-body);
   margin: 0 0 18px;
   flex: 1;
 }
@@ -899,7 +905,7 @@ textarea.input { min-height: 90px; resize: vertical; }
    along the bottom however long the descriptions run */
 .contact-card-reach {
   display: flex; flex-direction: column; gap: 2px;
-  border-top: 1px solid var(--color-divider);
+  border-top: 1px solid rgba(255,255,255,.22);
   margin-inline: -20px;
   padding: 12px 20px 14px;
 }
@@ -910,7 +916,8 @@ textarea.input { min-height: 90px; resize: vertical; }
   display: inline-flex;
   align-items: center;
 }
-.contact-card-reach span { color: var(--color-neutral-700); }
+.contact-card-reach span { color: var(--on-brand-body); }
+.contact-card-reach a { color: #fff; }
 @media (max-width: 1000px) { .contact-card-reach a { min-height: 44px; } }
 
 /* ── the Products menu ────────────────────────────────────────────────────
@@ -1012,3 +1019,14 @@ textarea.input { min-height: 90px; resize: vertical; }
   font-weight: 400 !important;
   letter-spacing: -0.02em;
 }
+
+/* Stacked, the copy runs the full width, so the white wash does too. */
+@media (max-width: 860px) {
+  .hero-wash { background: rgba(255,255,255,.88) !important; }
+}
+
+/* The four figures keep maroon type; their rules take the secondary palette. */
+.proof-ledger > div:nth-child(1) dt { border-bottom-color: var(--navy); }
+.proof-ledger > div:nth-child(2) dt { border-bottom-color: var(--teal); }
+.proof-ledger > div:nth-child(3) dt { border-bottom-color: var(--gold-400); }
+.proof-ledger > div:nth-child(4) dt { border-bottom-color: var(--coral); }
