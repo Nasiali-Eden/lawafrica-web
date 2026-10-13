@@ -3,7 +3,7 @@ import { allArticles, pillarInk } from '../data/articles.js';
 import { events } from '../data/events.js';
 import Plate from '../components/Plate.jsx';
 
-const TABS = ['All', 'Articles', 'Blog', 'Case notes', 'Events', 'Press'];
+const TABS = ['All', 'Articles', 'Events'];
 
 export default function Insights() {
   const [params, setParams] = useSearchParams();

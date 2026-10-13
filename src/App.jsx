@@ -6,6 +6,8 @@ import Home from './pages/Home.jsx';
 import Books from './pages/Books.jsx';
 import Catalogue from './pages/Catalogue.jsx';
 import LLR from './pages/LLR.jsx';
+import Ebooks from './pages/Ebooks.jsx';
+import Ebook from './pages/Ebook.jsx';
 import Book from './pages/Book.jsx';
 import Audience from './pages/Audience.jsx';
 import Insights from './pages/Insights.jsx';
@@ -44,7 +46,8 @@ export default function App() {
         <Route element={<Layout />}>
           <Route path="/" element={<Home />} />
           <Route path="/books" element={<Books />} />
-          <Route path="/ebooks" element={<Books digital />} />
+          <Route path="/ebooks" element={<Ebooks />} />
+          <Route path="/ebooks/:id" element={<Ebook />} />
           <Route path="/llr" element={<LLR />} />
           <Route path="/catalogue" element={<Catalogue />} />
           <Route path="/books/:code" element={<Book />} />

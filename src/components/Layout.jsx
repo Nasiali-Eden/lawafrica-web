@@ -5,7 +5,7 @@ import PageHeroBand from './PageHeroBand.jsx';
 import Header, { TopBar } from './Header.jsx';
 import { HERO_HEIGHT } from './heroTreatment.js';
 import Footer from './Footer.jsx';
-import FloatingControls from './FloatingControls.jsx';
+import WhatsAppButton from './WhatsAppButton.jsx';
 import { asset } from '../lib/format.js';
 
 // Routes that get the full-bleed image-behind-transparent-header treatment,
@@ -72,7 +72,7 @@ export default function Layout() {
           <Outlet />
         </main>
         <Footer />
-        <FloatingControls />
+        <WhatsAppButton />
       </div>
   );
 }

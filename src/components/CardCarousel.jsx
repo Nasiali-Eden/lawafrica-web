@@ -97,13 +97,13 @@ export default function CardCarousel({ eyebrow, titleTop, titleBottom, intro, it
         {/* The whole card is the link: a card that reads as one thing should be
             one target, not a block of text with a small link at the foot. The
             call to action below is therefore a span, not a nested anchor. */}
-        {items.map(it => (
-          <Link key={it.id} to={it.to} className="carousel-card">
-            <span className="carousel-chip">{it.chip}</span>
-            <h3>{it.title}</h3>
-            <span className="plate carousel-plate">
-              <img src={it.img} alt="" loading="lazy" />
+        {items.map((it, n) => (
+          <Link key={it.id} to={it.to} className={'carousel-card tone-' + (it.tone || 'maroon')}>
+            <span className="carousel-top">
+              <span className="carousel-chip">{it.chip}</span>
+              <span className="carousel-num tnum" aria-hidden="true">{String(n + 1).padStart(2, '0')}</span>
             </span>
+            <h3>{it.title}</h3>
             <p>{it.body}</p>
             <span className="carousel-cta">
               <span>{it.cta}</span>

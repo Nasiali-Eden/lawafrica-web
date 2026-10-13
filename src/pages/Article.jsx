@@ -35,7 +35,7 @@ export default function Article() {
             <span style={{ width: 30, height: 30, borderRadius: '50%', border: '1px solid var(--color-accent)', display: 'grid', placeItems: 'center', fontFamily: 'var(--font-heading)', fontSize: 'calc(var(--t-base) + 2px*var(--tf,1))', color: 'var(--color-accent-700)', flex: 'none' }}>{initial}</span>
             <span style={{ fontSize: 'calc(var(--t-base) + 4px*var(--tf,1))', color: 'var(--color-text)' }}>{art.author}</span>
           </span>
-          <span>{art.role}</span>
+          {art.role && <span>{art.role}</span>}
           <span style={{ color: 'var(--color-neutral-600)' }}>{art.date} · {art.read}</span>
           <span style={{ marginLeft: 'auto', display: 'flex', gap: 8 }}>
             <button className="btn btn-ghost" style={{ minHeight: 34, fontSize: 'calc(var(--t-base) + 2px*var(--tf,1))' }}>Save</button>
@@ -56,8 +56,8 @@ export default function Article() {
           )}
 
           {secs.map(sec => (
-            <section key={sec.h} style={{ marginBottom: 30 }}>
-              <h2 style={{ fontFamily: 'var(--font-heading)', fontSize: 'calc(var(--t-base) + 16px*var(--tf,1)*var(--tz,1))', fontWeight: 'var(--fw-heading,400)', lineHeight: 1.15, margin: '0 0 14px', paddingBottom: 9, borderBottom: '1px solid var(--color-divider)' }}>{sec.h}</h2>
+            <section key={sec.h || 'body'} style={{ marginBottom: 30 }}>
+              {sec.h && <h2 style={{ fontFamily: 'var(--font-heading)', fontSize: 'calc(var(--t-base) + 16px*var(--tf,1)*var(--tz,1))', fontWeight: 'var(--fw-heading,400)', lineHeight: 1.15, margin: '0 0 14px', paddingBottom: 9, borderBottom: '1px solid var(--color-divider)' }}>{sec.h}</h2>}
               {sec.ps.map((p, i) => (
                 <p key={i} style={{ fontSize: 'calc(var(--t-base) + 6px*var(--tf,1))', lineHeight: 1.75, margin: '0 0 15px', color: 'var(--color-neutral-800)', textAlign: 'justify', hyphens: 'auto', maxWidth: '70ch' }}>{p.t}</p>
               ))}
@@ -78,7 +78,7 @@ export default function Article() {
         </article>
 
         <aside style={{ position: 'sticky', top: 96, display: 'flex', flexDirection: 'column', gap: 22 }}>
-          {live && (
+          {live && keys.length > 0 && (
             <div style={{ border: '1px solid var(--color-accent)', borderRadius: 4, padding: 18 }}>
               <div style={{ fontSize: 'var(--t-base)', letterSpacing: '.16em', textTransform: 'uppercase', color: 'var(--color-accent-700)', marginBottom: 11 }}>In short</div>
               <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: 11 }}>

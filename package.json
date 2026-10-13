@@ -6,7 +6,11 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "sync:books": "node scripts/sync-books.mjs",
+    "sync:ebooks": "node scripts/sync-ebooks.mjs",
+    "sync": "npm run sync:books && npm run sync:ebooks && npm run sync:articles",
+    "sync:articles": "node scripts/sync-articles.mjs"
   },
   "dependencies": {
     "react": "^18.3.1",

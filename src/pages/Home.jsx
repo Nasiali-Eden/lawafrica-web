@@ -1,9 +1,8 @@
+import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import BookTile from '../components/BookTile.jsx';
 import CardCarousel from '../components/CardCarousel.jsx';
-import ContactRoutes from '../components/ContactRoutes.jsx';
+import ReachDesk from '../components/ReachDesk.jsx';
 import Plate from '../components/Plate.jsx';
-import { featured, jurisdictions, areas } from '../data/books.js';
 import { ACCOUNT_URL, hero, proof } from '../data/home.js';
 import { publishingLines } from '../data/publishing.js';
 import { allArticles, pillarInk } from '../data/articles.js';
@@ -24,6 +23,15 @@ function SectionHead({ eyebrow, lead, tail, children }) {
 
 export default function Home() {
   const navigate = useNavigate();
+  const [deskQuery, setDeskQuery] = useState('');
+  const [deskKind, setDeskKind] = useState('books');
+
+  // Goes to the chosen catalogue with the words already in its search box.
+  const searchDesk = e => {
+    e.preventDefault();
+    const q = deskQuery.trim();
+    navigate((deskKind === 'ebooks' ? '/ebooks' : '/books') + (q ? '?q=' + encodeURIComponent(q) : ''));
+  };
 
   return (
     <div className="page">
@@ -66,21 +74,15 @@ export default function Home() {
             <h2>Find a title</h2>
             <span>Start with the book you came for, not with our menu.</span>
           </div>
-          <form className="desk-row" onSubmit={e => { e.preventDefault(); navigate('/books'); }}>
+          <form className="desk-row" onSubmit={searchDesk}>
             <div className="field" style={{ gridArea: 'q' }}>
-              <label htmlFor="desk-q">Title, author or keyword</label>
-              <input id="desk-q" className="input" placeholder="e.g. law of contract" />
+              <label htmlFor="desk-q">Title or keyword</label>
+              <input id="desk-q" className="input" type="search" value={deskQuery} onChange={e => setDeskQuery(e.target.value)} placeholder="e.g. law of contract" />
             </div>
             <div className="field" style={{ gridArea: 'j' }}>
-              <label htmlFor="desk-j">Jurisdiction</label>
-              <select id="desk-j" className="input">
-                <option>All jurisdictions</option><option>Kenya</option><option>Tanzania</option><option>Uganda</option>
-              </select>
-            </div>
-            <div className="field" style={{ gridArea: 'a' }}>
-              <label htmlFor="desk-a">Practice area</label>
-              <select id="desk-a" className="input">
-                <option>All areas</option><option>Commercial</option><option>Constitutional</option><option>Land &amp; conveyancing</option>
+              <label htmlFor="desk-kind">Search in</label>
+              <select id="desk-kind" className="input" value={deskKind} onChange={e => setDeskKind(e.target.value)}>
+                <option value="books">Books (print)</option><option value="ebooks">eBooks</option>
               </select>
             </div>
             <button type="submit" className="btn" style={{ gridArea: 'go', background: 'var(--color-accent)', color: '#fff' }}>
@@ -101,38 +103,6 @@ export default function Home() {
         intro="Twenty-five years of primary law, commentary and reporting for six African jurisdictions — in print, in loose-leaf and online."
         items={publishingLines}
       />
-
-      {/* 03 · Browse legal books */}
-      <section style={{ maxWidth: 1180, margin: '0 auto', padding: '60px 24px 10px' }}>
-        <SectionHead eyebrow="The catalogue" lead="Browse legal" tail="books">
-          Filter by jurisdiction or practice area, or start with the newest and current editions.
-        </SectionHead>
-        <div className="stack" style={{ display: 'grid', gridTemplateColumns: '260px 1fr', gap: 40, marginTop: 24 }}>
-          <div>
-            <h4 style={{ fontSize: 'calc(var(--t-base) + 2px*var(--tf,1))', letterSpacing: '.08em', textTransform: 'uppercase', color: 'var(--color-neutral-600)', marginBottom: 12 }}>By jurisdiction</h4>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: 2, marginBottom: 26 }}>
-              {jurisdictions.map(j => (
-                <Link key={j.name} to="/books" style={{ textAlign: 'left', background: 'none', border: 0, borderBottom: '1px solid var(--color-divider)', padding: '8px 0', cursor: 'pointer', font: 'inherit', fontSize: 'calc(var(--t-base) + 4px*var(--tf,1))', display: 'flex', justifyContent: 'space-between', textDecoration: 'none', color: 'inherit' }}>
-                  <span>{j.name}</span><span style={{ color: 'var(--color-neutral-700)', fontSize: 'calc(var(--t-base) + 1px*var(--tf,1))' }}>{j.count}</span>
-                </Link>
-              ))}
-            </div>
-            <h4 style={{ fontSize: 'calc(var(--t-base) + 2px*var(--tf,1))', letterSpacing: '.08em', textTransform: 'uppercase', color: 'var(--color-neutral-600)', marginBottom: 12 }}>By practice area</h4>
-            <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6 }}>
-              {areas.map(a => (
-                <Link key={a.name} className="tag tag-neutral" to="/books" style={{ cursor: 'pointer', border: '1px solid transparent', textDecoration: 'none' }}>{a.name}</Link>
-              ))}
-            </div>
-          </div>
-          <div>
-            <h4 style={{ fontSize: 'calc(var(--t-base) + 2px*var(--tf,1))', letterSpacing: '.08em', textTransform: 'uppercase', color: 'var(--color-neutral-600)', marginBottom: 14 }}>New and current editions</h4>
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(min(100%,190px),1fr))', gap: 20 }}>
-              {featured.map(b => <BookTile key={b.code} b={b} />)}
-            </div>
-            <div style={{ textAlign: 'center', marginTop: 24 }}><Link className="btn btn-ghost" to="/books">All 480 titles →</Link></div>
-          </div>
-        </div>
-      </section>
 
       {/* 04 · Why LawAfrica — a figure ledger. The four proofs used to sit in a
            tinted strip that the white ground swallowed; they are now set as
@@ -193,37 +163,24 @@ export default function Home() {
            row, which made the page end abruptly; it now runs as a tall block,
            an intro rail against four contact routes stacked with real space
            between them, each carrying both an address and a number. */}
-      <section className="contact-band">
-        <div className="wrap contact-grid">
-          <div className="contact-intro">
-            <span className="chip-light">Get in touch</span>
-            <h2 className="contact-title">
-              Talk to
-              <span>a publisher</span>
-            </h2>
-            <p>
-              Four ways in, each answered by the people who do the work — not a
-              queue. Tell us the jurisdiction and the matter and we will point you
-              at the right title, set or subscription.
-            </p>
-            <dl className="contact-office">
-              <div>
-                <dt>Office</dt>
-                <dd>Funzi Road, off Enterprise Road<br />Industrial Area, Nairobi, Kenya</dd>
-              </div>
-              <div>
-                <dt>Hours</dt>
-                <dd>Monday to Friday, 8.30am – 5.00pm EAT</dd>
-              </div>
-              <div>
-                <dt>Switchboard</dt>
-                <dd><a href="tel:+254202495067">+254 20 249 5067</a></dd>
-              </div>
-            </dl>
-            <Link className="btn btn-primary" to="/contact" style={{ alignSelf: 'flex-start', textDecoration: 'none' }}>Go to the contact page</Link>
+      <section className="reach-band">
+        <div className="wrap">
+          <div className="reach-head">
+            <div>
+              <span className="reach-eyebrow">Get in touch</span>
+              <h2>Talk to <span>a publisher</span></h2>
+            </div>
+            <p>Four desks, each answered by the people who do the work &mdash; not a queue. Pick the one that fits your matter.</p>
           </div>
 
-          <ContactRoutes />
+          <ReachDesk />
+
+          <ul className="reach-foot">
+            <li><span>Office</span>Funzi Road, off Enterprise Road, Industrial Area, Nairobi</li>
+            <li><span>Hours</span>Monday to Friday, 8.30am – 5.00pm EAT</li>
+            <li><span>Contact</span><a href="tel:+254202495067">+254 20 249 5067</a></li>
+            <li><Link to="/contact">All contact options →</Link></li>
+          </ul>
         </div>
       </section>
     </div>

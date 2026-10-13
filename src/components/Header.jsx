@@ -1,26 +1,24 @@
+import LanguageSwitcher from './LanguageSwitcher.jsx';
 import { useEffect, useRef, useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useBasket } from '../state/BasketContext.jsx';
-import { LLR_URL } from '../pages/LLR.jsx';
 import { asset } from '../lib/format.js';
 
 const navLinkStyle = { background: 'none', border: 0, padding: '4px 0', cursor: 'pointer', font: 'inherit', color: 'inherit', borderBottom: '2px solid transparent', whiteSpace: 'nowrap', textDecoration: 'none' };
 
-// Law Reports keeps its place in the top nav but no longer resolves to a page
-// here — it leaves for the LLR platform. The Products menu carries the LLR
-// description page instead, after Books and eBooks.
+// Law Reports is a page of its own here; the link out to the LLR platform
+// lives on that page, not in the header.
 const NAV = [
-  { href: LLR_URL, label: 'Law Reports', external: true },
+  { to: '/llr', label: 'Law Reports' },
   { to: '/catalogue', label: 'Catalogue' },
   { to: '/insights', label: 'Insights' },
   { to: '/about', label: 'About' },
   { to: '/contact', label: 'Contact' }
 ];
 
-const PRODUCTS = [
-  { to: '/books', label: 'Books', note: 'Print titles across six jurisdictions' },
-  { to: '/ebooks', label: 'eBooks', note: 'The digital list, read on any device' },
-  { to: '/llr', label: 'Law Reports', note: 'Reported judgments, on the LLR platform' }
+const BOOKSHOP = [
+  { to: '/books', label: 'Print books', note: 'Print titles, delivered to your door' },
+  { to: '/ebooks', label: 'eBooks', note: 'The digital list, read on any device' }
 ];
 
 function NavItem({ item, style, onClick }) {
@@ -37,16 +35,17 @@ function NavItem({ item, style, onClick }) {
 
 export function TopBar({ chromeTop }) {
   return (
-    <div style={{ position: 'relative', zIndex: 20, color: 'var(--color-neutral-200)', fontSize: 'calc(var(--t-base) + 1px*var(--tf,1))', letterSpacing: 0, background: chromeTop }}>
+    <div className="topbar" style={{ position: 'relative', zIndex: 40, color: 'var(--color-neutral-200)', fontSize: 'calc(var(--t-base) + 3px*var(--tf,1))', letterSpacing: 0, background: chromeTop }}>
       <div className="wrap" style={{ paddingBlock: 7, display: 'flex', alignItems: 'center', gap: 22, flexWrap: 'wrap', rowGap: 4 }}>
-        <a href="tel:+254202495067" className="tap-row" style={{ display: 'flex', alignItems: 'center', gap: 7, color: 'inherit', textDecoration: 'none' }}><span style={{ color: 'var(--gold-400)' }}>✆</span>+254 20 249 5067</a>
-        <a href="mailto:info@lawafrica.com" className="tap-row" style={{ display: 'flex', alignItems: 'center', gap: 7, color: 'inherit', textDecoration: 'none' }}><span style={{ color: 'var(--gold-400)' }}>✉</span>info@lawafrica.com</a>
+        <a href="tel:+254202495067" className="tap-row" style={{ display: 'flex', alignItems: 'center', gap: 7, color: 'inherit', textDecoration: 'none' }}><span style={{ color: 'var(--gold-400)' }}>✆</span><span translate="no">+254 20 249 5067</span></a>
+        <a href="mailto:info@lawafrica.com" className="tap-row" style={{ display: 'flex', alignItems: 'center', gap: 7, color: 'inherit', textDecoration: 'none' }}><span style={{ color: 'var(--gold-400)' }}>✉</span><span translate="no">info@lawafrica.com</span></a>
+        <LanguageSwitcher />
       </div>
     </div>
   );
 }
 
-function ProductsMenu() {
+function BookshopMenu() {
   const [open, setOpen] = useState(false);
   const ref = useRef(null);
 
@@ -67,12 +66,12 @@ function ProductsMenu() {
       <button type="button" onClick={() => setOpen(o => !o)}
         aria-expanded={open} aria-haspopup="menu"
         style={{ ...navLinkStyle, display: 'flex', alignItems: 'center', gap: 5 }}>
-        Products
+        Bookshop
         <span style={{ fontSize: 'var(--t-base)', transform: open ? 'rotate(180deg)' : 'none', transition: 'transform .15s ease' }}>▾</span>
       </button>
       {open && (
         <div className="products-menu" role="menu">
-          {PRODUCTS.map(pr => (
+          {BOOKSHOP.map(pr => (
             <Link key={pr.to} to={pr.to} role="menuitem" onClick={() => setOpen(false)}>
               <span className="products-menu-label">
                 {pr.label}
@@ -114,8 +113,8 @@ function Drawer({ onClose }) {
             style={{ border: 0, padding: 0, minHeight: 44, width: 44, display: 'grid', placeItems: 'center', fontSize: 'calc(var(--t-base) + 10px*var(--tf,1))', fontFamily: 'var(--font-body)' }}>×</button>
         </div>
 
-        <div className="drawer-head"><span>Products</span></div>
-        {PRODUCTS.map(pr => <Link key={pr.to} to={pr.to} onClick={onClose}>{pr.label}</Link>)}
+        <div className="drawer-head"><span>Bookshop</span></div>
+        {BOOKSHOP.map(pr => <Link key={pr.to} to={pr.to} onClick={onClose}>{pr.label}</Link>)}
 
         <div className="drawer-head" style={{ marginTop: 8 }}><span>Site</span></div>
         {NAV.map(n => (
@@ -151,8 +150,8 @@ export default function Header({ hidden, chromeHdr, chromeFg, chromeBd, chromeBt
           <img src={asset("/assets/lawafrica-logo.png")} alt="LawAfrica — Know. Do. Be More." style={{ height: 38, width: 'auto', display: 'block', filter: logoFilter, transition: 'filter .3s ease' }} />
         </Link>
 
-        <nav className="at-wide" style={{ alignItems: 'center', gap: 18, fontWeight: 600, fontFamily: 'var(--font-heading)', fontSize: 'calc(var(--t-base) + 6px*var(--tf,1))' }}>
-          <ProductsMenu />
+        <nav className="at-wide" style={{ alignItems: 'center', gap: 18, fontWeight: 700, fontSize: 'calc(var(--t-base) + 6px*var(--tf,1))' }}>
+          <BookshopMenu />
           {NAV.map(n => <NavItem key={n.label} item={n} style={navLinkStyle} />)}
         </nav>
 

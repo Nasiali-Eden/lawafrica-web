@@ -1,7 +1,7 @@
 import { createContext, useContext, useEffect, useMemo, useState } from 'react';
 
 // Ground colours as shipped in the redesign ("current") vs a plain white
-// site ("white") — toggled live via FloatingControls, same mechanism as
+// site ("white") — no longer switchable; only the shipped ground is applied. Same mechanism as
 // the type-pairing switcher: CSS custom properties set on <html>.
 // These are written onto <html> at runtime, so they — not tokens.css — decide
 // the ground. 'current' is the shipped white ground; 'warm' is the older

@@ -3,8 +3,8 @@ import { Link } from 'react-router-dom';
 // LawAfrica Law Reports lives on its own platform at llr.lawafrica.com. This
 // page is the description of it inside the main site — what the service is and
 // what it covers — and hands over to that platform for the actual searching.
-// Nothing here queries judgments; the top-level "Law Reports" nav item skips
-// this page and goes straight out.
+// The only links out to llr.lawafrica.com are on this page; the header's
+// "Law Reports" link comes here.
 export const LLR_URL = 'https://llr.lawafrica.com';
 
 const COVERAGE = [
@@ -27,7 +27,7 @@ export default function LLR() {
     <div className="page">
       <section className="wrap" style={{ paddingBlock: '28px 0' }}>
         <div style={{ fontSize: 'calc(var(--t-base) + 1px*var(--tf,1))', color: 'var(--color-neutral-600)', marginBottom: 18 }}>
-          Home / Products / LLR
+          Home / Law Reports
         </div>
       </section>
 

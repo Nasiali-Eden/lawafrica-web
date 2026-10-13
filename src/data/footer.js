@@ -10,13 +10,9 @@ export const footerCols = [
     { t: 'All books', to: '/books' }, { t: 'Digital books', to: '/ebooks' }, { t: 'Law Reports', to: '/reports' },
     { t: 'New releases', to: '/books' }, { t: 'Subscriptions', to: '/reports' }
   ] },
-  { name: 'Practice & study', links: [
-    { t: 'Practice material', to: '/practice?aud=pro' }, { t: 'Set texts & reading lists', to: '/practice?aud=stu' },
-    { t: 'Institutions & libraries', to: '/institutions' }, { t: 'Authors', to: '/publish' }
-  ] },
   { name: 'LawAfrica', links: [
     { t: 'About us', to: '/about' }, { t: 'Insights & blog', to: '/insights' }, { t: 'Events & webinars', to: '/insights?feed=Events' },
-    { t: 'Press releases', to: '/insights?feed=Press' }, { t: 'Publish with LawAfrica', to: '/publish' },
+    { t: 'Publish with LawAfrica', to: '/publish' },
     { t: 'Contact', to: '/contact' }, { t: 'Careers', to: '/careers' }
   ] }
 ];

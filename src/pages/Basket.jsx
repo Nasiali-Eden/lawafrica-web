@@ -1,9 +1,10 @@
 import { Link } from 'react-router-dom';
 import BookCover from '../components/BookCover.jsx';
 import { useBasket } from '../state/BasketContext.jsx';
+import { whatsappLink, basketInquiry } from '../lib/whatsapp.js';
 
 export default function Basket() {
-  const { lines, count, basketCount, bump, drop, subTotal, shipTotal, shipNote, grandTotal } = useBasket();
+  const { lines, count, basketCount, bump, drop, subTotal } = useBasket();
   const empty = count === 0;
 
   return (
@@ -59,39 +60,29 @@ export default function Basket() {
             ))}
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: 22 }}>
               <Link className="btn btn-secondary" to="/books" style={{ textDecoration: 'none' }}>Continue shopping</Link>
-              <Link className="btn btn-secondary" to="/contact" style={{ textDecoration: 'none' }}>Convert to a quotation</Link>
+              <Link className="btn btn-secondary" to="/contact" style={{ textDecoration: 'none' }}>Request a firm quotation</Link>
             </div>
           </div>
 
           <aside style={{ position: 'sticky', top: 96, display: 'flex', flexDirection: 'column', gap: 16 }}>
             <div style={{ border: '1px solid var(--color-divider)', borderRadius: 4, padding: 22, background: 'var(--color-surface)' }}>
-              <div style={{ fontSize: 'var(--t-base)', letterSpacing: '.1em', textTransform: 'uppercase', color: 'var(--color-neutral-600)', marginBottom: 14 }}>Order summary</div>
-              <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 'calc(var(--t-base) + 4px*var(--tf,1))', marginBottom: 9 }}><span>Subtotal</span><span style={{ fontVariantNumeric: 'tabular-nums' }}>{subTotal}</span></div>
-              <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 'calc(var(--t-base) + 4px*var(--tf,1))', marginBottom: 9 }}><span>Delivery</span><span style={{ fontVariantNumeric: 'tabular-nums' }}>{shipTotal}</span></div>
-              <div style={{ fontSize: 'calc(var(--t-base) + 1px*var(--tf,1))', color: 'var(--color-neutral-600)', lineHeight: 1.5, marginBottom: 12 }}>{shipNote}</div>
-              <hr className="hr" style={{ margin: '0 0 12px' }} />
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', marginBottom: 16 }}>
+              <div style={{ fontSize: 'var(--t-base)', letterSpacing: '.1em', textTransform: 'uppercase', color: 'var(--color-neutral-600)', marginBottom: 14 }}>Your inquiry</div>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', marginBottom: 6 }}>
                 <span style={{ fontSize: 'calc(var(--t-base) + 4px*var(--tf,1))' }}>Total</span>
-                <span style={{ fontFamily: 'var(--font-heading)', fontSize: 'calc(var(--t-base) + 16px*var(--tf,1)*var(--tz,1))', fontVariantNumeric: 'tabular-nums' }}>{grandTotal}</span>
+                <span style={{ fontFamily: 'var(--font-heading)', fontSize: 'calc(var(--t-base) + 16px*var(--tf,1)*var(--tz,1))', fontVariantNumeric: 'tabular-nums' }}>{subTotal}</span>
               </div>
-              <button className="btn btn-block" style={{ background: 'var(--color-accent)', color: '#fff', minHeight: 46, fontSize: 'calc(var(--t-base) + 4px*var(--tf,1))', marginTop: 0 }}>Proceed to checkout</button>
-              <Link className="btn btn-secondary btn-block" to="/signin" style={{ minHeight: 40, fontSize: 'calc(var(--t-base) + 2px*var(--tf,1))', textDecoration: 'none' }}>Sign in for saved details</Link>
+              <div style={{ fontSize: 'calc(var(--t-base) + 1px*var(--tf,1))', color: 'var(--color-neutral-600)', lineHeight: 1.5, marginBottom: 16 }}>Delivery is not included. We confirm it, and how to pay, on WhatsApp.</div>
+              <a className="btn btn-block wa-btn" href={whatsappLink(basketInquiry(lines, subTotal))} target="_blank" rel="noopener noreferrer" style={{ minHeight: 48, fontSize: 'calc(var(--t-base) + 4px*var(--tf,1))', marginTop: 0, textDecoration: 'none' }}>
+                Send inquiry on WhatsApp
+              </a>
             </div>
             <div style={{ border: '1px solid var(--color-divider)', borderRadius: 4, padding: '18px 20px' }}>
-              <div style={{ fontSize: 'var(--t-base)', letterSpacing: '.1em', textTransform: 'uppercase', color: 'var(--color-neutral-600)', marginBottom: 10 }}>Payment &amp; assurance</div>
-              <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: 8, fontSize: 'calc(var(--t-base) + 2px*var(--tf,1))', color: 'var(--color-neutral-700)' }}>
-                <li>Card, M-Pesa or invoice on account</li>
-                <li>eBooks released to your library on payment</li>
-                <li>14-day returns on undamaged print titles</li>
-                <li>VAT invoice issued for every order</li>
-              </ul>
-            </div>
-            <div style={{ border: '1px solid var(--color-divider)', borderRadius: 4, padding: '18px 20px', background: '#fff' }}>
-              <div style={{ fontSize: 'calc(var(--t-base) + 2px*var(--tf,1))', lineHeight: 1.65, color: 'var(--color-neutral-700)' }}>Have a promotional or firm code?</div>
-              <div style={{ display: 'flex', gap: 8, marginTop: 10 }}>
-                <input className="input" placeholder="Enter code" style={{ minHeight: 40, fontSize: 'calc(var(--t-base) + 2px*var(--tf,1))' }} />
-                <button className="btn btn-secondary" style={{ minHeight: 40 }}>Apply</button>
-              </div>
+              <div style={{ fontSize: 'var(--t-base)', letterSpacing: '.1em', textTransform: 'uppercase', color: 'var(--color-neutral-600)', marginBottom: 10 }}>How ordering works</div>
+              <ol style={{ margin: 0, paddingLeft: 20, display: 'flex', flexDirection: 'column', gap: 8, fontSize: 'calc(var(--t-base) + 2px*var(--tf,1))', color: 'var(--color-neutral-700)', lineHeight: 1.5 }}>
+                <li>Send your basket to us on WhatsApp.</li>
+                <li>We confirm availability, delivery and the final price.</li>
+                <li>You pay, and we dispatch.</li>
+              </ol>
             </div>
           </aside>
         </div>

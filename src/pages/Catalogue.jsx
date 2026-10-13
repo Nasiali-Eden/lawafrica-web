@@ -7,6 +7,7 @@ import {
   catalogueJurisdictions,
   orderingNotes
 } from '../data/catalogue.js';
+import { books } from '../data/books.js';
 
 // The printed catalogue, described. This is not the books listing — /books is
 // the shop. This page explains what the printed 2026 catalogue is, shows the
@@ -15,6 +16,20 @@ import {
 // The downloadable PDF is deliberately not linked yet: a web-ready version is
 // still to be produced, so the button below says so rather than pointing at a
 // 32MB print file.
+// A catalogue title is linked to its bookshop page when the shop sells it under
+// the same name. Names are compared with spacing and punctuation removed, and a
+// title that is the other's opening words still counts ("Equity and Trusts" /
+// "Equity and Trusts Revised Edition"). Nothing looser: a near miss would send
+// a reader to the wrong book, so those are left unlinked.
+const squash = s => s.toLowerCase().replace(/[^a-z0-9]/g, '');
+const shopIndex = books.map(b => ({ code: b.code, key: squash(b.title) }));
+function shopCodeFor(title) {
+  const k = squash(title);
+  const hit = shopIndex.find(b => b.key === k)
+    || shopIndex.find(b => Math.min(b.key.length, k.length) >= 15 && (b.key.startsWith(k) || k.startsWith(b.key)));
+  return hit ? hit.code : null;
+}
+
 export default function Catalogue() {
   const [juris, setJuris] = useState('All');
   const shown = juris === 'All'
@@ -111,18 +126,27 @@ export default function Catalogue() {
                 <th scope="col">Jurisdiction</th>
                 <th scope="col">Subject</th>
                 <th scope="col">Format</th>
+                <th scope="col">Shop</th>
               </tr>
             </thead>
             <tbody>
-              {shown.map(t => (
+              {shown.map(t => {
+                const code = shopCodeFor(t.title);
+                return (
                 <tr key={t.isbn}>
-                  <td style={{ fontFamily: 'var(--font-heading)', fontSize: 'calc(var(--t-base) + 3px*var(--tf,1))' }}>{t.title}</td>
+                  <td style={{ fontFamily: 'var(--font-heading)', fontSize: 'calc(var(--t-base) + 3px*var(--tf,1))' }}>
+                    {code ? <Link to={`/books/${code}`} style={{ color: 'inherit' }}>{t.title}</Link> : t.title}
+                  </td>
                   <td>{t.author}</td>
                   <td>{t.juris}</td>
                   <td>{t.subject}</td>
                   <td><span className="tag tag-neutral">{t.format}</span></td>
+                  <td>{code
+                    ? <Link to={`/books/${code}`} style={{ color: 'var(--color-accent-700)', whiteSpace: 'nowrap' }}>View in shop →</Link>
+                    : <Link to="/contact" style={{ color: 'var(--color-neutral-700)', whiteSpace: 'nowrap' }}>Ask us</Link>}</td>
                 </tr>
-              ))}
+                );
+              })}
             </tbody>
           </table>
         </div>

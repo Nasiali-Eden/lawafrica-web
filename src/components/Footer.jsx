@@ -1,12 +1,24 @@
 import { Link } from 'react-router-dom';
 import { footerCols } from '../data/footer.js';
+import { asset } from '../lib/format.js';
+
+// LawAfrica's own pages. They open in a new tab.
+const SOCIAL = [
+  { label: 'LawAfrica on LinkedIn', text: 'in', href: 'https://www.linkedin.com/company/lawafrica/' },
+  { label: 'LawAfrica on X', text: 'X', href: 'https://x.com/LawAfrica_Ltd' },
+  { label: 'LawAfrica on Facebook', text: 'f', href: 'https://www.facebook.com/lawfricapublishing' },
+  { label: 'LawAfrica on Instagram', text: 'ig', href: 'https://instagram.com/lawafricapublishinglimited' }
+];
 
 export default function Footer() {
   return (
     <footer style={{ background: 'var(--ground-brand-deepest)', color: 'var(--on-brand-body)', marginTop: 'auto' }}>
-      <div className="stack-cols" style={{ maxWidth: 1180, margin: '0 auto', padding: '48px 24px 24px', display: 'grid', gridTemplateColumns: '1.4fr 1fr 1fr 1fr', gap: 40 }}>
+      <div className="stack-cols" style={{ maxWidth: 1180, margin: '0 auto', padding: '48px 24px 24px', display: 'grid', gridTemplateColumns: '1.6fr 1fr 1fr', gap: 40 }}>
         <div>
-          <div style={{ fontFamily: 'var(--font-heading)', fontSize: 'calc(var(--t-base) + 16px*var(--tf,1)*var(--tz,1))', color: 'var(--on-brand)', marginBottom: 6 }}>lawAfrica</div>
+          {/* The logo is a coloured file; brightness(0) invert(1) turns every
+              opaque pixel white, which is the one-colour mark the burgundy
+              ground wants. */}
+          <img src={asset('/assets/lawafrica-logo.png')} alt="LawAfrica" style={{ height: 44, width: 'auto', display: 'block', filter: 'brightness(0) invert(1)', marginBottom: 12 }} />
           <div style={{ fontFamily: 'var(--font-heading)', fontStyle: 'italic', color: 'var(--on-brand-eyebrow)', fontSize: 'calc(var(--t-base) + 4px*var(--tf,1))', marginBottom: 16 }}>Know. Do. Be More</div>
           <p style={{ fontSize: 'calc(var(--t-base) + 2px*var(--tf,1))', lineHeight: 1.65, maxWidth: 280, marginBottom: 18 }}>Legal publishing and legal information solutions across Africa since 1999. A subsidiary of Longhorn Publishers PLC.</p>
           {/* Site feedback lives on the contact page; this is the way in from
@@ -15,9 +27,10 @@ export default function Footer() {
             Give feedback
           </Link>
           <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap' }}>
-            <a href="#" style={{ width: 32, height: 32, border: '1px solid var(--color-neutral-500)', borderRadius: 3, display: 'grid', placeItems: 'center', color: 'var(--on-brand-body)', textDecoration: 'none', fontSize: 'calc(var(--t-base) + 1px*var(--tf,1))' }} aria-label="LawAfrica on LinkedIn">in</a>
-            <a href="#" style={{ width: 32, height: 32, border: '1px solid var(--color-neutral-500)', borderRadius: 3, display: 'grid', placeItems: 'center', color: 'var(--on-brand-body)', textDecoration: 'none', fontSize: 'calc(var(--t-base) + 1px*var(--tf,1))' }} aria-label="LawAfrica on X">X</a>
-            <a href="#" style={{ width: 32, height: 32, border: '1px solid var(--color-neutral-500)', borderRadius: 3, display: 'grid', placeItems: 'center', color: 'var(--on-brand-body)', textDecoration: 'none', fontSize: 'calc(var(--t-base) + 1px*var(--tf,1))' }} aria-label="LawAfrica on YouTube">▶</a>
+            {SOCIAL.map(l => (
+              <a key={l.label} href={l.href} target="_blank" rel="noopener noreferrer" aria-label={l.label}
+                style={{ width: 36, height: 36, border: '1px solid var(--color-neutral-500)', borderRadius: 3, display: 'grid', placeItems: 'center', color: 'var(--on-brand-body)', textDecoration: 'none', fontSize: 'calc(var(--t-base) + 2px*var(--tf,1))' }}>{l.text}</a>
+            ))}
           </div>
         </div>
         {footerCols.map(col => (
