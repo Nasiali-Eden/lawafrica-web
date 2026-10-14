@@ -95,9 +95,9 @@ export default function Insights() {
                   <div style={{ fontSize: 'calc(var(--t-base) + 2px*var(--tf,1))', color: 'var(--color-neutral-700)', marginBottom: 8 }}>{e.where}</div>
                   <p style={{ fontSize: 'calc(var(--t-base) + 2px*var(--tf,1))', lineHeight: 1.65, color: 'var(--color-neutral-700)', margin: '0 0 12px' }}>{e.body}</p>
                   <div style={{ display: 'flex', alignItems: 'center', gap: 12, flexWrap: 'wrap' }}>
-                    <Link className="btn btn-primary" to={`/insights/event/${e.id}`} style={{ minHeight: 40, textDecoration: 'none' }}>{e.cta}</Link>
-                    <Link className="btn btn-ghost" to={`/insights/event/${e.id}`} style={{ minHeight: 40, fontSize: 'calc(var(--t-base) + 2px*var(--tf,1))', textDecoration: 'none' }}>Details</Link>
-                    <span style={{ fontSize: 'calc(var(--t-base) + 1px*var(--tf,1))', color: 'var(--color-neutral-600)' }}>{e.spots}</span>
+                    <Link className="btn btn-primary" to={`/insights/event/${e.id}`} style={{ minHeight: 40, textDecoration: 'none' }}>{e.cta || 'View details'}</Link>
+                    {e.cta && <Link className="btn btn-ghost" to={`/insights/event/${e.id}`} style={{ minHeight: 40, fontSize: 'calc(var(--t-base) + 2px*var(--tf,1))', textDecoration: 'none' }}>Details</Link>}
+                    {e.spots && <span style={{ fontSize: 'calc(var(--t-base) + 1px*var(--tf,1))', color: 'var(--color-neutral-600)' }}>{e.spots}</span>}
                   </div>
                 </div>
               </article>

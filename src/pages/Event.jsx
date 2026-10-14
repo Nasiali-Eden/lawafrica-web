@@ -6,6 +6,7 @@ export default function Event() {
   const { id } = useParams();
   const ev = events.find(e => e.id === id) || events[0];
   const other = events.filter(e => e.id !== ev.id);
+  const when = ev.dates || `${ev.d} ${ev.mo} ${ev.yr}`;
 
   return (
     <div className="page">
@@ -19,17 +20,26 @@ export default function Event() {
           <div>
             <div style={{ display: 'flex', alignItems: 'center', gap: 14, marginBottom: 16 }}>
               <span className="tag tag-accent" style={{ whiteSpace: 'nowrap' }}>{ev.kind}</span>
-              <span style={{ fontSize: 'calc(var(--t-base) + 2px*var(--tf,1))', color: 'var(--color-neutral-700)' }}>{ev.d} {ev.mo} {ev.yr} · {ev.time}</span>
+              <span style={{ fontSize: 'calc(var(--t-base) + 2px*var(--tf,1))', color: 'var(--color-neutral-700)' }}>{when}{ev.time ? ' · ' + ev.time : ''}</span>
             </div>
             <h1 style={{ fontFamily: 'var(--font-heading)', fontSize: 'calc(var(--t-base) + 33px*var(--tf,1)*var(--tz,1))', fontWeight: 'var(--fw-heading,400)', lineHeight: 1.05, margin: '0 0 16px', maxWidth: '24ch', textWrap: 'pretty' }}>{ev.title}</h1>
             <p style={{ fontFamily: 'var(--font-heading)', fontSize: 'calc(var(--t-base) + 10px*var(--tf,1)*var(--tz,1))', fontStyle: 'italic', lineHeight: 1.5, color: 'var(--color-neutral-800)', margin: 0, maxWidth: '60ch' }}>{ev.lede}</p>
           </div>
-          <Plate src={ev.img} aspectRatio="4/3" />
+          {ev.img && <Plate src={ev.img} aspectRatio="4/3" />}
         </div>
       </div>
 
       <div className="stack" style={{ maxWidth: 1180, margin: '0 auto', padding: '34px 24px 72px', display: 'grid', gridTemplateColumns: 'minmax(0,1fr) 340px', gap: 44, alignItems: 'start' }}>
         <div>
+          {!ev.agenda && (
+            <section style={{ marginBottom: 36 }}>
+              <h2 style={{ fontFamily: 'var(--font-heading)', fontSize: 'calc(var(--t-base) + 16px*var(--tf,1)*var(--tz,1))', fontWeight: 'var(--fw-heading,400)', margin: '0 0 16px', paddingBottom: 9, borderBottom: '1px solid var(--color-divider)' }}>About this event</h2>
+              <p style={{ fontSize: 'calc(var(--t-base) + 4px*var(--tf,1))', lineHeight: 1.7, color: 'var(--color-neutral-800)', margin: '0 0 14px', maxWidth: '62ch' }}>{ev.body}</p>
+              {ev.organiser && <p style={{ fontSize: 'calc(var(--t-base) + 4px*var(--tf,1))', lineHeight: 1.7, color: 'var(--color-neutral-800)', margin: '0 0 14px', maxWidth: '62ch' }}>Organised by the {ev.organiser}.{ev.cpd ? ' Attendance earns ' + ev.cpd + '.' : ''}</p>}
+              {ev.note && <p style={{ fontSize: 'calc(var(--t-base) + 2px*var(--tf,1))', lineHeight: 1.65, color: 'var(--color-neutral-700)', margin: 0, padding: '12px 14px', border: '1px solid var(--color-divider)', borderRadius: 4, maxWidth: '62ch' }}>{ev.note}</p>}
+            </section>
+          )}
+          {ev.agenda && (
           <section style={{ marginBottom: 36 }}>
             <h2 style={{ fontFamily: 'var(--font-heading)', fontSize: 'calc(var(--t-base) + 16px*var(--tf,1)*var(--tz,1))', fontWeight: 'var(--fw-heading,400)', margin: '0 0 16px', paddingBottom: 9, borderBottom: '1px solid var(--color-divider)' }}>Programme</h2>
             {ev.agenda.map((a, i) => (
@@ -42,7 +52,9 @@ export default function Event() {
               </div>
             ))}
           </section>
+          )}
 
+          {(ev.speakers || ev.forWhom) && (
           <section style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(min(100%,280px),1fr))', gap: 34, marginBottom: 36 }}>
             <div>
               <h3 style={{ fontFamily: 'var(--font-heading)', fontSize: 'calc(var(--t-base) + 10px*var(--tf,1)*var(--tz,1))', fontWeight: 'var(--fw-heading,400)', margin: '0 0 13px' }}>Who is speaking</h3>
@@ -62,7 +74,9 @@ export default function Event() {
               </ul>
             </div>
           </section>
+          )}
 
+          {other.length > 0 && (
           <section>
             <h2 style={{ fontFamily: 'var(--font-heading)', fontSize: 'calc(var(--t-base) + 16px*var(--tf,1)*var(--tz,1))', fontWeight: 'var(--fw-heading,400)', margin: '0 0 18px', paddingBottom: 9, borderBottom: '1px solid var(--color-divider)' }}>Also in the diary</h2>
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(min(100%,240px),1fr))', gap: 24 }}>
@@ -75,6 +89,7 @@ export default function Event() {
               ))}
             </div>
           </section>
+          )}
         </div>
 
         <aside style={{ position: 'sticky', top: 96, display: 'flex', flexDirection: 'column', gap: 16 }}>
@@ -83,30 +98,39 @@ export default function Event() {
               <span style={{ fontFamily: 'var(--font-heading)', fontSize: 'calc(var(--t-base) + 33px*var(--tf,1)*var(--tz,1))', lineHeight: 1, color: 'var(--color-accent-700)', fontVariantNumeric: 'tabular-nums' }}>{ev.d}</span>
               <span>
                 <span style={{ display: 'block', fontSize: 'calc(var(--t-base) + 1px*var(--tf,1))', letterSpacing: '.16em', textTransform: 'uppercase' }}>{ev.mo} {ev.yr}</span>
-                <span style={{ display: 'block', fontSize: 'calc(var(--t-base) + 2px*var(--tf,1))', color: 'var(--color-neutral-700)' }}>{ev.time}</span>
+                <span style={{ display: 'block', fontSize: 'calc(var(--t-base) + 2px*var(--tf,1))', color: 'var(--color-neutral-700)' }}>{ev.time || ev.dates}</span>
               </span>
             </div>
             <div style={{ display: 'flex', flexDirection: 'column', gap: 9, fontSize: 'calc(var(--t-base) + 2px*var(--tf,1))', lineHeight: 1.65, color: 'var(--color-neutral-800)', paddingBottom: 16, borderBottom: '1px solid var(--color-accent-200)', marginBottom: 16 }}>
               <div>{ev.where}</div>
-              <div style={{ color: 'var(--color-accent-700)' }}>{ev.priceNote}</div>
+              {ev.priceNote && <div style={{ color: 'var(--color-accent-700)' }}>{ev.priceNote}</div>}
             </div>
+            {ev.price && (
+              <>
             <div style={{ display: 'flex', alignItems: 'baseline', justifyContent: 'space-between', marginBottom: 14 }}>
               <span style={{ fontSize: 'calc(var(--t-base) + 2px*var(--tf,1))', color: 'var(--color-neutral-700)' }}>Attendance</span>
               <span style={{ fontFamily: 'var(--font-heading)', fontSize: 'calc(var(--t-base) + 10px*var(--tf,1)*var(--tz,1))' }}>{ev.price}</span>
             </div>
             <button className="btn" style={{ background: 'var(--color-accent)', color: '#fff', minHeight: 46, fontSize: 'calc(var(--t-base) + 4px*var(--tf,1))', width: '100%', justifyContent: 'center' }}>{ev.cta}</button>
             <div style={{ fontSize: 'calc(var(--t-base) + 1px*var(--tf,1))', color: 'var(--color-neutral-600)', marginTop: 9, textAlign: 'center' }}>{ev.spots}</div>
+              </>
+            )}
+            {ev.contact && (
+              <>
+                <div style={{ fontSize: 'calc(var(--t-base) + 2px*var(--tf,1))', color: 'var(--color-neutral-700)', lineHeight: 1.65, marginBottom: 14 }}>Registration, venue and times are set by the organisers.</div>
+                <a className="btn" href={ev.contact.href} target="_blank" rel="noopener noreferrer" style={{ background: 'var(--color-accent)', color: '#fff', minHeight: 46, fontSize: 'calc(var(--t-base) + 3px*var(--tf,1))', width: '100%', justifyContent: 'center', textDecoration: 'none', textAlign: 'center' }}>{ev.contact.label} ↗</a>
+              </>
+            )}
           </div>
+          {ev.practical && (
           <div style={{ border: '1px solid var(--color-divider)', borderRadius: 4, padding: '18px 20px' }}>
             <div style={{ fontSize: 'var(--t-base)', letterSpacing: '.16em', textTransform: 'uppercase', color: 'var(--color-neutral-600)', marginBottom: 10 }}>Practical</div>
             <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: 9, fontSize: 'calc(var(--t-base) + 2px*var(--tf,1))', lineHeight: 1.65, color: 'var(--color-neutral-700)' }}>
-              <li>Joining details sent the day before</li>
-              <li>Recording circulated to registrants</li>
-              <li>CPD certificates issued within a week</li>
-              <li>Firm bookings: three seats or more, ask us</li>
+              {ev.practical.map(t => <li key={t}>{t}</li>)}
             </ul>
             <Link className="btn btn-secondary btn-block" to="/contact" style={{ minHeight: 38, fontSize: 'calc(var(--t-base) + 2px*var(--tf,1))', textDecoration: 'none' }}>Book for a firm</Link>
           </div>
+          )}
         </aside>
       </div>
     </div>
